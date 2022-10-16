@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator headerBackTitleVisible={false}>
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -35,6 +35,20 @@ const App = () => {
           component={ProfileScreen}
           options={{
             headerRight: () => (
+              <HeaderNavBtn
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+              />
+            ),
+          }}
+        />
+                <Stack.Screen
+          name="Home2"
+          component={HomeScreen}
+          options={{
+            headerRight: () => (
+              // headerRight takes in a function and returns a component.
+              // Thy syntax here looks a little weird b/c the linter is breaking a single line arrow function into multi lines.
               <HeaderNavBtn
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
