@@ -10,6 +10,7 @@ import ProfileScreen from "./src/components/ProfileScreen";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  // modalVisible controls the modal condition that determines if it is being displayed
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -20,6 +21,8 @@ const App = () => {
           component={HomeScreen}
           options={{
             headerRight: () => (
+              // headerRight takes in a function and returns a component.
+              // Thy syntax here looks a little weird b/c the linter is breaking a single line arrow function into multi lines.
               <HeaderNavBtn
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}

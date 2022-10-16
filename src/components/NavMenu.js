@@ -3,6 +3,7 @@ import { View, Text, Modal, Pressable, Button, StyleSheet } from "react-native";
 
 const NavMenu = ({ modalVisible, setModalVisible }) => {
   return (
+    // Testing is Pressable, but doesn't do anything currently
     <View>
       <Modal visible={modalVisible} animationType="fade">
         <Pressable style={styles.textContainer}>
