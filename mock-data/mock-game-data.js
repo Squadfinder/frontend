@@ -7,7 +7,7 @@ let games = [
   },
   {
     title: 'Fall Guys',
-    image: 'https://d1x3t653etfkkb.cloudfront.net/games/featured-game-blocks/_size640x560/FB_GM.75_0620_L.png',
+    image: 'https://thumbnails.pcgamingwiki.com/7/73/Fall_Guys_Ultimate_Knockout_cover.jpg/300px-Fall_Guys_Ultimate_Knockout_cover.jpg',
     genre: ['Battle Royale', 'Obstacle Course'],
     consoles: ['Xbox', 'PS5', 'PC', 'Switch']
   }

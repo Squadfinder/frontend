@@ -1,21 +1,27 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, Pressable, Image } from "react-native";
-import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, Button, Image, Pressable } from "react-native";
 import Swiper from 'react-native-swiper';
 import { games } from '../../mock-data/mock-game-data';
-
-import NavMenu from "./NavMenu";
+import { users } from '../../mock-data/mock-user-data';
 
 let userGames = games.map(game => {
   return (
-    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{justifyContent: 'center', alignItems: 'center'}} key={game.title}>
       <Image
         source={{uri: game.image}}
-        style={{height: 325, width: 250, borderWidth: 5, borderColor: 'black', borderRadius: 20}}>
+        style={{height: 325, width: 250, marginBottom: 10, borderWidth: 2, borderColor: '#3AE456', borderRadius: 20}}>
       </Image>
-      <Button
-        title='Form a Squad'
-      />
+      <Pressable style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 30,
+        width: 110,
+        borderWidth: 2,
+        borderColor: '#3AE456',
+        borderRadius: 20,
+      }}>
+        <Text style={{color: '#fff'}}>Form a Squad</Text>
+      </Pressable>
     </View>
   )
 })
@@ -25,11 +31,11 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.header}>SquadFinder</Text>
       <View style={styles.info}>
-        <Text>gamertag</Text>
-        <Text>preferred platform</Text>
-        <Text>My Games:</Text>
+        <Text style={styles.userInfo}>{users[0].gamertag}</Text>
+        <Text style={styles.userInfo}>{users[0].preferredPlatform}</Text>
       </View>
-      <Swiper style={styles.swiper} showsButtons={true}>
+      <Text style={styles.userInfo}>My Games:</Text>
+      <Swiper style={styles.swiper} showsButtons={true} showsPagination={false}>
         {userGames}
       </Swiper>
       <Button
@@ -45,7 +51,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#393051",
+    backgroundColor: "#352540",
     alignItems: "center",
   },
   header: {
@@ -58,17 +64,27 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   info: {
-    height: 150,
+    height: 100,
     backgroundColor: '#483F6D',
     width: 250,
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#3AE456',
-    borderWidth: 5,
+    borderWidth: 2,
     borderRadius: 50,
     marginBottom: 10,
   },
+  userInfo: {
+    color: '#fff',
+    marginTop: 5,
+    fontSize: 20,
+  },
   swiper: {},
+  formSquadButton: {
+    borderWidth: 3,
+    borderColor: '#3AE456',
+    borderRadius: 20,
+  },
   editButton: {},
   rawg: {
     marginTop: 10,
