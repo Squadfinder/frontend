@@ -1,62 +1,21 @@
-import React, { useState } from "react";
+import "react-native-gesture-handler";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import HeaderNavBtn from "./src/components/HeaderNavBtn";
 import HomeScreen from "./src/components/HomeScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const App = () => {
-  // modalVisible controls the modal condition that determines if it is being displayed
-  const [modalVisible, setModalVisible] = useState(false);
-
   return (
     <NavigationContainer>
-      <Stack.Navigator headerBackTitleVisible={false}>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            headerRight: () => (
-              // headerRight takes in a function and returns a component.
-              // Thy syntax here looks a little weird b/c the linter is breaking a single line arrow function into multi lines.
-              <HeaderNavBtn
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-              />
-            ),
-          }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            headerRight: () => (
-              <HeaderNavBtn
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-              />
-            ),
-          }}
-        />
-                <Stack.Screen
-          name="Home2"
-          component={HomeScreen}
-          options={{
-            headerRight: () => (
-              // headerRight takes in a function and returns a component.
-              // Thy syntax here looks a little weird b/c the linter is breaking a single line arrow function into multi lines.
-              <HeaderNavBtn
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-              />
-            ),
-          }}
-        />
-      </Stack.Navigator>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
