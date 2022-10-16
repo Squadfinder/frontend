@@ -1,14 +1,17 @@
-import { StatusBar } from "expo-status-bar";
-import React, { Component } from 'react';
-import { NavigationContainer, StackActions } from "@react-navigation/native";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet, Text, View } from "react-native";
-import HomeScreen from './src/components/HomeScreen';
-import ProfileScreen from './src/components/ProfileScreen';
+import { getHeaderTitle } from "@react-navigation/elements";
+import { StyleSheet } from "react-native";
+
+import Header from "./src/components/Header";
+import HomeScreen from "./src/components/HomeScreen";
+import ProfileScreen from "./src/components/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <NavigationContainer>
@@ -16,10 +19,26 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
+          options={{
+            headerRight: () => (
+              <Header
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+              />
+            ),
+          }}
         />
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
+          options={{
+            headerRight: () => (
+              <Header
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+              />
+            ),
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
