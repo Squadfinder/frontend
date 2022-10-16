@@ -3,7 +3,7 @@ import { View, Pressable, Text, StyleSheet } from "react-native";
 
 import NavMenu from "./NavMenu";
 
-const Header = ({ modalVisible, setModalVisible }) => {
+const HeaderNavBtn = ({ modalVisible, setModalVisible }) => {
   return (
     <View>
       <Pressable onPress={() => setModalVisible(true)}>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Header;
+export default HeaderNavBtn;

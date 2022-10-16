@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { getHeaderTitle } from "@react-navigation/elements";
 import { StyleSheet } from "react-native";
 
-import Header from "./src/components/Header";
+import HeaderNavBtn from "./src/components/HeaderNavBtn";
 import HomeScreen from "./src/components/HomeScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
 
@@ -21,7 +20,7 @@ const App = () => {
           component={HomeScreen}
           options={{
             headerRight: () => (
-              <Header
+              <HeaderNavBtn
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
               />
@@ -33,7 +32,7 @@ const App = () => {
           component={ProfileScreen}
           options={{
             headerRight: () => (
-              <Header
+              <HeaderNavBtn
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
               />
