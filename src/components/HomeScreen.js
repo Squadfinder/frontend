@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, Pressable } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import NavMenu from "./NavMenu";
-
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
