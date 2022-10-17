@@ -2,95 +2,95 @@ const userGames = [
   {
     title: "Halo",
     image: "https://assets-prd.ignimgs.com/2021/12/06/halo1-1638834266884.jpg",
-    genre: ["First-Person Shooter"],
+    genres: ["First-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Halo 2",
     image: "https://upload.wikimedia.org/wikipedia/en/9/92/Halo2-cover.png",
-    genre: ["Second-Person Shooter"],
+    genres: ["Second-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Halo 3",
     image:
       "https://upload.wikimedia.org/wikipedia/en/b/b4/Halo_3_final_boxshot.JPG",
-    genre: ["Third-Person Shooter"],
+    genres: ["Third-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Halo 4",
     image: "https://assets-prd.ignimgs.com/2021/12/06/halo4-1638830190860.png",
-    genre: ["Fourth-Person Shooter"],
+    genres: ["Fourth-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Halo 5",
     image:
       "https://gamingbolt.com/wp-content/uploads/2015/03/halo5_locke_masterchief.jpg",
-    genre: ["Fifth-Person Shooter"],
+    genres: ["Fifth-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Halo Infinite",
     image: "https://upload.wikimedia.org/wikipedia/en/1/14/Halo_Infinite.png",
-    genre: ["Infinity-Person Shooter"],
+    genres: ["Infinity-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Elden Ring",
     image:
       "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Elden_Ring_Box_art.jpg/220px-Elden_Ring_Box_art.jpg",
-    genre: ["First-Person Shooter"],
+    genres: ["First-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Grand Theft Auto V",
     image:
       "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
-    genre: ["Second-Person Shooter"],
+    genres: ["Second-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Star Wars: Squadrons",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCV7X7ekZ9Ls3WDQjilYD7sMpDbsjREZjtWvX63-Dnjav8gRwaNLwHLP3bVb1HWoi7wKc&usqp=CAU",
-    genre: ["Third-Person Shooter"],
+    genres: ["Third-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Far Cry 5",
     image:
       "https://hips.hearstapps.com/digitalspyuk.cdnds.net/17/21/1495704457-far-cry-5.jpg",
-    genre: ["Fourth-Person Shooter"],
+    genres: ["Fourth-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "The Witcher 3: Wild Hunt",
     image:
       "https://static.wikia.nocookie.net/ultimatepopculture/images/0/0c/Witcher_3_cover_art.jpg/revision/latest?cb=20200828102958",
-    genre: ["Fifth-Person Shooter"],
+    genres: ["Fifth-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "God of War",
     image:
       "https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg",
-    genre: ["Infinity-Person Shooter"],
+    genres: ["Infinity-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Animal Crossing",
     image:
       "https://external-preview.redd.it/XmYU1C6KD9q1m9qY1hnedMhwYbwdWf3J2F-BcDpiav0.png?format=pjpg&auto=webp&s=cbf386c9e839022b6ca98520faafa98a4aa59783",
-    genre: ["Infinity-Person Shooter"],
+    genres: ["Infinity-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Fall Guys",
     image:
       "https://thumbnails.pcgamingwiki.com/7/73/Fall_Guys_Ultimate_Knockout_cover.jpg/300px-Fall_Guys_Ultimate_Knockout_cover.jpg",
-    genre: ["Battle Royale", "Obstacle Course"],
+    genres: ["Battle Royale", "Obstacle Course"],
     consoles: ["Xbox", "PS5", "PC", "Switch"],
   },
   {
