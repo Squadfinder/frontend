@@ -6,19 +6,17 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import HomeScreen from "./src/components/HomeScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
-import GameDetailsScreen from "./src/components/GameDetailsScreen";
 
 const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
-    <GameDetailsScreen />
-    // <NavigationContainer>
-    //   <Drawer.Navigator>
-    //     <Drawer.Screen name="Home" component={HomeScreen} />
-    //     <Drawer.Screen name="Profile" component={ProfileScreen} />
-    //   </Drawer.Navigator>
-    // </NavigationContainer>
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 };
 

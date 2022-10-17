@@ -5,7 +5,6 @@ import gameDetails from "../../mock-data/gameDetails";
 
 const GameDetailsScreen = () => {
   const { title, image, genres, consoles } = gameDetails;
-  console.log(consoles)
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
