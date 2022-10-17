@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Button, Pressable, Image } from "react-native";
 import { FlatList, TextInput, ScrollView } from "react-native-gesture-handler";
-import { userGames } from "../../MockGamesList";
+import { userGames } from "../../mock-data/MockGamesList";
 
 const MyGames = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState("");
