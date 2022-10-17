@@ -1,10 +1,10 @@
 import React from "react";
 import { View, ScrollView, Image, StyleSheet, Text, Pressable } from "react-native";
 
-import gameDetails from "../../mock-data/gameDetails";
+import { userGames } from "../../mock-data/MockGamesList";
 
 const GameDetailsScreen = () => {
-  const { title, image, genres, consoles } = gameDetails;
+  const { title, image, genres, consoles } = userGames;
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>

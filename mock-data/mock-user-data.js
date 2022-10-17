@@ -1,11 +1,11 @@
-import { games } from './mock-game-data';
+import { userGames } from "./MockGamesList";
 
 let users = [
   {
-    gamertag: 'TheLizardKing25',
-    preferredPlatform: 'Xbox',
-    gamesList: games
-  }
-]
+    gamertag: "TheLizardKing25",
+    preferredPlatform: "Xbox",
+    gamesList: userGames,
+  },
+];
 
-export { users }
+export { users };
