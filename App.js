@@ -6,8 +6,9 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import HomeScreen from "./src/components/HomeScreen";
 import ProfileScreen from "./src/components/ProfileScreen";
-import MyGames from "./src/components/MyGames"
-import SearchGames from "./src/components/SearchGames"
+import MyGames from "./src/components/MyGames";
+import SearchGames from "./src/components/SearchGames";
+import FormSquadScreen from "./src/components/FormSquadScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
         <Drawer.Screen name="Profile" component={ProfileScreen} />
         <Drawer.Screen name="My Games" component={MyGames} />
         <Drawer.Screen name="Search for Games" component={SearchGames} />
+        <Drawer.Screen name="Form Squad" component={FormSquadScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

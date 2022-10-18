@@ -38,19 +38,6 @@ const SearchGames = ({ navigation }) => {
         setSelected={setSelected}
         boxStyles={styles.selectListBox}
       />
-      {/* <Picker
-        mode="dropdown"
-        style={{ width: 200, height: 100 }}
-        selectedValue={selectedGenre}
-        onValueChange={(itemValue) => {
-          setSelectedGenre(itemValue);
-        }}
-      >
-        <Picker.Item label="Action/Adventure" value="Action/Adventure" />
-        <Picker.Item label="Shooter" value="Shooter" />
-        <Picker.Item label="RPG" value="RPG" />
-        <Picker.Item label="Fantasy" value="Fantasy" />
-      </Picker> */}
       <View style={styles.gamesContainer}>
         <FlatList
           data={displayedGames}
