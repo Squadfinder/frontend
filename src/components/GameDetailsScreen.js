@@ -1,10 +1,17 @@
 import React from "react";
-import { View, ScrollView, Image, StyleSheet, Text, Pressable } from "react-native";
+import {
+  View,
+  ScrollView,
+  Image,
+  StyleSheet,
+  Text,
+  Button,
+  Pressable,
+} from "react-native";
 
-import { userGames } from "../../mock-data/MockGamesList";
+const GameDetailsScreen = ({ game, setModalVisible }) => {
+  const { title, image, genres, consoles } = game;
 
-const GameDetailsScreen = () => {
-  const { title, image, genres, consoles } = userGames;
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
@@ -27,6 +34,7 @@ const GameDetailsScreen = () => {
           </View>
         ))}
       </View>
+      <Button title="Close" onPress={() => setModalVisible(false)} />
       <View style={styles.favoriteBtnContainer}>
         <Pressable style={styles.favoriteBtn}>
           <Text style={styles.favoriteBtnText}>Favorite Game</Text>
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 20,
-    paddingRight:20,
+    paddingRight: 20,
   },
 });
 
