@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Pressable, Text, FlatList } from "react-native";
+import { StyleSheet, View, Pressable, Text, FlatList } from "react-native";
 
 import { squads } from "../../mock-data/mock-squad-data";
 
@@ -9,29 +9,29 @@ let color;
 
 const assignColor = () => {
   if (counter === 1) {
-    color = '#0000FF'
+    color = '#0000FF';
   } else if (counter === 2) {
-    color = '#FF0000'
+    color = '#FF0000';
   } else if (counter === 3) {
-    color = '#00FF00'
+    color = '#00FF00';
   } else if (counter === 4) {
-    color = '#FFFF00'
+    color = '#FFFF00';
   }
 }
 
 const assignCompetitive = (squad) => {
   if (squad.competitive === true) {
-    competitive = 'Competitive'
+    competitive = 'Competitive';
   } else {
-    competitive = 'Casual'
+    competitive = 'Casual';
   }
 }
 
 const MySquads = () => {
-  const [userSquads, setUserSquads] = useState([])
+  const [userSquads, setUserSquads] = useState([]);
 
   useEffect(() => {
-    setUserSquads(squads)
+    setUserSquads(squads);
   }, [])
 
   return (
@@ -46,8 +46,8 @@ const MySquads = () => {
             <View style={styles.squadCard}>
               <FlatList
                 data={squadData.item.members}
-                style={styles.memberIcons}
-                numColumns={4}
+                contentContainerStyle={styles.memberIcons}
+                horizontal={true}
                 renderItem={(memberData) => {
                   counter++
                   assignColor();
@@ -63,7 +63,7 @@ const MySquads = () => {
                   <Text style={styles.squadDetails}>{competitive}</Text>
                 </View>
                 <Pressable style={styles.notGoing}>
-                  <Text>Not Going</Text>
+                  <Text style={styles.notGoingText}>Not Going</Text>
                 </Pressable>
               </View>
             </View>
@@ -71,7 +71,7 @@ const MySquads = () => {
         }}
       ></FlatList>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   cardContainer: {
-    width: 320,
+    width: '90%',
   },
   squadCard: {
     height: 150,
@@ -94,19 +94,20 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   memberIcons: {
-    justifyContent: 'center',
-    width: 270,
-    height: 50,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    width: '90%',
+    height: '90%',
     marginTop: 5,
   },
   icon: {
     height: '100%',
-    width: '25%',
+    width: 50,
     textAlign: 'center',
     color: '#fff',
     fontSize: 35,
     borderWidth: 2,
-    borderRadius: 25,
+    borderRadius: 23,
   },
   lowerContainer: {
     flexDirection: 'row',
@@ -125,12 +126,22 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   squadDetails: {
-    color: '#fff'
+    color: '#fff',
+    fontSize: 15,
   },
   notGoing: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '35%',
+    width: '28%',
     borderWidth: 1,
-    borderColor: '#3AE456'
+    borderColor: '#3AE456',
+    borderRadius: 20,
+  },
+  notGoingText: {
+    color: '#fff',
+    fontSize: 15,
   }
-})
+});
 
 export default MySquads;
