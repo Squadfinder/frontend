@@ -41,35 +41,35 @@ const userGames = [
     title: "Elden Ring",
     image:
       "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Elden_Ring_Box_art.jpg/220px-Elden_Ring_Box_art.jpg",
-    genres: ["First-Person Shooter"],
+    genres: ["Fantasy", "RPG"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Grand Theft Auto V",
     image:
       "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
-    genres: ["Second-Person Shooter"],
+    genres: ["Person-Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Star Wars: Squadrons",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCV7X7ekZ9Ls3WDQjilYD7sMpDbsjREZjtWvX63-Dnjav8gRwaNLwHLP3bVb1HWoi7wKc&usqp=CAU",
-    genres: ["Third-Person Shooter"],
+    genres: ["Piloting"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "Far Cry 5",
     image:
       "https://hips.hearstapps.com/digitalspyuk.cdnds.net/17/21/1495704457-far-cry-5.jpg",
-    genres: ["Fourth-Person Shooter"],
+    genres: ["First-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
     title: "The Witcher 3: Wild Hunt",
     image:
       "https://static.wikia.nocookie.net/ultimatepopculture/images/0/0c/Witcher_3_cover_art.jpg/revision/latest?cb=20200828102958",
-    genres: ["Fifth-Person Shooter"],
+    genres: ["Fantasy", "RPG"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
@@ -83,7 +83,7 @@ const userGames = [
     title: "Animal Crossing",
     image:
       "https://external-preview.redd.it/XmYU1C6KD9q1m9qY1hnedMhwYbwdWf3J2F-BcDpiav0.png?format=pjpg&auto=webp&s=cbf386c9e839022b6ca98520faafa98a4aa59783",
-    genres: ["Infinity-Person Shooter"],
+    genres: ["Fantasy", "RPG"],
     consoles: ["Xbox", "PS5", "PC"],
   },
   {
