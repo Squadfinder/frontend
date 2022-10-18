@@ -52,7 +52,9 @@ const MySquads = () => {
                   counter++
                   assignColor();
                   return (
-                    <Text style={[styles.icon, {borderColor: color}]}>{memberData.item.gamertag[0]}</Text>
+                    <Pressable>
+                      <Text style={[styles.icon, {borderColor: color}]}>{memberData.item.gamertag[0]}</Text>
+                    </Pressable>
                   )
                 }}
               ></FlatList>
@@ -81,11 +83,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   cardContainer: {
-    width: '90%',
+    width: '100%',
   },
   squadCard: {
     height: 150,
-    width: '100%',
+    width: '95%',
     alignItems: 'center',
     marginTop: 20,
     backgroundColor: "#483F6D",
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   icon: {
-    height: '100%',
+    height: '95%',
     width: 50,
     textAlign: 'center',
     color: '#fff',
