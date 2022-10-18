@@ -8,7 +8,7 @@ import SelectList from "react-native-dropdown-select-list";
 const SearchGames = ({ navigation }) => {
   const [searchInput, setSearchInput] = useState("");
   const [displayedGames, setDisplayedGames] = useState(userGames); // <--- useEffect to fetch all games and set this state
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(""); // should this be set as the value of SelectList?
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
