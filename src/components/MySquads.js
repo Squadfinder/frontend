@@ -1,67 +1,75 @@
-import React from 'react';
-import { StyleSheet, View, Button, Pressable, Image, Text } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, ScrollView, Pressable, Text, FlatList } from "react-native";
 
 import { squads } from "../../mock-data/mock-squad-data";
 
-let squadCounter = 0;
-let memberCounter = 0;
-let playerColor = ['#000', '#0000FF', '#FF0000', '#00FF00', '#FFFF00']
-let index = 0;
 let competitive;
+let counter = 0;
+let color;
 
-let mySquads = squads.map(squad => {
-  index = 0;
-  squadCounter++;
-  let playerIcons = squad.members.map(member => {
-    squad.competitive === true ? competitive = 'Competitive' : competitive = 'Casual'
-    memberCounter++
-    index++
-    return (
-      <Text
-        key={memberCounter}
-        style={{
-          textAlign: 'center',
-          height: '95%',
-          width: '15%',
-          fontSize: 25,
-          paddingTop: 10,
-          borderWidth: 2,
-          borderColor: playerColor[index],
-          borderRadius: 25
-        }}
-      >
-        {member.gamertag[0]}
-      </Text>
-  )})
-  return (
-    <View
-      key={squadCounter}
-      style={{
-        alignItems: 'center',
-        height: '20%',
-        width: '90%',
-        borderWidth: 1,
-        borderColor: "#3AE456",
-        borderRadius: 50,
-      }}
-    >
-      <View style={{flexDirection: 'row', justifyContent: 'space-evenly', height: '40%', width: '90%'}}>
-        {playerIcons}
-      </View>
-      <View>
-        <Text>{squad.game}</Text>
-        <Text>{`${squad.day} - ${squad.time}`}</Text>
-        <Text>{competitive}</Text>
-      </View>
-    </View>
-  )
-})
+const assignColor = () => {
+  if (counter === 1) {
+    color = '#0000FF'
+  } else if (counter === 2) {
+    color = '#FF0000'
+  } else if (counter === 3) {
+    color = '#00FF00'
+  } else if (counter === 4) {
+    color = '#FFFF00'
+  }
+}
+
+const assignCompetitive = (squad) => {
+  if (squad.competitive === true) {
+    competitive = 'Competitive'
+  } else {
+    competitive = 'Casual'
+  }
+}
 
 const MySquads = () => {
+  const [userSquads, setUserSquads] = useState([])
+
+  useEffect(() => {
+    setUserSquads(squads)
+  }, [])
+
   return (
     <View style={styles.container}>
-      <Text>MySquads Screen</Text>
-      {mySquads}
+      <FlatList
+        data={userSquads}
+        contentContainerStyle={styles.cardContainer}
+        renderItem={(squadData) => {
+          assignCompetitive(squadData.item)
+          counter = 0;
+          return (
+            <View style={styles.squadCard}>
+              <FlatList
+                data={squadData.item.members}
+                style={styles.memberIcons}
+                numColumns={4}
+                renderItem={(memberData) => {
+                  counter++
+                  assignColor();
+                  return (
+                    <Text style={[styles.icon, {borderColor: color}]}>{memberData.item.gamertag[0]}</Text>
+                  )
+                }}
+              ></FlatList>
+              <View style={styles.lowerContainer}>
+                <View style={styles.detailsContainer}>
+                  <Text style={styles.squadDetails}>{squadData.item.game}</Text>
+                  <Text style={styles.squadDetails}>{squadData.item.time} - {squadData.item.day}</Text>
+                  <Text style={styles.squadDetails}>{competitive}</Text>
+                </View>
+                <Pressable style={styles.notGoing}>
+                  <Text>Not Going</Text>
+                </Pressable>
+              </View>
+            </View>
+          )
+        }}
+      ></FlatList>
     </View>
   )
 }
@@ -72,6 +80,57 @@ const styles = StyleSheet.create({
     backgroundColor: "#352540",
     alignItems: 'center'
   },
+  cardContainer: {
+    width: 320,
+  },
+  squadCard: {
+    height: 150,
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 20,
+    backgroundColor: "#483F6D",
+    borderWidth: 1,
+    borderColor: "#3AE456",
+    borderRadius: 50,
+  },
+  memberIcons: {
+    justifyContent: 'center',
+    width: 270,
+    height: 50,
+    marginTop: 5,
+  },
+  icon: {
+    height: '100%',
+    width: '25%',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 35,
+    borderWidth: 2,
+    borderRadius: 25,
+  },
+  lowerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: '60%',
+    width: '95%',
+  },
+  detailsContainer: {
+    height: '80%',
+    width: '65%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+    borderWidth: 1,
+    borderColor: "#3AE456",
+    borderRadius: 30,
+  },
+  squadDetails: {
+    color: '#fff'
+  },
+  notGoing: {
+    borderWidth: 1,
+    borderColor: '#3AE456'
+  }
 })
 
 export default MySquads;
