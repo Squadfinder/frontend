@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Image, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  Pressable,
+} from "react-native";
 import Swiper from "react-native-swiper";
 import { userGames } from "../../mock-data/MockGamesList";
 import { users } from "../../mock-data/mock-user-data";
@@ -14,8 +21,8 @@ let games = userGames.map((game) => {
         source={{ uri: game.image }}
         resizeMode="stretch"
         style={{
-          height: '90%',
-          width: '70%',
+          height: "90%",
+          width: "70%",
           marginBottom: 10,
           borderWidth: 1,
           borderColor: "#3AE456",
@@ -26,8 +33,8 @@ let games = userGames.map((game) => {
         style={{
           justifyContent: "center",
           alignItems: "center",
-          height: '7%',
-          width: '32%',
+          height: "7%",
+          width: "32%",
           borderWidth: 1,
           borderColor: "#3AE456",
           backgroundColor: "#483F6D",
@@ -59,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
         title="Edit My Games"
         onPress={() => navigation.navigate("My Games")}
       >
-        <Text style={{color: '#fff'}}>Edit My Games List</Text>
+        <Text style={{ color: "#fff" }}>Edit My Games List</Text>
       </Pressable>
       <Text style={styles.rawg}>Powered by RAWG</Text>
     </ScrollView>
@@ -73,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    height: '8%',
+    height: "8%",
     width: "100%",
     fontSize: 35,
     backgroundColor: "#483F6D",
@@ -83,9 +90,9 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   info: {
-    height: '12%',
+    height: "12%",
     backgroundColor: "#483F6D",
-    width: '90%',
+    width: "90%",
     alignItems: "center",
     justifyContent: "center",
     borderColor: "#3AE456",
@@ -99,13 +106,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   swiper: {
-    height: '55%',
+    height: "55%",
   },
   editButton: {
     justifyContent: "center",
     alignItems: "center",
-    height: '6%',
-    width: '40%',
+    height: "6%",
+    width: "40%",
     borderWidth: 1,
     borderColor: "#3AE456",
     backgroundColor: "#483F6D",
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   rawg: {
-    height: '5%',
+    height: "5%",
     marginTop: 20,
   },
 });
