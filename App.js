@@ -5,7 +5,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { allGames } from "./mock-data/MockGamesList";
 
 import HomeScreen from "./src/components/HomeScreen";
-import ProfileScreen from "./src/components/ProfileScreen";
 import MyGames from "./src/components/MyGames";
 import SearchGames from "./src/components/SearchGames";
 import FormSquadScreen from "./src/components/FormSquadScreen";

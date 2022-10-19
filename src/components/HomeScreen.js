@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigation } from '@react-navigation/native'; 
 import {
   StyleSheet,
   Text,
@@ -47,7 +48,8 @@ let games = userGames.map((game) => {
   );
 });
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const navigation = useNavigation(); 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>SquadFinder</Text>
