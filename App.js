@@ -20,7 +20,6 @@ const App = () => {
 
 
   const removeGame = (game) => {
-    console.log("REMOVED");
     setUserGames(() =>
       userGames.filter((element) => element.title !== game.title)
     );
