@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Pressable, Text, FlatList } from "react-native";
+import { users } from "../../mock-data/mock-user-data";
 
-import { squads } from "../../mock-data/mock-squad-data";
+import { getUserSquad } from "../apiCalls";
 
 let competitive;
 let counter = 0;
@@ -19,20 +20,24 @@ const assignColor = () => {
   }
 };
 
-const assignCompetitive = (squad) => {
-  if (squad.competitive === true) {
-    competitive = "Competitive";
-  } else {
-    competitive = "Casual";
-  }
-};
-
-const MySquads = () => {
+const MySquads = ({ userID }) => {
   const [userSquads, setUserSquads] = useState([]);
 
   useEffect(() => {
-    setUserSquads(squads);
+    console.log(userID);
+    getUserSquad(userID)
+      .then((data) => setUserSquads(data))
+      .catch((error) => console.log(error));
+      console.log(userSquads)
   }, []);
+
+  const assignCompetitive = (squad) => {
+    if (squad.competitive === true) {
+      competitive = "Competitive";
+    } else {
+      competitive = "Casual";
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -127,7 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
-    backgroundColor: '#393051',
+    backgroundColor: "#393051",
     borderRadius: 30,
   },
   squadDetails: {
@@ -139,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "35%",
     width: "28%",
-    backgroundColor: '#393051',
+    backgroundColor: "#393051",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
