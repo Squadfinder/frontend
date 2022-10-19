@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Pressable, Text, StyleSheet } from "react-native";
+import { View, Pressable, Text, StyleSheet, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import SelectDropdown from "react-native-select-dropdown";
 import { users } from "../../mock-data/mock-user-data";
@@ -14,6 +14,18 @@ const FormSquadScreen = () => {
   const [filterByNameValue, setFilterByNameValue] = useState(""); // Filter by gamertag parameter
   const [squadMembers, setSquadMembers] = useState([]);
   const [squadFull, setSquadFull] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    // this function sets date / time selection. Both date and time update the same value
+    if (event.type !== "dismissed") {
+      const currentDate = selectedDate;
+      if (Platform.OS === "android") {
+        // set to android only b/c iOS will cose the model on any button click
+        setShowing(false);
+      }
+      setDate(currentDate);
+    }
+  };
 
   const showMode = (currentMode) => {
     // function that open modal
@@ -106,20 +118,11 @@ const FormSquadScreen = () => {
       <View>
         {showing && (
           <DateTimePicker
-            modal={true}
-            open={showing}
             value={date}
             mode={mode}
             is24Hour={true}
-            locale="en-US"
+            onChange={onChange}
             minimumDate={new Date()}
-            onConfirm={(date) => {
-              setDate(date);
-              setShowing(false);
-            }}
-            onCancel={() => {
-              setShowing(false);
-            }}
             style={styles.datePicker}
           />
         )}
