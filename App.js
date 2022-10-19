@@ -5,8 +5,11 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { allGames } from "./mock-data/MockGamesList";
 
 import HomeScreen from "./src/components/HomeScreen";
+import ProfileScreen from "./src/components/ProfileScreen";
 import MyGames from "./src/components/MyGames";
 import SearchGames from "./src/components/SearchGames";
+import FormSquadScreen from "./src/components/FormSquadScreen";
+import MySquads from "./src/components/MySquads";
 
 const Drawer = createDrawerNavigator();
 
@@ -50,6 +53,8 @@ const App = () => {
             />
           )}
         </Drawer.Screen>
+        <Drawer.Screen name="Form Squad" component={FormSquadScreen} />
+        <Drawer.Screen name="My Squads" component={MySquads} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
