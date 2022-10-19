@@ -83,7 +83,7 @@ const MySquads = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#352540",
+    backgroundColor: "#201626",
     alignItems: "center",
   },
   cardContainer: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     width: "95%",
     alignItems: "center",
     marginTop: 20,
-    backgroundColor: "#483F6D",
+    backgroundColor: "#352540",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 50,
@@ -127,8 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
-    borderWidth: 1,
-    borderColor: "#3AE456",
+    backgroundColor: '#393051',
     borderRadius: 30,
   },
   squadDetails: {
@@ -140,6 +139,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "35%",
     width: "28%",
+    backgroundColor: '#393051',
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
