@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
-import { userGames } from "../../mock-data/MockGamesList";
 import SelectDropdown from "react-native-select-dropdown";
 import GameDetailsScreen from "./GameDetailsScreen";
 import {
@@ -13,16 +12,18 @@ import {
   Text,
 } from "react-native";
 
-const SearchGames = () => {
-  const [displayedGames, setDisplayedGames] = useState(userGames); // <--- useEffect to fetch all games and set this state
+
+const SearchGames = ({ games, userGames, addGame, removeGame }) => {
+  const [displayedGames, setDisplayedGames] = useState(games); // <--- useEffect to fetch all games and set this state
+  const [myGames, setMyGames] = useState(userGames)
   const [searchInput, setSearchInput] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [selectedGame, setSelectedGame] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
-
+  
   const dropdownRef = useRef({}); // <--- needed to reset the genre dropdown
-
+  
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
   };
@@ -34,10 +35,8 @@ const SearchGames = () => {
   const searchHandler = () => {
     let theGames;
     selectedGenre && selectedGenre !== "All genres"
-      ? (theGames = userGames.filter((game) =>
-          game.genres.includes(selectedGenre)
-        ))
-      : (theGames = userGames);
+      ? (theGames = games.filter((game) => game.genres.includes(selectedGenre)))
+      : (theGames = games);
     let filteredGames;
     searchInput && searchInput !== ""
       ? (filteredGames = theGames.filter((game) =>
@@ -51,7 +50,7 @@ const SearchGames = () => {
   const clearResults = () => {
     setShowGames(false);
     setSearchInput(null);
-    setSelectedGenre(null)
+    setSelectedGenre(null);
     dropdownRef.current.reset();
   };
 
@@ -60,7 +59,8 @@ const SearchGames = () => {
     setModalVisible(true);
   };
 
-  let genres = [    // <--- will be replaced with all the genres of all the games.
+  let genres = [
+    // Will be replaced with all the genres of all the games.
     "All genres",
     "Action-adventure",
     "Fantasy",
@@ -87,6 +87,9 @@ const SearchGames = () => {
       >
         <GameDetailsScreen
           game={selectedGame}
+          myGames={myGames}
+          addGame={addGame}
+          removeGame={removeGame}
           setModalVisible={setModalVisible}
         />
       </Modal>
@@ -117,7 +120,9 @@ const SearchGames = () => {
       {showGames ? (
         <View style={styles.gamesContainer}>
           <FlatList
-            data={displayedGames}
+            data={displayedGames.sort(
+              (a, b) => a.title.charAt(0) - b.title.charAt(0)
+            )}
             numColumns={2}
             contentContainerStyle={{ alignItems: "center" }}
             renderItem={(itemData) => {

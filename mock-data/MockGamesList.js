@@ -37,6 +37,47 @@ const userGames = [
     genres: ["Infinity-Person Shooter"],
     consoles: ["Xbox", "PS5", "PC"],
   },
+];
+
+const allGames = [
+  {
+    title: "Halo",
+    image: "https://assets-prd.ignimgs.com/2021/12/06/halo1-1638834266884.jpg",
+    genres: ["First-Person Shooter"],
+    consoles: ["Xbox", "PS5", "PC"],
+  },
+  {
+    title: "Halo 2",
+    image: "https://upload.wikimedia.org/wikipedia/en/9/92/Halo2-cover.png",
+    genres: ["Second-Person Shooter"],
+    consoles: ["Xbox", "PS5", "PC"],
+  },
+  {
+    title: "Halo 3",
+    image:
+      "https://upload.wikimedia.org/wikipedia/en/b/b4/Halo_3_final_boxshot.JPG",
+    genres: ["Third-Person Shooter"],
+    consoles: ["Xbox", "PS5", "PC"],
+  },
+  {
+    title: "Halo 4",
+    image: "https://assets-prd.ignimgs.com/2021/12/06/halo4-1638830190860.png",
+    genres: ["Fourth-Person Shooter"],
+    consoles: ["Xbox", "PS5", "PC"],
+  },
+  {
+    title: "Halo 5",
+    image:
+      "https://gamingbolt.com/wp-content/uploads/2015/03/halo5_locke_masterchief.jpg",
+    genres: ["Fifth-Person Shooter"],
+    consoles: ["Xbox", "PS5", "PC"],
+  },
+  {
+    title: "Halo Infinite",
+    image: "https://upload.wikimedia.org/wikipedia/en/1/14/Halo_Infinite.png",
+    genres: ["Infinity-Person Shooter"],
+    consoles: ["Xbox", "PS5", "PC"],
+  },
   {
     title: "Elden Ring",
     image:
@@ -102,4 +143,5 @@ const userGames = [
   },
 ];
 
-export { userGames };
+
+export { userGames, allGames };
