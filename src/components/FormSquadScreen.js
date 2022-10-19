@@ -76,7 +76,7 @@ const FormSquadScreen = () => {
   };
 
   const inviteSquadMemberHandler = (id) => {
-    if (squadMembers.length > 2) {
+    if (squadMembers.length < 3) {
       setSquadMembers([...squadMembers, id]);
     } else {
       console.log("Squad is full"); // needs removing and error handling added for when a squad is full
@@ -143,11 +143,23 @@ const FormSquadScreen = () => {
                 <View style={styles.userContainer}>
                   <Text style={styles.userGamerTag}>{item.gamertag}</Text>
                   <Pressable
-                    onPress={() => inviteSquadMemberHandler(item.id)}
-                    style={styles.inviteBtn}
-                    disabled={!squadFull}
+                    style={
+                      squadMembers.includes(item.id)
+                        ? styles.invitedBtn
+                        : styles.inviteBtn
+                    }
                   >
-                    <Text style={styles.inviteText}>Invite</Text>
+                    <Text
+                      onPress={() => inviteSquadMemberHandler(item.id)}
+                      disabled={squadMembers.includes(item.id)}
+                      style={
+                        squadMembers.includes(item.id)
+                          ? styles.invited
+                          : styles.inviteText
+                      }
+                    >
+                      Invite
+                    </Text>
                   </Pressable>
                 </View>
               );
@@ -281,6 +293,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingRight: 30,
     paddingLeft: 30,
+    color: "#fff",
+    fontSize: 16,
   },
   inviteBtn: {
     backgroundColor: "#352540",
@@ -293,6 +307,22 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
+  },
+  invitedBtn: {
+    backgroundColor: "#3AE456",
+    marginRight: 30,
+    padding: 10,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#3AE456",
+    shadowColor: "black",
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+  },
+  invited: {
+    backgroundColor: "#3AE456",
+    color: "#000",
   },
   inviteText: {
     color: "#fff",
