@@ -24,7 +24,6 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
     setModalVisible(true);
   };
 
-  console.log("MY GAMES HAS MOUNTED", userGames)
   
   return (
     <View style={styles.container}>
