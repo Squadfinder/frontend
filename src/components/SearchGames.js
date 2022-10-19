@@ -1,30 +1,95 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import { userGames } from "../../mock-data/MockGamesList";
-import { StyleSheet, View, Button, Pressable, Image } from "react-native";
-import SelectList from "react-native-dropdown-select-list";
+import SelectDropdown from "react-native-select-dropdown";
+import GameDetailsScreen from "./GameDetailsScreen";
+import {
+  StyleSheet,
+  View,
+  Button,
+  Pressable,
+  Image,
+  Modal,
+  Text,
+} from "react-native";
 
-const SearchGames = ({ navigation }) => {
-  const [searchInput, setSearchInput] = useState("");
+const SearchGames = () => {
   const [displayedGames, setDisplayedGames] = useState(userGames); // <--- useEffect to fetch all games and set this state
-  const [selected, setSelected] = useState(""); // should this be set as the value of SelectList?
+  const [searchInput, setSearchInput] = useState(null);
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedGame, setSelectedGame] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [showGames, setShowGames] = useState(false);
+
+  const dropdownRef = useRef({}); // <--- needed to reset the genre dropdown
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
-    const filteredGames = userGames.filter((game) =>
-      game.title.toLowerCase().includes(enteredText.toLowerCase())
-    );
-    if (enteredText === "") {
-      setDisplayedGames(userGames);
-    } else {
-      setDisplayedGames(filteredGames);
-    }
   };
 
-  let genres = ["Shooter", "RPG"];
+  const genreHandler = (genre) => {
+    setSelectedGenre(genre);
+  };
+
+  const searchHandler = () => {
+    let theGames;
+    selectedGenre && selectedGenre !== "All genres"
+      ? (theGames = userGames.filter((game) =>
+          game.genres.includes(selectedGenre)
+        ))
+      : (theGames = userGames);
+    let filteredGames;
+    searchInput && searchInput !== ""
+      ? (filteredGames = theGames.filter((game) =>
+          game.title.toLowerCase().includes(searchInput.toLowerCase())
+        ))
+      : (filteredGames = theGames);
+    setDisplayedGames(filteredGames);
+    setShowGames(true);
+  };
+
+  const clearResults = () => {
+    setShowGames(false);
+    setSearchInput(null);
+    setSelectedGenre(null)
+    dropdownRef.current.reset();
+  };
+
+  const iconClickHandler = (game) => {
+    setSelectedGame(game);
+    setModalVisible(true);
+  };
+
+  let genres = [    // <--- will be replaced with all the genres of all the games.
+    "All genres",
+    "Action-adventure",
+    "Fantasy",
+    "First-Person Shooter",
+    "Second-Person Shooter",
+    "Third-Person Shooter",
+    "Fourth-Person Shooter",
+    "Fifth-Person Shooter",
+    "Infinity-Person Shooter",
+    "RPG",
+    "Person-Shooter",
+    "Piloting",
+  ];
 
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <GameDetailsScreen
+          game={selectedGame}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
       <TextInput
         placeholder="Search by title..."
         placeholderTextColor="grey"
@@ -32,40 +97,56 @@ const SearchGames = ({ navigation }) => {
         onChangeText={inputHandler}
         style={styles.textInput}
       />
-      <SelectList
+      <SelectDropdown
         data={genres}
-        setSelected={setSelected}
-        boxStyles={styles.selectListBox}
+        search={true}
+        searchPlaceHolder="Search..."
+        buttonStyle={styles.selectListBox}
+        rowStyle={{ backgroundColor: "#352540" }}
+        rowTextStyle={{ color: "#3AE456" }}
+        searchInputStyle={{ backgroundColor: "#393051" }}
+        searchInputTxtColor="#3AE456"
+        dropdownStyle={{ backgroundColor: "#393051" }}
+        defaultButtonText="Select a genre..."
+        ref={dropdownRef}
+        onSelect={(genre) => genreHandler(genre)}
       />
-      <View style={styles.gamesContainer}>
-        <FlatList
-          data={displayedGames}
-          numColumns={2}
-          contentContainerStyle={{ alignItems: "center" }}
-          renderItem={(itemData) => {
-            return (
-              <Pressable
-                title="User's Game"
-                style={styles.gameIcon}
-                onPress={() => navigation.navigate("Home")}
-              >
-                <Image
-                  source={{ uri: `${itemData.item.image}` }}
-                  resizeMode="stretch"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    borderWidth: 1,
-                    borderRadius: 20,
-                    bottom: 0,
-                  }}
-                ></Image>
-              </Pressable>
-            );
-          }}
-        ></FlatList>
-      </View>
-      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
+      <Pressable style={styles.searchButton} onPress={() => searchHandler()}>
+        <Text style={{ fontSize: 20 }}>Search</Text>
+      </Pressable>
+      {showGames ? (
+        <View style={styles.gamesContainer}>
+          <FlatList
+            data={displayedGames}
+            numColumns={2}
+            contentContainerStyle={{ alignItems: "center" }}
+            renderItem={(itemData) => {
+              return (
+                <Pressable
+                  title="User's Game"
+                  style={styles.gameIcon}
+                  onPress={() => iconClickHandler(itemData.item)}
+                >
+                  <Image
+                    source={{ uri: `${itemData.item.image}` }}
+                    resizeMode="stretch"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderWidth: 1,
+                      borderRadius: 20,
+                      bottom: 0,
+                    }}
+                  ></Image>
+                </Pressable>
+              );
+            }}
+          ></FlatList>
+        </View>
+      ) : (
+        <View style={{ flex: 5 / 6 }}></View>
+      )}
+      <Button title="Clear Results" onPress={() => clearResults()} />
     </View>
   );
 };
@@ -91,8 +172,6 @@ const styles = StyleSheet.create({
   },
   gamesContainer: {
     flex: 20 / 24,
-    borderColor: "#5462A4",
-    borderWidth: 1,
   },
   gameIcon: {
     height: 200,
@@ -107,9 +186,21 @@ const styles = StyleSheet.create({
   selectListBox: {
     borderWidth: 2,
     borderColor: "#3AE456",
-    color: "#3AE456",
-    height: 50,
+    borderRadius: 20,
+    backgroundColor: "#483F6D",
+    height: 35,
     marginTop: 5,
+  },
+  searchButton: {
+    width: 100,
+    height: 30,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#3AE456",
+    backgroundColor: "#483F6D",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 35,
   },
 });
 
