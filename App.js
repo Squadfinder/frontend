@@ -19,7 +19,6 @@ const App = () => {
     setUserGames(() => [...userGames, game]);
   };
 
-  console.log("THE STATE", userGames)
 
   const removeGame = (game) => {
     console.log("REMOVED");
