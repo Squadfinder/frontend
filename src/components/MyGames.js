@@ -1,9 +1,19 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Button, Pressable, Image } from "react-native";
-import { FlatList, TextInput, ScrollView } from "react-native-gesture-handler";
+import {
+  StyleSheet,
+  View,
+  Button,
+  Pressable,
+  Image,
+  Modal,
+} from "react-native";
+import { FlatList, TextInput } from "react-native-gesture-handler";
 import { userGames } from "../../mock-data/MockGamesList";
+import GameDetailsScreen from "./GameDetailsScreen";
 
 const MyGames = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [displayedGames, setDisplayedGames] = useState(userGames);
   // displayedGames will be set to the user's gameList, which I assume
@@ -20,8 +30,26 @@ const MyGames = ({ navigation }) => {
     }
   };
 
+  const iconClickHandler = (game) => {
+    setSelectedGame(game);
+    setModalVisible(true);
+  };
+
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <GameDetailsScreen
+          game={selectedGame}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
       <TextInput
         placeholder="Search by title..."
         placeholderTextColor="grey"
@@ -39,7 +67,7 @@ const MyGames = ({ navigation }) => {
               <Pressable
                 title="User's Game"
                 style={styles.gameIcon}
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => iconClickHandler(itemData.item)}
               >
                 <Image
                   source={{ uri: `${itemData.item.image}` }}
