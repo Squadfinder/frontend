@@ -15,7 +15,6 @@ const App = () => {
   const [userGames, setUserGames] = useState(allGames.filter(game => game.title.includes('Halo')));
 
   const addGame = (game) => {
-    console.log("ADDED");
     console.log("THE GAME", game)
     setUserGames(() => [...userGames, game]);
   };
