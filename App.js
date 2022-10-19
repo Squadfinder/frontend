@@ -1,22 +1,59 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { allGames } from "./mock-data/MockGamesList";
 
 import HomeScreen from "./src/components/HomeScreen";
 import MyGames from "./src/components/MyGames";
 import SearchGames from "./src/components/SearchGames";
-import GameDetailsScreen from "./src/components/GameDetailsScreen";
 
 const Drawer = createDrawerNavigator();
 
 const App = () => {
+  const [allTheGames, setAllGames] = useState(allGames);
+  const [userGames, setUserGames] = useState(allGames.filter(game => game.title.includes('Halo')));
+
+  const addGame = (game) => {
+    console.log("ADDED");
+    console.log("THE GAME", game)
+    setUserGames(() => [...userGames, game]);
+  };
+
+  console.log("THE STATE", userGames)
+
+  const removeGame = (game) => {
+    console.log("REMOVED");
+    setUserGames(() =>
+      userGames.filter((element) => element.title !== game.title)
+    );
+  };
+
   return (
     <NavigationContainer>
       <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="My Games" component={MyGames} />
-        <Drawer.Screen name="Search for Games" component={SearchGames} />
+        <Drawer.Screen name="Home">
+          {() => <HomeScreen myGames={userGames} />}
+        </Drawer.Screen>
+        <Drawer.Screen name="My Games">
+          {() => (
+            <MyGames
+              userGames={userGames}
+              addGame={addGame}
+              removeGame={removeGame}
+            />
+          )}
+        </Drawer.Screen>
+        <Drawer.Screen name="Search for Games">
+          {() => (
+            <SearchGames
+              games={allTheGames}
+              userGames={userGames}
+              addGame={addGame}
+              removeGame={removeGame}
+            />
+          )}
+        </Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
   );

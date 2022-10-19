@@ -1,33 +1,22 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Button,
-  Pressable,
-  Image,
-  Modal,
-} from "react-native";
 import { FlatList, TextInput } from "react-native-gesture-handler";
-import { userGames } from "../../mock-data/MockGamesList";
 import GameDetailsScreen from "./GameDetailsScreen";
+import { StyleSheet, View, Pressable, Image, Modal } from "react-native";
 
-const MyGames = ({ navigation }) => {
+const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
-  const [displayedGames, setDisplayedGames] = useState(userGames);
-  // displayedGames will be set to the user's gameList, which I assume
-  // will be passed from props.
+  // const [myGames, setMyGames] = useState(userGames);
+  // myGames will be set to the user's gameList, which I assume
+  // will be passed from props or fetched with useEffect.
+
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
     const filteredGames = userGames.filter((game) =>
       game.title.toLowerCase().includes(enteredText.toLowerCase())
     );
-    if (enteredText === "") {
-      setDisplayedGames(userGames);
-    } else {
-      setDisplayedGames(filteredGames);
-    }
+    enteredText === "" ? setUserGames(userGames) : setUserGames(filteredGames);
   };
 
   const iconClickHandler = (game) => {
@@ -35,6 +24,8 @@ const MyGames = ({ navigation }) => {
     setModalVisible(true);
   };
 
+  console.log("MY GAMES HAS MOUNTED", userGames)
+  
   return (
     <View style={styles.container}>
       <Modal
@@ -47,6 +38,9 @@ const MyGames = ({ navigation }) => {
       >
         <GameDetailsScreen
           game={selectedGame}
+          myGames={userGames}
+          addGame={addGame}
+          removeGame={removeGame}
           setModalVisible={setModalVisible}
         />
       </Modal>
@@ -59,7 +53,7 @@ const MyGames = ({ navigation }) => {
       />
       <View style={styles.gamesContainer}>
         <FlatList
-          data={displayedGames}
+          data={userGames}
           numColumns={2}
           contentContainerStyle={{ alignItems: "center" }}
           renderItem={(itemData) => {
@@ -85,7 +79,6 @@ const MyGames = ({ navigation }) => {
           }}
         ></FlatList>
       </View>
-      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
     </View>
   );
 };

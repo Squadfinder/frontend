@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   ScrollView,
@@ -9,8 +9,16 @@ import {
   Pressable,
 } from "react-native";
 
-const GameDetailsScreen = ({ game, setModalVisible }) => {
+const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible }) => {
+  const [hasGame, setHasGame] = useState(false);
+
   const { title, image, genres, consoles } = game;
+
+  useEffect(() => {
+    if (myGames.find((element) => element.title === game.title) !== undefined) {
+      setHasGame(true);
+    }
+  }, []);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -35,11 +43,19 @@ const GameDetailsScreen = ({ game, setModalVisible }) => {
         ))}
       </View>
       <Button title="Close" onPress={() => setModalVisible(false)} />
-      <View style={styles.favoriteBtnContainer}>
-        <Pressable style={styles.favoriteBtn}>
-          <Text style={styles.favoriteBtnText}>Favorite Game</Text>
-        </Pressable>
-      </View>
+      {!hasGame ? (
+        <View style={styles.favoriteBtnContainer}>
+          <Pressable style={styles.favoriteBtn} onPress={() => addGame(game)}>
+            <Text style={styles.favoriteBtnText}>Favorite Game</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <View style={styles.favoriteBtnContainer}>
+          <Pressable style={styles.favoriteBtn} onPress={() => removeGame(game)}>
+            <Text style={styles.favoriteBtnText}>Remove Game</Text>
+          </Pressable>
+        </View>
+      )}
     </ScrollView>
   );
 };
@@ -142,10 +158,9 @@ const styles = StyleSheet.create({
   },
   favoriteBtn: {
     backgroundColor: "#393051",
-    alignSelf: "flex-end",
+    alignSelf: "center",
     marginTop: "auto",
     marginBottom: "auto",
-    marginRight: "5%",
     borderRadius: 30,
   },
   favoriteBtnText: {
