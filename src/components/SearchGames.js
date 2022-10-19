@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-// import { Picker } from "@react-native-picker/picker";
 import { FlatList, TextInput } from "react-native-gesture-handler";
-import { userGames } from "../../MockGamesList";
+import { userGames } from "../../mock-data/MockGamesList";
 import { StyleSheet, View, Button, Pressable, Image } from "react-native";
 import SelectList from "react-native-dropdown-select-list";
 
@@ -89,7 +88,6 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop: 10,
     marginBottom: 0,
-    position: "fixed",
   },
   gamesContainer: {
     flex: 20 / 24,

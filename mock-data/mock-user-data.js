@@ -1,4 +1,4 @@
-import { games } from './mock-game-data';
+import { userGames } from "./MockGamesList";
 
 let users = [
   {
@@ -27,4 +27,4 @@ let users = [
   },
 ];
 
-export { users }
+export { users };
