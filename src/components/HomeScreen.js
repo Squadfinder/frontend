@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -7,73 +7,85 @@ import {
   ScrollView,
   Image,
   Pressable,
+  Modal,
 } from "react-native";
 import Swiper from "react-native-swiper";
-import { userGames } from "../../mock-data/MockGamesList";
-import { users } from "../../mock-data/mock-user-data";
+// import { users } from "../../mock-data/mock-user-data";
+import GameDetailsScreen from "./GameDetailsScreen";
 
-let games = userGames.map((game) => {
-  return (
-    <View
-      style={{ justifyContent: "center", alignItems: "center" }}
-      key={game.title}
-    >
-      <Image
-        source={{ uri: game.image }}
-        resizeMode="stretch"
-        style={{
-          height: "90%",
-          width: "70%",
-          marginBottom: 10,
-          borderWidth: 1,
-          borderColor: "#3AE456",
-          borderRadius: 20,
-        }}
-      ></Image>
-      <Pressable
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          height: "7%",
-          width: "32%",
-          borderWidth: 1,
-          borderColor: "#3AE456",
-          backgroundColor: "#483F6D",
-          borderRadius: 20,
-        }}
-      >
-        <Text style={{ color: "#fff" }}>Form a Squad</Text>
-      </Pressable>
-    </View>
-  );
-});
+const HomeScreen = ({ user, allUsers, myGames, addGame, removeGame }) => {
+  const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
 
-const HomeScreen = () => {
-  const navigation = useNavigation(); 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>SquadFinder</Text>
-      <View style={styles.info}>
-        <Text style={styles.userInfo}>{users[0].gamertag}</Text>
-        <Text style={styles.userInfo}>{users[0].preferredPlatform}</Text>
-      </View>
-      <Text style={styles.userInfo}>My Games:</Text>
-      <View style={styles.swiper}>
-        <Swiper showsButtons={true} showsPagination={false}>
-          {games}
-        </Swiper>
-      </View>
-      <Pressable
-        style={styles.editButton}
-        title="Edit My Games"
-        onPress={() => navigation.navigate("My Games")}
+  const imageClickHandler = (game) => {
+    setSelectedGame(game);
+    setModalVisible(true);
+  };
+
+  let games = myGames.map((game) => {
+    return (
+      <View
+        style={{ justifyContent: "center", alignItems: "center" }}
+        key={game.id}
       >
-        <Text style={{ color: "#fff" }}>Edit My Games List</Text>
-      </Pressable>
-      <Text style={styles.rawg}>Powered by RAWG</Text>
-    </ScrollView>
-  );
-};
+        <Pressable
+          style={styles.swiperSlide}
+          onPress={() => imageClickHandler(game)}
+        >
+          <Image
+            source={{ uri: game.image_url }}
+            resizeMode="stretch"
+            style={{ height: "100%", width: "100%", borderRadius: 20 }}
+          ></Image>
+          <Text style={styles.gameTitle}>{game.game_title}</Text>
+        </Pressable>
+      </View>
+    );
+  });
+
+  if (user.attributes) {
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <GameDetailsScreen
+            game={selectedGame}
+            myGames={myGames}
+            addGame={addGame}
+            removeGame={removeGame}
+            setModalVisible={setModalVisible}
+          />
+        </Modal>
+        <Text style={styles.header}>SquadFinder</Text>
+        <View style={styles.info}>
+          <Text style={styles.userInfo}>{user.attributes.gamertag}</Text>
+          <Text style={styles.userInfo}>{user.attributes.platform}</Text>
+        </View>
+        <Text style={styles.userInfo}>My Games:</Text>
+        <View style={styles.swiper}>
+          <Swiper showsButtons={true} showsPagination={false}>
+            {games}
+          </Swiper>
+        </View>
+        <Pressable
+          style={styles.editButton}
+          title="Edit My Games"
+          onPress={() => navigation.navigate("My Games")}
+        >
+          <Text style={{ color: "#fff" }}>Edit My Games List</Text>
+        </Pressable>
+        <Text style={styles.rawg}>Powered by RAWG</Text>
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -109,6 +121,36 @@ const styles = StyleSheet.create({
   },
   swiper: {
     height: "55%",
+  },
+  swiperSlide: {
+    height: "90%",
+    width: "70%",
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#3AE456",
+    borderRadius: 20,
+  },
+  gameTitle: {
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 20,
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,.6)',
+    overflow: 'hidden'
+  },
+  formSquadButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "7%",
+    width: "32%",
+    borderWidth: 1,
+    borderColor: "#3AE456",
+    backgroundColor: "#483F6D",
+    borderRadius: 20,
   },
   editButton: {
     justifyContent: "center",
