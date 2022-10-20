@@ -14,12 +14,13 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   const [allTheGames, setAllGames] = useState(allGames);
-  const [userGames, setUserGames] = useState(allGames.filter(game => game.title.includes('Halo')));
+  const [userGames, setUserGames] = useState(
+    allGames.filter((game) => game.title.includes("Halo"))
+  );
 
   const addGame = (game) => {
     setUserGames(() => [...userGames, game]);
   };
-
 
   const removeGame = (game) => {
     setUserGames(() =>
@@ -53,7 +54,13 @@ const App = () => {
           )}
         </Drawer.Screen>
         <Drawer.Screen name="Form Squad" component={FormSquadScreen} />
-        <Drawer.Screen name="My Squads" component={MySquads} />
+        <Drawer.Screen name="My Squads">
+          {() => (
+            <MySquads
+              userID="1" // hardcoding "1" for now, could be dynamic later
+            />
+          )}
+        </Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
   );
