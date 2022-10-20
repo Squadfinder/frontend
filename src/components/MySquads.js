@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Pressable, Text, FlatList } from "react-native";
-import { users } from "../../mock-data/mock-user-data";
 
 import { getUserSquad } from "../apiCalls";
 
-let competitive;
 let counter = 0;
 let color;
 
@@ -26,26 +24,29 @@ const MySquads = ({ userID }) => {
   useEffect(() => {
     console.log(userID);
     getUserSquad(userID)
-      .then((data) => setUserSquads(data))
-      .catch((error) => console.log(error));
-      console.log(userSquads)
-  }, []);
+      .then(({ data }) => {
+        const squads = data.map((attribute) => {
+          return {
+            competitive: attribute.attributes.squad.competitive
+              ? "Competitive"
+              : "Casual",
+            eventTime: attribute.attributes.squad["event_time"],
+            game: attribute.attributes.squad.game,
+            members: attribute.attributes.squad.members,
+            numberPlayers: attribute.attributes.squad["number_players"],
+          };
+        });
 
-  const assignCompetitive = (squad) => {
-    if (squad.competitive === true) {
-      competitive = "Competitive";
-    } else {
-      competitive = "Casual";
-    }
-  };
+        setUserSquads(squads);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <View style={styles.container}>
       <FlatList
         data={userSquads}
-        contentContainerStyle={styles.cardContainer}
         renderItem={(squadData) => {
-          assignCompetitive(squadData.item);
           counter = 0;
           return (
             <View style={styles.squadCard}>
@@ -71,7 +72,7 @@ const MySquads = ({ userID }) => {
                   <Text style={styles.squadDetails}>
                     {squadData.item.time} - {squadData.item.day}
                   </Text>
-                  <Text style={styles.squadDetails}>{competitive}</Text>
+                  <Text style={styles.squadDetails}>{squadData.item.competitive}</Text>
                 </View>
                 <Pressable style={styles.notGoing}>
                   <Text style={styles.notGoingText}>Not Going</Text>
@@ -87,47 +88,39 @@ const MySquads = ({ userID }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    minHeight: "100%",
     backgroundColor: "#201626",
     alignItems: "center",
   },
-  cardContainer: {
-    width: "100%",
-  },
   squadCard: {
-    height: 150,
     width: "95%",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 30,
     backgroundColor: "#352540",
     borderWidth: 1,
     borderColor: "#3AE456",
-    borderRadius: 50,
+    borderRadius: 5,
   },
   memberIcons: {
-    alignItems: "center",
     justifyContent: "space-evenly",
-    width: "90%",
-    height: "90%",
-    marginTop: 5,
+    width: "80%",
+    marginTop: 10,
   },
   icon: {
-    height: "95%",
-    width: 50,
+    padding: 3,
+    aspectRatio: "1/1",
     textAlign: "center",
     color: "#fff",
     fontSize: 35,
     borderWidth: 2,
-    borderRadius: 23,
+    borderRadius: 25,
   },
   lowerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    height: "60%",
     width: "95%",
   },
   detailsContainer: {
-    height: "80%",
     width: "65%",
     justifyContent: "center",
     alignItems: "center",
@@ -136,14 +129,14 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   squadDetails: {
+    padding: 5,
     color: "#fff",
+    textAlign: "center",
     fontSize: 15,
   },
   notGoing: {
     justifyContent: "center",
     alignItems: "center",
-    height: "35%",
-    width: "28%",
     backgroundColor: "#393051",
     borderWidth: 1,
     borderColor: "#3AE456",
@@ -152,6 +145,10 @@ const styles = StyleSheet.create({
   notGoingText: {
     color: "#fff",
     fontSize: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingRight: 10,
+    paddingLeft: 10,
   },
 });
 
