@@ -18,7 +18,6 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
     }
   }, []);
 
-  console.log(hasGame)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
