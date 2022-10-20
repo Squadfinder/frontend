@@ -52,10 +52,7 @@ const App = () => {
           {() => (
             <HomeScreen
               user={user}
-              allUsers={allUsers}
               myGames={userGames}
-              addGame={addGame}
-              removeGame={removeGame}
             />
           )}
         </Drawer.Screen>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -7,21 +7,11 @@ import {
   ScrollView,
   Image,
   Pressable,
-  Modal,
 } from "react-native";
 import Swiper from "react-native-swiper";
-// import { users } from "../../mock-data/mock-user-data";
-import GameDetailsScreen from "./GameDetailsScreen";
 
-const HomeScreen = ({ user, allUsers, myGames, addGame, removeGame }) => {
+const HomeScreen = ({ user, myGames }) => {
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedGame, setSelectedGame] = useState(null);
-
-  const imageClickHandler = (game) => {
-    setSelectedGame(game);
-    setModalVisible(true);
-  };
 
   let games = myGames.map((game) => {
     return (
@@ -47,22 +37,6 @@ const HomeScreen = ({ user, allUsers, myGames, addGame, removeGame }) => {
   if (user.attributes) {
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <GameDetailsScreen
-            game={selectedGame}
-            myGames={myGames}
-            addGame={addGame}
-            removeGame={removeGame}
-            setModalVisible={setModalVisible}
-          />
-        </Modal>
         <Text style={styles.header}>SquadFinder</Text>
         <View style={styles.info}>
           <Text style={styles.userInfo}>{user.attributes.gamertag}</Text>
