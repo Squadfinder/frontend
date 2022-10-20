@@ -130,7 +130,6 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
                 >
                   <Image
                     source={{ uri: `${itemData.item.image}` }}
-                    resizeMode="stretch"
                     style={{
                       width: "100%",
                       height: "100%",

@@ -61,8 +61,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                 onPress={() => iconClickHandler(itemData.item)}
               >
                 <Image
-                  source={{ uri: `${itemData.item.image_url}` }}
-                  resizeMode="stretch"
+                  source={{ uri: `${itemData.item.image_url}` }}     
                   style={{
                     width: "100%",
                     height: "100%",
