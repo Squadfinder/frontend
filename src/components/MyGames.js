@@ -13,13 +13,13 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
 
   useEffect(() => {
     setGames(userGames)
-    console.log(games)
+    // console.log(games)
   }, [])
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
-    const filteredGames = userGames.filter((game) =>
-      game.title.toLowerCase().includes(enteredText.toLowerCase())
+    const filteredGames = games.filter((game) =>
+      game.game_title.toLowerCase().includes(enteredText.toLowerCase())
     );
     enteredText === "" ? setGames(userGames) : setGames(filteredGames);
   };

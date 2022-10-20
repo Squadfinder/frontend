@@ -10,7 +10,7 @@ import {
   Modal,
 } from "react-native";
 import Swiper from "react-native-swiper";
-import { users } from "../../mock-data/mock-user-data";
+// import { users } from "../../mock-data/mock-user-data";
 import GameDetailsScreen from "./GameDetailsScreen";
 
 const HomeScreen = ({ user, myGames, addGame, removeGame }) => {

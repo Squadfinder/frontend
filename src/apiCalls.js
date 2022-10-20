@@ -8,4 +8,9 @@ const getSingleUser = (userID) => {
     .then(response => response.json())
 }
 
-export { searchFetch, getSingleUser }
+const getAllUsers = () => {
+  return fetch(`https://squadfinder2205be.herokuapp.com/api/v1/users`)
+    .then(response => response.json())
+}
+
+export { searchFetch, getSingleUser, getAllUsers }

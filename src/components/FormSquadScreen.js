@@ -5,12 +5,14 @@ import SelectDropdown from "react-native-select-dropdown";
 import { users } from "../../mock-data/mock-user-data";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
-const FormSquadScreen = ({ route }) => {
+const FormSquadScreen = ({ userGames, allUsers, autofillGame }) => {
+  console.log(autofillGame)
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date"); // Toggles the calender modal between date / time
   const [showing, setShowing] = useState(false); // Toggles calender modal view on / off
   const [selected, setSelected] = useState(''); // Selected Game
-  const [filterUsers, setFilterUsers] = useState(users); // Starts at all users, and is filtered base off game option and user filter by gamertag
+  const [currentUserGames, setCurrentUserGames] = useState(userGames);
+  const [filterUsers, setFilterUsers] = useState(allUsers); // Starts at all users, and is filtered base off game option and user filter by gamertag
   const [filterByNameValue, setFilterByNameValue] = useState(""); // Filter by gamertag parameter
   const [squadMembers, setSquadMembers] = useState([]);
   const [squadFull, setSquadFull] = useState(false);
@@ -27,12 +29,12 @@ const FormSquadScreen = ({ route }) => {
     }
   };
 
-  useEffect(() => {
-    handleSelectGame('')
-    if (route.params) {
-      handleSelectGame(route.params.autofillGame.title)
-    }
-  }, [route])
+  // useEffect(() => {
+  //   handleSelectGame('')
+  //   if (route.params) {
+  //     handleSelectGame(route.params.autofillGame.title)
+  //   }
+  // }, [route])
 
   const showMode = (currentMode) => {
     // function that open modal
@@ -58,8 +60,8 @@ const FormSquadScreen = ({ route }) => {
   const filterUsersByGame = (selectedGame) => {
     const filteredUsers = filterUsers.reduce((arr, user) => {
       // I don't know a way to do this w/o nesting the iterators
-      const usersWithGame = user.gamesList.filter(
-        (game) => game.title === selectedGame
+      const usersWithGame = user.attributes.user_games.filter(
+        (game) => game.game_title === selectedGame
       );
       if (usersWithGame.length) {
         arr.push(user);
@@ -73,12 +75,12 @@ const FormSquadScreen = ({ route }) => {
     if (input) {
       setFilterByNameValue(input);
       const filteredUsers = filterUsers.filter((user) =>
-        user.gamertag.toLocaleLowerCase().includes(input.toLocaleLowerCase())
+        user.attributes.gamertag.toLocaleLowerCase().includes(input.toLocaleLowerCase())
       );
       setFilterUsers(filteredUsers); // sets displayed users to only ones with gamer tags matching input
     } else {
       setFilterByNameValue("");
-      setFilterUsers(users); // if input is empty reset to all users
+      setFilterUsers(allUsers); // if input is empty reset to all users
     }
   };
 
@@ -95,7 +97,7 @@ const FormSquadScreen = ({ route }) => {
     <View style={styles.container}>
       <SelectDropdown
         // users[1] will most likely need to be refactored after we have API user(s)
-        data={users[1].gamesList.map((game) => game.title)}
+        data={currentUserGames.map((game) => game.game_title)}
         defaultButtonText={selected || "Select Game"}
         defaultValue={selected}
         onSelect={(selectedGame) => handleSelectGame(selectedGame)}
@@ -149,7 +151,7 @@ const FormSquadScreen = ({ route }) => {
             renderItem={({ item }) => {
               return (
                 <View style={styles.userContainer}>
-                  <Text style={styles.userGamerTag}>{item.gamertag}</Text>
+                  <Text style={styles.userGamerTag}>{item.attributes.gamertag}</Text>
                   <Pressable
                     style={
                       squadMembers.includes(item.id)
