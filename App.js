@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { allGames } from "./mock-data/MockGamesList";
@@ -10,11 +10,20 @@ import SearchGames from "./src/components/SearchGames";
 import FormSquadScreen from "./src/components/FormSquadScreen";
 import MySquads from "./src/components/MySquads";
 
+import { getSingleUser } from "./src/apiCalls";
+
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const [allTheGames, setAllGames] = useState(allGames);
-  const [userGames, setUserGames] = useState(allGames.filter(game => game.title.includes('Halo')));
+  const [userGames, setUserGames] = useState([]);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    getSingleUser(1).then(data => {
+      setUser(data.data)
+      setUserGames(data.data.attributes.user_games)
+    })
+  }, [])
 
   const addGame = (game) => {
     setUserGames(() => [...userGames, game]);
@@ -32,9 +41,10 @@ const App = () => {
         <Drawer.Screen name="Home">
           {() => (
             <HomeScreen
+              user={user}
               myGames={userGames}
               addGame={addGame}
-              removeGame={removeGame} 
+              removeGame={removeGame}
             />
           )}
         </Drawer.Screen>
@@ -50,7 +60,6 @@ const App = () => {
         <Drawer.Screen name="Search for Games">
           {() => (
             <SearchGames
-              games={allTheGames}
               userGames={userGames}
               addGame={addGame}
               removeGame={removeGame}

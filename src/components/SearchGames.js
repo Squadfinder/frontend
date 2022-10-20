@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
 import GameDetailsScreen from "./GameDetailsScreen";
@@ -15,7 +15,7 @@ import {
 
 const SearchGames = ({ games, userGames, addGame, removeGame }) => {
   const [displayedGames, setDisplayedGames] = useState(games); // <--- useEffect to fetch all games and set this state
-  const [myGames, setMyGames] = useState(userGames)
+  const [myGames, setMyGames] = useState([])
   const [searchInput, setSearchInput] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [selectedGame, setSelectedGame] = useState(null);
@@ -23,6 +23,10 @@ const SearchGames = ({ games, userGames, addGame, removeGame }) => {
   const [showGames, setShowGames] = useState(false);
   
   const dropdownRef = useRef({}); // <--- needed to reset the genre dropdown
+
+  useEffect(() => {
+    setMyGames(userGames)
+  }, [])
   
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
@@ -133,7 +137,7 @@ const SearchGames = ({ games, userGames, addGame, removeGame }) => {
                   onPress={() => iconClickHandler(itemData.item)}
                 >
                   <Image
-                    source={{ uri: `${itemData.item.image}` }}
+                    source={{ uri: `${itemData.item.image_url}` }}
                     resizeMode="stretch"
                     style={{
                       width: "100%",

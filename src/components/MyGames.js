@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import GameDetailsScreen from "./GameDetailsScreen";
 import { StyleSheet, View, Pressable, Image, Modal } from "react-native";
@@ -7,9 +7,14 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
-  const [games, setGames] = useState(userGames);
+  const [games, setGames] = useState([]);
   // myGames will be set to the user's gameList, which I assume
   // will be passed from props or fetched with useEffect.
+
+  useEffect(() => {
+    setGames(userGames)
+    console.log(games)
+  }, [])
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
@@ -62,7 +67,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                 onPress={() => iconClickHandler(itemData.item)}
               >
                 <Image
-                  source={{ uri: `${itemData.item.image}` }}
+                  source={{ uri: `${itemData.item.image_url}` }}
                   resizeMode="stretch"
                   style={{
                     width: "100%",
