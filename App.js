@@ -44,6 +44,7 @@ const App = () => {
           {() => (
             <HomeScreen
               user={user}
+              allUsers={allUsers}
               myGames={userGames}
               addGame={addGame}
               removeGame={removeGame}
@@ -68,15 +69,7 @@ const App = () => {
             />
           )}
         </Drawer.Screen>
-        <Drawer.Screen name="Form Squad">
-          {() => (
-            <FormSquadScreen
-              allUsers={allUsers}
-              userGames={userGames}
-              autofillGame={{}}
-            />
-          )}
-        </Drawer.Screen>
+        <Drawer.Screen name="Form Squad" component={FormSquadScreen} />
         <Drawer.Screen name="My Squads" component={MySquads} />
       </Drawer.Navigator>
     </NavigationContainer>

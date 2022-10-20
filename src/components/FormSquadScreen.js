@@ -5,14 +5,14 @@ import SelectDropdown from "react-native-select-dropdown";
 import { users } from "../../mock-data/mock-user-data";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
-const FormSquadScreen = ({ userGames, allUsers, autofillGame }) => {
-  console.log(autofillGame)
+const FormSquadScreen = ({ route }) => {
+  // console.log(route.params.autofillGame)
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date"); // Toggles the calender modal between date / time
   const [showing, setShowing] = useState(false); // Toggles calender modal view on / off
   const [selected, setSelected] = useState(''); // Selected Game
-  const [currentUserGames, setCurrentUserGames] = useState(userGames);
-  const [filterUsers, setFilterUsers] = useState(allUsers); // Starts at all users, and is filtered base off game option and user filter by gamertag
+  const [currentUserGames, setCurrentUserGames] = useState([]);
+  const [filterUsers, setFilterUsers] = useState([]); // Starts at all users, and is filtered base off game option and user filter by gamertag
   const [filterByNameValue, setFilterByNameValue] = useState(""); // Filter by gamertag parameter
   const [squadMembers, setSquadMembers] = useState([]);
   const [squadFull, setSquadFull] = useState(false);
@@ -29,12 +29,14 @@ const FormSquadScreen = ({ userGames, allUsers, autofillGame }) => {
     }
   };
 
-  // useEffect(() => {
-  //   handleSelectGame('')
-  //   if (route.params) {
-  //     handleSelectGame(route.params.autofillGame.title)
-  //   }
-  // }, [route])
+  useEffect(() => {
+    handleSelectGame('')
+    if (route.params) {
+      setCurrentUserGames(route.params.userGames)
+      setFilterUsers(route.params.allUsers)
+      handleSelectGame(route.params.autofillGame.game_title)
+    }
+  }, [])
 
   const showMode = (currentMode) => {
     // function that open modal
@@ -80,7 +82,7 @@ const FormSquadScreen = ({ userGames, allUsers, autofillGame }) => {
       setFilterUsers(filteredUsers); // sets displayed users to only ones with gamer tags matching input
     } else {
       setFilterByNameValue("");
-      setFilterUsers(allUsers); // if input is empty reset to all users
+      setFilterUsers(route.params.allUsers); // if input is empty reset to all users
     }
   };
 

@@ -13,7 +13,7 @@ import Swiper from "react-native-swiper";
 // import { users } from "../../mock-data/mock-user-data";
 import GameDetailsScreen from "./GameDetailsScreen";
 
-const HomeScreen = ({ user, myGames, addGame, removeGame }) => {
+const HomeScreen = ({ user, allUsers, myGames, addGame, removeGame }) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
@@ -40,7 +40,7 @@ const HomeScreen = ({ user, myGames, addGame, removeGame }) => {
           ></Image>
           <Text style={styles.gameTitle}>{game.game_title}</Text>
         </Pressable>
-        <Pressable style={styles.formSquadButton} onPress={() => navigation.navigate('Form Squad', {autofillGame: game} )}>
+        <Pressable style={styles.formSquadButton} onPress={() => navigation.navigate('Form Squad', {autofillGame: game, userGames: myGames, allUsers: allUsers} )}>
           <Text style={{ color: "#fff" }}>Form a Squad</Text>
         </Pressable>
       </View>
