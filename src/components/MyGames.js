@@ -7,7 +7,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
-  // const [myGames, setMyGames] = useState(userGames);
+  const [games, setGames] = useState(userGames);
   // myGames will be set to the user's gameList, which I assume
   // will be passed from props or fetched with useEffect.
 
@@ -16,14 +16,13 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
     const filteredGames = userGames.filter((game) =>
       game.title.toLowerCase().includes(enteredText.toLowerCase())
     );
-    enteredText === "" ? setUserGames(userGames) : setUserGames(filteredGames);
+    enteredText === "" ? setGames(userGames) : setGames(filteredGames);
   };
 
   const iconClickHandler = (game) => {
     setSelectedGame(game);
     setModalVisible(true);
   };
-
   
   return (
     <View style={styles.container}>
@@ -52,7 +51,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
       />
       <View style={styles.gamesContainer}>
         <FlatList
-          data={userGames}
+          data={games}
           numColumns={2}
           contentContainerStyle={{ alignItems: "center" }}
           renderItem={(itemData) => {

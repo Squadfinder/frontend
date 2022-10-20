@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -7,51 +7,63 @@ import {
   ScrollView,
   Image,
   Pressable,
+  Modal,
 } from "react-native";
 import Swiper from "react-native-swiper";
-import { userGames } from "../../mock-data/MockGamesList";
 import { users } from "../../mock-data/mock-user-data";
+import GameDetailsScreen from "./GameDetailsScreen";
 
-let games = userGames.map((game) => {
-  return (
-    <View
-      style={{ justifyContent: "center", alignItems: "center" }}
-      key={game.title}
-    >
-      <Image
-        source={{ uri: game.image }}
-        resizeMode="stretch"
-        style={{
-          height: "90%",
-          width: "70%",
-          marginBottom: 10,
-          borderWidth: 1,
-          borderColor: "#3AE456",
-          borderRadius: 20,
-        }}
-      ></Image>
-      <Pressable
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          height: "7%",
-          width: "32%",
-          borderWidth: 1,
-          borderColor: "#3AE456",
-          backgroundColor: "#483F6D",
-          borderRadius: 20,
-        }}
+const HomeScreen = ({ myGames, addGame, removeGame }) => {
+  const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
+
+  const imageClickHandler = (game) => {
+    setSelectedGame(game);
+    setModalVisible(true);
+  };
+
+  let games = myGames.map((game) => {
+    return (
+      <View
+        style={{ justifyContent: "center", alignItems: "center" }}
+        key={game.title}
       >
-        <Text style={{ color: "#fff" }}>Form a Squad</Text>
-      </Pressable>
-    </View>
-  );
-});
+        <Pressable
+          style={styles.swiperSlide}
+          onPress={() => imageClickHandler(game)}
+        >
+          <Image
+            source={{ uri: game.image }}
+            resizeMode="stretch"
+            style={{ height: "100%", width: "100%", borderRadius: 20 }}
+          ></Image>
+        </Pressable>
+        <Pressable style={styles.formSquadButton} onPress={() => navigation.navigate('Form Squad', {autofillGame: game} )}>
+          <Text style={{ color: "#fff" }}>Form a Squad</Text>
+        </Pressable>
+      </View>
+    );
+  });
 
-const HomeScreen = () => {
-  const navigation = useNavigation(); 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <GameDetailsScreen
+          game={selectedGame}
+          myGames={myGames}
+          addGame={addGame}
+          removeGame={removeGame}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
       <Text style={styles.header}>SquadFinder</Text>
       <View style={styles.info}>
         <Text style={styles.userInfo}>{users[0].gamertag}</Text>
@@ -109,6 +121,24 @@ const styles = StyleSheet.create({
   },
   swiper: {
     height: "55%",
+  },
+  swiperSlide: {
+    height: "90%",
+    width: "70%",
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "#3AE456",
+    borderRadius: 20,
+  },
+  formSquadButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "7%",
+    width: "32%",
+    borderWidth: 1,
+    borderColor: "#3AE456",
+    backgroundColor: "#483F6D",
+    borderRadius: 20,
   },
   editButton: {
     justifyContent: "center",

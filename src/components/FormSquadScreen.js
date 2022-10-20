@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Pressable, Text, StyleSheet, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import SelectDropdown from "react-native-select-dropdown";
 import { users } from "../../mock-data/mock-user-data";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
-const FormSquadScreen = () => {
+const FormSquadScreen = ({ route }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date"); // Toggles the calender modal between date / time
   const [showing, setShowing] = useState(false); // Toggles calender modal view on / off
-  const [selected, setSelected] = useState(""); // Selected Game
+  const [selected, setSelected] = useState(''); // Selected Game
   const [filterUsers, setFilterUsers] = useState(users); // Starts at all users, and is filtered base off game option and user filter by gamertag
   const [filterByNameValue, setFilterByNameValue] = useState(""); // Filter by gamertag parameter
   const [squadMembers, setSquadMembers] = useState([]);
@@ -26,6 +26,13 @@ const FormSquadScreen = () => {
       setDate(currentDate);
     }
   };
+
+  useEffect(() => {
+    handleSelectGame('')
+    if (route.params) {
+      handleSelectGame(route.params.autofillGame.title)
+    }
+  }, [route])
 
   const showMode = (currentMode) => {
     // function that open modal
@@ -89,7 +96,8 @@ const FormSquadScreen = () => {
       <SelectDropdown
         // users[1] will most likely need to be refactored after we have API user(s)
         data={users[1].gamesList.map((game) => game.title)}
-        defaultButtonText="Select Game"
+        defaultButtonText={selected || "Select Game"}
+        defaultValue={selected}
         onSelect={(selectedGame) => handleSelectGame(selectedGame)}
         searchInputTxtColor={{}}
         buttonStyle={styles.selectGameBtnStyle}

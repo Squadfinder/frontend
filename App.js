@@ -20,7 +20,6 @@ const App = () => {
     setUserGames(() => [...userGames, game]);
   };
 
-
   const removeGame = (game) => {
     setUserGames(() =>
       userGames.filter((element) => element.title !== game.title)
@@ -31,7 +30,13 @@ const App = () => {
     <NavigationContainer>
       <Drawer.Navigator>
         <Drawer.Screen name="Home">
-          {() => <HomeScreen myGames={userGames} />}
+          {() => (
+            <HomeScreen
+              myGames={userGames}
+              addGame={addGame}
+              removeGame={removeGame} 
+            />
+          )}
         </Drawer.Screen>
         <Drawer.Screen name="My Games">
           {() => (
