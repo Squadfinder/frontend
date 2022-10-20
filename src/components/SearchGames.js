@@ -23,11 +23,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
   
-  const dropdownRef = useRef({}); // <--- needed to reset the genre dropdown
-
-  useEffect(() => {
-    setMyGames(userGames)
-  }, [])
+  const dropdownRef = useRef({});
   
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
@@ -133,7 +129,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
                   onPress={() => iconClickHandler(itemData.item)}
                 >
                   <Image
-                    source={{ uri: `${itemData.item.image_url}` }}
+                    source={{ uri: `${itemData.item.image}` }}
                     resizeMode="stretch"
                     style={{
                       width: "100%",

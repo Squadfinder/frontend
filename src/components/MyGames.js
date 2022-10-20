@@ -8,17 +8,13 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
 
-  useEffect(() => {
-    setGames(userGames)
-  }, [])
-
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
   };
 
   const iconClickHandler = (game) => {
     fetch(
-      `https://squadfinder2205be.herokuapp.com/api/v1/games/${game.attributes.game_id}`
+      `https://squadfinder2205be.herokuapp.com/api/v1/games/${game.game_id}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -54,7 +50,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
       />
       <View style={styles.gamesContainer}>
         <FlatList
-          data={games}
+          data={userGames}
           numColumns={2}
           contentContainerStyle={{ alignItems: "center" }}
           renderItem={(itemData) => {
@@ -65,7 +61,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                 onPress={() => iconClickHandler(itemData.item)}
               >
                 <Image
-                  source={{ uri: `${itemData.item.attributes.image_url}` }}
+                  source={{ uri: `${itemData.item.image_url}` }}
                   resizeMode="stretch"
                   style={{
                     width: "100%",
