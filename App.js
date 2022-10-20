@@ -37,12 +37,6 @@ const App = () => {
     );
   };
 
-  useEffect(() => {
-    fetch(`https://squadfinder2205be.herokuapp.com/api/v1/users/1/games`)
-      .then((response) => response.json())
-      .then((data) => setUserGames(data.data));
-  }, []);
-
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -58,10 +52,7 @@ const App = () => {
           {() => (
             <HomeScreen
               user={user}
-              allUsers={allUsers}
               myGames={userGames}
-              addGame={addGame}
-              removeGame={removeGame}
             />
           )}
         </Drawer.Screen>

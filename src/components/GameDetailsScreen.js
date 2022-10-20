@@ -11,14 +11,12 @@ import {
 
 const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible }) => {
   const [hasGame, setHasGame] = useState(false);
-  // have state to hold the fetched single game that matches the id of the game prop?
   const { title, image, genres, consoles } = game;
-  console.log("DETAILS GAME", game)
   
   useEffect(() => {
-    // if (myGames.find((element) => element.attributes.game_title === game.attributes.game_title) !== undefined) {
-    //   setHasGame(true);
-    // }
+    if (myGames.find((element) => element.game_title === game.game_title) !== undefined) {
+      setHasGame(true);
+    }
   }, []);
 
   return (
