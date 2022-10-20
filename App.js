@@ -17,10 +17,11 @@ const Drawer = createDrawerNavigator();
 const App = () => {
   const [userGames, setUserGames] = useState([]);
   const [user, setUser] = useState({});
-  const [allUsers, setAllUsers] = useState([])
+  const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
     getSingleUser(1).then(data => {
+      console.log(data)
       setUser(data.data)
       setUserGames(data.data.attributes.user_games)
     })
@@ -69,7 +70,14 @@ const App = () => {
             />
           )}
         </Drawer.Screen>
-        <Drawer.Screen name="Form Squad" component={FormSquadScreen} />
+        <Drawer.Screen name="Form Squad">
+          {() => (
+            <FormSquadScreen
+              userGames={userGames}
+              allUsers={allUsers}
+            />
+          )}
+        </Drawer.Screen>
         <Drawer.Screen name="My Squads" component={MySquads} />
       </Drawer.Navigator>
     </NavigationContainer>

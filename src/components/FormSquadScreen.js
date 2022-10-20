@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { View, Pressable, Text, StyleSheet, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import SelectDropdown from "react-native-select-dropdown";
-import { users } from "../../mock-data/mock-user-data";
+// import { users } from "../../mock-data/mock-user-data";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
-const FormSquadScreen = ({ route }) => {
-  // console.log(route.params.autofillGame)
+const FormSquadScreen = ({ allUsers, userGames, route }) => {
+  // console.log(route.params)
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date"); // Toggles the calender modal between date / time
   const [showing, setShowing] = useState(false); // Toggles calender modal view on / off
@@ -31,11 +31,11 @@ const FormSquadScreen = ({ route }) => {
 
   useEffect(() => {
     handleSelectGame('')
-    if (route.params) {
-      setCurrentUserGames(route.params.userGames)
-      setFilterUsers(route.params.allUsers)
-      handleSelectGame(route.params.autofillGame.game_title)
-    }
+    setCurrentUserGames(userGames)
+    setFilterUsers(allUsers)
+    // if (route.params.autofillGame) {
+    //   handleSelectGame(route.params.autofillGame.game_title)
+    // }
   }, [])
 
   const showMode = (currentMode) => {
