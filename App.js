@@ -10,10 +10,22 @@ import FormSquadScreen from "./src/components/FormSquadScreen";
 import MySquads from "./src/components/MySquads";
 import CustomDrawer from "./src/components/CustomDrawer";
 
+import { getAllUsers, getSingleUser } from "./src/apiCalls";
+
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const [userGames, setUserGames] = useState(null);
+  const [userGames, setUserGames] = useState([]);
+  const [user, setUser] = useState({});
+  const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    getSingleUser(1).then(data => {
+      setUser(data.data)
+      setUserGames(data.data.attributes.user_games)
+    })
+    getAllUsers().then(data => setAllUsers(data.data))
+  }, [])
 
   const addGame = (game) => {
     setUserGames(() => [...userGames, game]);
@@ -43,7 +55,15 @@ const App = () => {
         }}
       >
         <Drawer.Screen name="Home">
-          {() => <HomeScreen myGames={userGames} />}
+          {() => (
+            <HomeScreen
+              user={user}
+              allUsers={allUsers}
+              myGames={userGames}
+              addGame={addGame}
+              removeGame={removeGame}
+            />
+          )}
         </Drawer.Screen>
         <Drawer.Screen name="My Games">
           {() => (
@@ -63,8 +83,21 @@ const App = () => {
             />
           )}
         </Drawer.Screen>
-        <Drawer.Screen name="Form Squad" component={FormSquadScreen} />
-        <Drawer.Screen name="My Squads" component={MySquads} />
+        <Drawer.Screen name="Form Squad">
+          {() => (
+            <FormSquadScreen
+              userGames={userGames}
+              allUsers={allUsers}
+            />
+          )}
+        </Drawer.Screen>
+        <Drawer.Screen name="My Squads">
+          {() => (
+            <MySquads
+              userID="1" // hardcoding "1" for now, could be dynamic later
+            />
+          )}
+        </Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
   );

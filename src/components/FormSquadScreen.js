@@ -1,40 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Pressable, Text, StyleSheet, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import SelectDropdown from "react-native-select-dropdown";
-import { users } from "../../mock-data/mock-user-data";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
-const FormSquadScreen = () => {
+const FormSquadScreen = ({ allUsers, userGames }) => {
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date"); // Toggles the calender modal between date / time
-  const [showing, setShowing] = useState(false); // Toggles calender modal view on / off
-  const [selected, setSelected] = useState(""); // Selected Game
-  const [filterUsers, setFilterUsers] = useState(users); // Starts at all users, and is filtered base off game option and user filter by gamertag
-  const [filterByNameValue, setFilterByNameValue] = useState(""); // Filter by gamertag parameter
+  const [mode, setMode] = useState("date");
+  const [showing, setShowing] = useState(false);
+  const [selected, setSelected] = useState('');
+  const [currentUserGames, setCurrentUserGames] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [filterByNameValue, setFilterByNameValue] = useState("");
   const [squadMembers, setSquadMembers] = useState([]);
   const [squadFull, setSquadFull] = useState(false);
 
   const onChange = (event, selectedDate) => {
-    // this function sets date / time selection. Both date and time update the same value
     if (event.type !== "dismissed") {
       const currentDate = selectedDate;
       if (Platform.OS === "android") {
-        // set to android only b/c iOS will cose the model on any button click
         setShowing(false);
       }
       setDate(currentDate);
     }
   };
 
+  useEffect(() => {
+    setCurrentUserGames(userGames)
+    setUsers(allUsers)
+  }, [])
+
   const showMode = (currentMode) => {
-    // function that open modal
     setMode(currentMode);
     setShowing(true);
   };
 
   const showDatePicker = () => {
-    // sets current type of modal, date
     showMode("date");
   };
 
@@ -43,35 +44,33 @@ const FormSquadScreen = () => {
   };
 
   const handleSelectGame = (selectedGame) => {
-    // sets current type of modal, time
     setSelected(selectedGame);
     filterUsersByGame(selectedGame);
   };
 
   const filterUsersByGame = (selectedGame) => {
-    const filteredUsers = filterUsers.reduce((arr, user) => {
-      // I don't know a way to do this w/o nesting the iterators
-      const usersWithGame = user.gamesList.filter(
-        (game) => game.title === selectedGame
+    const filteredUsers = allUsers.reduce((arr, user) => {
+      const usersWithGame = user.attributes.user_games.filter(
+        (game) => game.game_title === selectedGame
       );
       if (usersWithGame.length) {
         arr.push(user);
       }
       return arr;
     }, []);
-    setFilterUsers(filteredUsers); // Sets the users being displayed to only ones that play selected game
+    setUsers(filteredUsers);
   };
 
   const filterUserByName = (input) => {
     if (input) {
       setFilterByNameValue(input);
-      const filteredUsers = filterUsers.filter((user) =>
-        user.gamertag.toLocaleLowerCase().includes(input.toLocaleLowerCase())
+      const filteredUsers = users.filter((user) =>
+        user.attributes.gamertag.toLocaleLowerCase().includes(input.toLocaleLowerCase())
       );
-      setFilterUsers(filteredUsers); // sets displayed users to only ones with gamer tags matching input
+      setUsers(filteredUsers);
     } else {
       setFilterByNameValue("");
-      setFilterUsers(users); // if input is empty reset to all users
+      setUsers(allUsers);
     }
   };
 
@@ -79,7 +78,7 @@ const FormSquadScreen = () => {
     if (squadMembers.length < 3) {
       setSquadMembers([...squadMembers, id]);
     } else {
-      console.log("Squad is full"); // needs removing and error handling added for when a squad is full
+      console.log("Squad is full");
       setSquadFull(true);
     }
   };
@@ -87,9 +86,8 @@ const FormSquadScreen = () => {
   return (
     <View style={styles.container}>
       <SelectDropdown
-        // users[1] will most likely need to be refactored after we have API user(s)
-        data={users[1].gamesList.map((game) => game.title)}
-        defaultButtonText="Select Game"
+        data={currentUserGames.map((game) => game.game_title)}
+        defaultButtonText={"Select Game"}
         onSelect={(selectedGame) => handleSelectGame(selectedGame)}
         searchInputTxtColor={{}}
         buttonStyle={styles.selectGameBtnStyle}
@@ -135,13 +133,13 @@ const FormSquadScreen = () => {
         style={styles.filterByNameInput}
       />
       <View style={styles.userList}>
-        {filterUsers.length ? (
+        {users.length ? (
           <FlatList
-            data={filterUsers}
+            data={users}
             renderItem={({ item }) => {
               return (
                 <View style={styles.userContainer}>
-                  <Text style={styles.userGamerTag}>{item.gamertag}</Text>
+                  <Text style={styles.userGamerTag}>{item.attributes.gamertag}</Text>
                   <Pressable
                     style={
                       squadMembers.includes(item.id)

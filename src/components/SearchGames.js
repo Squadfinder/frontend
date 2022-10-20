@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+
 import { searchFetch } from "../apiCalls"
+import React, { useState, useRef, useEffect } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
 import GameDetailsScreen from "./GameDetailsScreen";
@@ -23,6 +24,10 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
   const [showGames, setShowGames] = useState(false);
   
   const dropdownRef = useRef({}); // <--- needed to reset the genre dropdown
+
+  useEffect(() => {
+    setMyGames(userGames)
+  }, [])
   
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
@@ -128,7 +133,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
                   onPress={() => iconClickHandler(itemData.item)}
                 >
                   <Image
-                    source={{ uri: `${itemData.item.image}` }}
+                    source={{ uri: `${itemData.item.image_url}` }}
                     resizeMode="stretch"
                     style={{
                       width: "100%",

@@ -8,6 +8,10 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
 
+  useEffect(() => {
+    setGames(userGames)
+  }, [])
+
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
   };
@@ -50,7 +54,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
       />
       <View style={styles.gamesContainer}>
         <FlatList
-          data={userGames}
+          data={games}
           numColumns={2}
           contentContainerStyle={{ alignItems: "center" }}
           renderItem={(itemData) => {

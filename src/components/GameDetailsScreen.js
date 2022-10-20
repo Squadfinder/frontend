@@ -24,7 +24,7 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={{ width: "100%", height: 170 }} />
+        <Image source={{ uri: image }} style={{ width: "100%", height: 320 }} />
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
@@ -43,7 +43,9 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
           </View>
         ))}
       </View>
-      <Button title="Close" onPress={() => setModalVisible(false)} />
+      <Pressable style={styles.closeModalBtn}>
+        <Text style={styles.closeModalTxt} onPress={() => setModalVisible(false)}>Close</Text>
+      </Pressable>
       {!hasGame ? (
         <View style={styles.favoriteBtnContainer}>
           <Pressable style={styles.favoriteBtn} onPress={() => addGame(game)}>
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     backgroundColor: "#393051",
     width: "90%",
-    marginTop: 10,
+    marginTop: 20,
     alignItems: "center",
     borderRadius: 20,
     borderWidth: 1,
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#fff",
-    padding: 5,
+    padding: 10,
     fontSize: 18,
     fontWeight: "bold",
   },
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     width: "90%",
-    marginTop: 15,
+    marginTop: 20,
   },
   genreView: {
     backgroundColor: "#5462A4",
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
   consoleContainer: {
     backgroundColor: "#393051",
     width: "90%",
-    marginTop: 15,
+    marginTop: 20,
     paddingTop: 10,
     paddingBottom: 10,
     paddingRight: 15,
@@ -163,6 +165,18 @@ const styles = StyleSheet.create({
     marginTop: "auto",
     marginBottom: "auto",
     borderRadius: 30,
+  },
+  closeModalBtn: {
+    backgroundColor: "#3AE456",
+    marginTop: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderRadius: 20,
+  },
+  closeModalTxt: {
+    fontWeight: "bold"
   },
   favoriteBtnText: {
     color: "#3AE456",
