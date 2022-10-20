@@ -25,7 +25,6 @@ const HomeScreen = ({ user, myGames }) => {
         >
           <Image
             source={{ uri: game.image_url }}
-            resizeMode="stretch"
             style={{ height: "100%", width: "100%", borderRadius: 20 }}
           ></Image>
           <Text style={styles.gameTitle}>{game.game_title}</Text>
