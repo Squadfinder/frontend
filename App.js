@@ -77,7 +77,13 @@ const App = () => {
             />
           )}
         </Drawer.Screen>
-        <Drawer.Screen name="My Squads" component={MySquads} />
+        <Drawer.Screen name="My Squads">
+          {() => (
+            <MySquads
+              userID="1" // hardcoding "1" for now, could be dynamic later
+            />
+          )}
+        </Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
   );

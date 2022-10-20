@@ -13,4 +13,10 @@ const getAllUsers = () => {
     .then(response => response.json())
 }
 
-export { searchFetch, getSingleUser, getAllUsers }
+const getUserSquad = (userId) => {
+  return fetch(
+    `https://squadfinder2205be.herokuapp.com/api/v1/users/${userId}/squads`
+  ).then((response) => response.json());
+};
+
+export { searchFetch, getUserSquad, getSingleUser, getAllUsers };
