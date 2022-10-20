@@ -70,9 +70,12 @@ const MySquads = ({ userID }) => {
                 <View style={styles.detailsContainer}>
                   <Text style={styles.squadDetails}>{squadData.item.game}</Text>
                   <Text style={styles.squadDetails}>
-                    {squadData.item.time} - {squadData.item.day}
+                    {new Date(squadData.item.eventTime).toLocaleTimeString()} -{" "}
+                    {new Date(squadData.item.eventTime).toLocaleDateString()}
                   </Text>
-                  <Text style={styles.squadDetails}>{squadData.item.competitive}</Text>
+                  <Text style={styles.squadDetails}>
+                    {squadData.item.competitive}
+                  </Text>
                 </View>
                 <Pressable style={styles.notGoing}>
                   <Text style={styles.notGoingText}>Not Going</Text>
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#352540",
     borderWidth: 1,
     borderColor: "#3AE456",
-    borderRadius: 5,
+    borderRadius: 20,
   },
   memberIcons: {
     justifyContent: "space-evenly",
@@ -111,13 +114,14 @@ const styles = StyleSheet.create({
     aspectRatio: "1/1",
     textAlign: "center",
     color: "#fff",
-    fontSize: 35,
+    fontSize: 30,
     borderWidth: 2,
     borderRadius: 25,
   },
   lowerContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     width: "95%",
   },
   detailsContainer: {
