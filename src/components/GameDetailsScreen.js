@@ -13,7 +13,6 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
   const { title, image, genres, consoles } = game;
   
   useEffect(() => {
-    console.log(game)
     console.log(myGames)
     if (myGames.find((element) => element.game_title === game.title) !== undefined) {
       setHasGame(true);
