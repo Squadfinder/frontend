@@ -5,7 +5,6 @@ import {
   Image,
   StyleSheet,
   Text,
-  Button,
   Pressable,
 } from "react-native";
 
@@ -14,10 +13,14 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
   const { title, image, genres, consoles } = game;
   
   useEffect(() => {
-    if (myGames.find((element) => element.game_title === game.game_title) !== undefined) {
+    console.log(game)
+    console.log(myGames)
+    if (myGames.find((element) => element.game_title === game.title) !== undefined) {
       setHasGame(true);
     }
   }, []);
+
+  console.log(hasGame)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
