@@ -40,9 +40,6 @@ const HomeScreen = ({ user, allUsers, myGames, addGame, removeGame }) => {
           ></Image>
           <Text style={styles.gameTitle}>{game.game_title}</Text>
         </Pressable>
-        {/* <Pressable style={styles.formSquadButton} onPress={() => navigation.navigate('Form Squad', {autofillGame: game, userGames: myGames, allUsers: allUsers} )}>
-          <Text style={{ color: "#fff" }}>Form a Squad</Text>
-        </Pressable> */}
       </View>
     );
   });

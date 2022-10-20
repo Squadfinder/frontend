@@ -21,7 +21,6 @@ const App = () => {
 
   useEffect(() => {
     getSingleUser(1).then(data => {
-      console.log(data)
       setUser(data.data)
       setUserGames(data.data.attributes.user_games)
     })

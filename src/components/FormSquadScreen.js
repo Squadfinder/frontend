@@ -5,14 +5,13 @@ import SelectDropdown from "react-native-select-dropdown";
 // import { users } from "../../mock-data/mock-user-data";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
-const FormSquadScreen = ({ allUsers, userGames, route }) => {
-  // console.log(route.params)
+const FormSquadScreen = ({ allUsers, userGames }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date"); // Toggles the calender modal between date / time
   const [showing, setShowing] = useState(false); // Toggles calender modal view on / off
   const [selected, setSelected] = useState(''); // Selected Game
   const [currentUserGames, setCurrentUserGames] = useState([]);
-  const [filterUsers, setFilterUsers] = useState([]); // Starts at all users, and is filtered base off game option and user filter by gamertag
+  const [filterUsers, setFilterUsers] = useState(allUsers); // Starts at all users, and is filtered base off game option and user filter by gamertag
   const [filterByNameValue, setFilterByNameValue] = useState(""); // Filter by gamertag parameter
   const [squadMembers, setSquadMembers] = useState([]);
   const [squadFull, setSquadFull] = useState(false);
@@ -30,12 +29,8 @@ const FormSquadScreen = ({ allUsers, userGames, route }) => {
   };
 
   useEffect(() => {
-    handleSelectGame('')
     setCurrentUserGames(userGames)
-    setFilterUsers(allUsers)
-    // if (route.params.autofillGame) {
-    //   handleSelectGame(route.params.autofillGame.game_title)
-    // }
+    // setFilterUsers(allUsers)
   }, [])
 
   const showMode = (currentMode) => {
@@ -56,10 +51,14 @@ const FormSquadScreen = ({ allUsers, userGames, route }) => {
   const handleSelectGame = (selectedGame) => {
     // sets current type of modal, time
     setSelected(selectedGame);
+    setFilterUsers(allUsers)
     filterUsersByGame(selectedGame);
   };
 
   const filterUsersByGame = (selectedGame) => {
+
+    // console.log('1', allUsers)
+    console.log('2', filterUsers)
     const filteredUsers = filterUsers.reduce((arr, user) => {
       // I don't know a way to do this w/o nesting the iterators
       const usersWithGame = user.attributes.user_games.filter(
@@ -70,6 +69,7 @@ const FormSquadScreen = ({ allUsers, userGames, route }) => {
       }
       return arr;
     }, []);
+    console.log(filteredUsers)
     setFilterUsers(filteredUsers); // Sets the users being displayed to only ones that play selected game
   };
 
@@ -100,8 +100,7 @@ const FormSquadScreen = ({ allUsers, userGames, route }) => {
       <SelectDropdown
         // users[1] will most likely need to be refactored after we have API user(s)
         data={currentUserGames.map((game) => game.game_title)}
-        defaultButtonText={selected || "Select Game"}
-        defaultValue={selected}
+        defaultButtonText={"Select Game"}
         onSelect={(selectedGame) => handleSelectGame(selectedGame)}
         searchInputTxtColor={{}}
         buttonStyle={styles.selectGameBtnStyle}
