@@ -7,28 +7,26 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
-  const [games, setGames] = useState([]);
-  // myGames will be set to the user's gameList, which I assume
-  // will be passed from props or fetched with useEffect.
 
   useEffect(() => {
     setGames(userGames)
-    // console.log(games)
   }, [])
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
-    const filteredGames = games.filter((game) =>
-      game.game_title.toLowerCase().includes(enteredText.toLowerCase())
-    );
-    enteredText === "" ? setGames(userGames) : setGames(filteredGames);
   };
 
   const iconClickHandler = (game) => {
-    setSelectedGame(game);
-    setModalVisible(true);
+    fetch(
+      `https://squadfinder2205be.herokuapp.com/api/v1/games/${game.attributes.game_id}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setSelectedGame(data);
+      })
+      .then(() => setModalVisible(true));
   };
-  
+
   return (
     <View style={styles.container}>
       <Modal
@@ -67,7 +65,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                 onPress={() => iconClickHandler(itemData.item)}
               >
                 <Image
-                  source={{ uri: `${itemData.item.image_url}` }}
+                  source={{ uri: `${itemData.item.attributes.image_url}` }}
                   resizeMode="stretch"
                   style={{
                     width: "100%",
@@ -89,7 +87,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#352540",
+    backgroundColor: "#201626",
     alignItems: "center",
     justifyContent: "space-evenly",
   },

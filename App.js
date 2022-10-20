@@ -2,13 +2,13 @@ import "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-// import { allGames } from "./mock-data/MockGamesList";
 
 import HomeScreen from "./src/components/HomeScreen";
 import MyGames from "./src/components/MyGames";
 import SearchGames from "./src/components/SearchGames";
 import FormSquadScreen from "./src/components/FormSquadScreen";
 import MySquads from "./src/components/MySquads";
+import CustomDrawer from "./src/components/CustomDrawer";
 
 import { getAllUsers, getSingleUser } from "./src/apiCalls";
 
@@ -37,9 +37,23 @@ const App = () => {
     );
   };
 
+  useEffect(() => {
+    fetch(`https://squadfinder2205be.herokuapp.com/api/v1/users/1/games`)
+      .then((response) => response.json())
+      .then((data) => setUserGames(data.data));
+  }, []);
+
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator
+        drawerContent={(props) => <CustomDrawer {...props} />}
+        screenOptions={{
+          drawerLabelStyle: {
+            color: "#3AE456",
+            fontSize: 20,
+          },
+        }}
+      >
         <Drawer.Screen name="Home">
           {() => (
             <HomeScreen

@@ -1,3 +1,5 @@
+
+import { searchFetch } from "../apiCalls"
 import React, { useState, useRef, useEffect } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
@@ -12,12 +14,11 @@ import {
   Text,
 } from "react-native";
 
-
-const SearchGames = ({ games, userGames, addGame, removeGame }) => {
-  const [displayedGames, setDisplayedGames] = useState(games); // <--- useEffect to fetch all games and set this state
-  const [myGames, setMyGames] = useState([])
+const SearchGames = ({ userGames, addGame, removeGame }) => {
+  const [displayedGames, setDisplayedGames] = useState(null);
+  const [myGames, setMyGames] = useState(userGames)
   const [searchInput, setSearchInput] = useState(null);
-  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedGame, setSelectedGame] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
@@ -37,17 +38,8 @@ const SearchGames = ({ games, userGames, addGame, removeGame }) => {
   };
 
   const searchHandler = () => {
-    let theGames;
-    selectedGenre && selectedGenre !== "All genres"
-      ? (theGames = games.filter((game) => game.genres.includes(selectedGenre)))
-      : (theGames = games);
-    let filteredGames;
-    searchInput && searchInput !== ""
-      ? (filteredGames = theGames.filter((game) =>
-          game.title.toLowerCase().includes(searchInput.toLowerCase())
-        ))
-      : (filteredGames = theGames);
-    setDisplayedGames(filteredGames);
+    searchFetch(searchInput, selectedGenre)
+    .then(data => setDisplayedGames(data))
     setShowGames(true);
   };
 
@@ -59,12 +51,17 @@ const SearchGames = ({ games, userGames, addGame, removeGame }) => {
   };
 
   const iconClickHandler = (game) => {
-    setSelectedGame(game);
-    setModalVisible(true);
+    fetch(
+      `https://squadfinder2205be.herokuapp.com/api/v1/games/${game.game_id}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setSelectedGame(data);
+      })
+      .then(() => setModalVisible(true));
   };
 
   let genres = [
-    // Will be replaced with all the genres of all the games.
     "All genres",
     "Action-adventure",
     "Fantasy",
@@ -109,6 +106,7 @@ const SearchGames = ({ games, userGames, addGame, removeGame }) => {
         search={true}
         searchPlaceHolder="Search..."
         buttonStyle={styles.selectListBox}
+        buttonTextStyle={{ color: '#3AE456' }}
         rowStyle={{ backgroundColor: "#352540" }}
         rowTextStyle={{ color: "#3AE456" }}
         searchInputStyle={{ backgroundColor: "#393051" }}
@@ -119,14 +117,12 @@ const SearchGames = ({ games, userGames, addGame, removeGame }) => {
         onSelect={(genre) => genreHandler(genre)}
       />
       <Pressable style={styles.searchButton} onPress={() => searchHandler()}>
-        <Text style={{ fontSize: 20 }}>Search</Text>
+        <Text style={{ fontSize: 20, color: '#3AE456' }}>Search</Text>
       </Pressable>
       {showGames ? (
         <View style={styles.gamesContainer}>
           <FlatList
-            data={displayedGames.sort(
-              (a, b) => a.title.charAt(0) - b.title.charAt(0)
-            )}
+            data={displayedGames}
             numColumns={2}
             contentContainerStyle={{ alignItems: "center" }}
             renderItem={(itemData) => {
@@ -163,7 +159,7 @@ const SearchGames = ({ games, userGames, addGame, removeGame }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#352540",
+    backgroundColor: "#201626",
     alignItems: "center",
     justifyContent: "space-evenly",
   },
@@ -196,17 +192,17 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#3AE456",
     borderRadius: 20,
-    backgroundColor: "#483F6D",
+    backgroundColor: "#393051",
     height: 35,
     marginTop: 5,
   },
   searchButton: {
     width: 100,
     height: 30,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 20,
     borderColor: "#3AE456",
-    backgroundColor: "#483F6D",
+    backgroundColor: "#393051",
     justifyContent: "center",
     alignItems: "center",
     height: 35,
