@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#393051",
     alignSelf: "center",
     marginTop: "auto",
-    marginBottom: "auto",
+    marginBottom: 40,
     borderRadius: 30,
   },
   closeModalBtn: {
