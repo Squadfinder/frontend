@@ -46,19 +46,4 @@ const postSquad = ({
   }).then((response) => response.json());
 };
 
-/*
-create_squad_body = {
-      'user': user_1.id,
-      'game':  Faker::Game.title,
-      'event_time': Faker::Time.forward(days: 5),
-      'number_players': 3,
-      'competitive': true,
-      'squadMembers': [
-            user_2,
-            user_3,
-            user_4
-    ]
-    }
-*/
-
 export { searchFetch, getUserSquad, getSingleUser, getAllUsers, postSquad };
