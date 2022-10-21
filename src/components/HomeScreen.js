@@ -17,7 +17,7 @@ const HomeScreen = ({ user, myGames }) => {
     return (
       <View
         style={{ justifyContent: "center", alignItems: "center" }}
-        key={game.id}
+        key={game.id + new Date()}
       >
         <Pressable
           style={styles.swiperSlide}

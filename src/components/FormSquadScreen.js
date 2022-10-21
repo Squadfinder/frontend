@@ -3,6 +3,7 @@ import { View, Pressable, Text, StyleSheet, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import SelectDropdown from "react-native-select-dropdown";
 import { FlatList, TextInput } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 import { postSquad } from "../apiCalls";
 
@@ -15,7 +16,31 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
   const [filterByNameValue, setFilterByNameValue] = useState("");
   const [squadMembers, setSquadMembers] = useState([]);
   const [competitive, setCompetitive] = useState(false);
-  const [squadFull, setSquadFull] = useState(false);
+  const [squadFull, setSquadFull] = useState(false); // needs full squad error handling
+
+  const navigation = useNavigation();
+
+  const formSquadHandler = () => {
+    const squad = {
+      id: 1,
+      game: selected,
+      eventTime: date.toISOString(),
+      numberPlayers: squadMembers.length,
+      competitive: competitive,
+      squadMembers: squadMembers,
+    };
+    postSquad(squad)
+      .then((response) => {
+        console.log(response);
+        setDate(new Date());
+        setFilterByNameValue("");
+        setSquadMembers([]);
+        setCompetitive(false);
+        setSquadFull(false);
+        navigation.navigate("My Squads");
+      })
+      .catch((error) => console.log(error));
+  };
 
   const onChange = (event, selectedDate) => {
     if (event.type !== "dismissed") {
@@ -85,6 +110,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
   return (
     <View style={styles.container}>
       <SelectDropdown
+        value={selected}
         data={userGames.map((game) => game.game_title)}
         defaultButtonText={"Select Game"}
         onSelect={(selectedGame) => handleSelectGame(selectedGame)}
@@ -186,6 +212,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
       <Pressable
         style={styles.formSquadBtn}
         disabled={!selected && !squadMembers.length}
+        onPress={formSquadHandler}
       >
         <Text style={styles.formSquadText}>FORM SQUAD!</Text>
       </Pressable>

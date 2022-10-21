@@ -22,7 +22,6 @@ const MySquads = ({ userID }) => {
   const [userSquads, setUserSquads] = useState([]);
 
   useEffect(() => {
-    console.log(userID);
     getUserSquad(userID)
       .then(({ data }) => {
         const squads = data.map((attribute) => {
@@ -37,7 +36,7 @@ const MySquads = ({ userID }) => {
           };
         });
 
-        setUserSquads(squads);
+        setUserSquads(squads); 
       })
       .catch((error) => console.log(error));
   }, []);
@@ -49,7 +48,7 @@ const MySquads = ({ userID }) => {
         renderItem={(squadData) => {
           counter = 0;
           return (
-            <View style={styles.squadCard}>
+            <View key={new Date() + squadData.item.eventTime} style={styles.squadCard}>
               <FlatList
                 data={squadData.item.members}
                 contentContainerStyle={styles.memberIcons}
@@ -58,14 +57,14 @@ const MySquads = ({ userID }) => {
                   counter++;
                   assignColor();
                   return (
-                    <Pressable>
+                    <Pressable key={new Date() + counter}>
                       <Text style={[styles.icon, { borderColor: color }]}>
                         {memberData.item.gamertag[0]}
                       </Text>
                     </Pressable>
                   );
                 }}
-              ></FlatList>
+              />
               <View style={styles.lowerContainer}>
                 <View style={styles.detailsContainer}>
                   <Text style={styles.squadDetails}>{squadData.item.game}</Text>
