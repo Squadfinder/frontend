@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Pressable, Text, StyleSheet, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import SelectDropdown from "react-native-select-dropdown";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { postSquad } from "../apiCalls";
 
@@ -32,15 +33,25 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
     postSquad(squad)
       .then((response) => {
         console.log(response);
+        navigation.navigate("My Squads");
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // React Native components don't unmount causing this component not to update then it's navigated to and from,
+  // useFocusEffect tells the component to do stuff when the user navigates to of from the screen
+  useFocusEffect(
+    React.useCallback(() => {
+      // This is a cleanup function that resets the state when the user navigates to a new screen
+      return () => {
         setDate(new Date());
         setFilterByNameValue("");
         setSquadMembers([]);
         setCompetitive(false);
         setSquadFull(false);
-        navigation.navigate("My Squads");
-      })
-      .catch((error) => console.log(error));
-  };
+      };
+    }, [])
+  );
 
   const onChange = (event, selectedDate) => {
     if (event.type !== "dismissed") {
@@ -110,11 +121,9 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
   return (
     <View style={styles.container}>
       <SelectDropdown
-        value={selected}
         data={userGames.map((game) => game.game_title)}
         defaultButtonText={"Select Game"}
         onSelect={(selectedGame) => handleSelectGame(selectedGame)}
-        searchInputTxtColor={{}}
         buttonStyle={styles.selectGameBtnStyle}
         buttonTextStyle={styles.selectGameBtnTextStyle}
         dropdownStyle={styles.selectGameDropdownStyle}

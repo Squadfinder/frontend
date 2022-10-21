@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Pressable, Text, FlatList } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { getUserSquad } from "../apiCalls";
 
@@ -21,25 +22,29 @@ const assignColor = () => {
 const MySquads = ({ userID }) => {
   const [userSquads, setUserSquads] = useState([]);
 
-  useEffect(() => {
-    getUserSquad(userID)
-      .then(({ data }) => {
-        const squads = data.map((attribute) => {
-          return {
-            competitive: attribute.attributes.squad.competitive
-              ? "Competitive"
-              : "Casual",
-            eventTime: attribute.attributes.squad["event_time"],
-            game: attribute.attributes.squad.game,
-            members: attribute.attributes.squad.members,
-            numberPlayers: attribute.attributes.squad["number_players"],
-          };
-        });
+  // React Native components don't unmount causing this component not to update then it's navigated to and from,
+  // useFocusEffect tells the component to do stuff when the user navigates to of from the screen
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserSquad(userID)
+        .then(({ data }) => {
+          const squads = data.map((attribute) => {
+            return {
+              competitive: attribute.attributes.squad.competitive
+                ? "Competitive"
+                : "Casual",
+              eventTime: attribute.attributes.squad["event_time"],
+              game: attribute.attributes.squad.game,
+              members: attribute.attributes.squad.members,
+              numberPlayers: attribute.attributes.squad["number_players"],
+            };
+          });
 
-        setUserSquads(squads); 
-      })
-      .catch((error) => console.log(error));
-  }, []);
+          setUserSquads(squads);
+        })
+        .catch((error) => console.log(error));
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
@@ -48,7 +53,10 @@ const MySquads = ({ userID }) => {
         renderItem={(squadData) => {
           counter = 0;
           return (
-            <View key={new Date() + squadData.item.eventTime} style={styles.squadCard}>
+            <View
+              key={new Date() + squadData.item.eventTime}
+              style={styles.squadCard}
+            >
               <FlatList
                 data={squadData.item.members}
                 contentContainerStyle={styles.memberIcons}
