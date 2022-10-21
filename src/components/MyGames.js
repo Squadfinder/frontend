@@ -76,6 +76,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                     bottom: 0,
                   }}
                 ></Image>
+                <Text style={styles.gameTitle}>{itemData.item.game_title}</Text>
               </Pressable>
             );
           }}
@@ -117,6 +118,18 @@ const styles = StyleSheet.create({
     borderColor: "#3AE456",
     borderRadius: 20,
     margin: 5,
+  },
+  gameTitle: {
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,.6)',
+    overflow: 'hidden'
   },
 });
 
