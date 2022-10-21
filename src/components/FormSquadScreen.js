@@ -111,7 +111,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
           " AT " +
           date.getHours() +
           ":" +
-          date.getMinutes()}
+          (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}
       </Text>
       <View>
         {showing && (
