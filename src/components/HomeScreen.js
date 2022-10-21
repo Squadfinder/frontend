@@ -19,16 +19,11 @@ const HomeScreen = ({ user, myGames }) => {
         style={{ justifyContent: "center", alignItems: "center" }}
         key={game.id}
       >
-        <Pressable
-          style={styles.swiperSlide}
-          onPress={() => imageClickHandler(game)}
-        >
           <Image
             source={{ uri: game.image_url }}
-            style={{ height: "100%", width: "100%", borderRadius: 20 }}
+            style={styles.swiperSlide}
           ></Image>
           <Text style={styles.gameTitle}>{game.game_title}</Text>
-        </Pressable>
       </View>
     );
   });
