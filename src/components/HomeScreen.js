@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     height: "55%",
   },
   swiperSlide: {
-    height: "90%",
-    width: "70%",
+    height: "95%",
+    width: "80%",
     marginBottom: 10,
     borderWidth: 1,
     borderColor: "#3AE456",
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   },
   gameTitle: {
     position: 'absolute',
-    bottom: 10,
-    width: '100%',
+    bottom: 35,
+    width: '79%',
     textAlign: 'center',
     color: '#fff',
     fontSize: 20,

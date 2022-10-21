@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import GameDetailsScreen from "./GameDetailsScreen";
-import { StyleSheet, View, Pressable, Image, Modal } from "react-native";
+import { StyleSheet, View, Pressable, Image, Modal, Text } from "react-native";
 
 const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -70,6 +70,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                     bottom: 0,
                   }}
                 ></Image>
+                <Text style={styles.gameTitle}>{itemData.item.game_title}</Text>
               </Pressable>
             );
           }}
@@ -111,6 +112,18 @@ const styles = StyleSheet.create({
     borderColor: "#3AE456",
     borderRadius: 20,
     margin: 5,
+  },
+  gameTitle: {
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,.6)',
+    overflow: 'hidden'
   },
 });
 
