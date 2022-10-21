@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import GameDetailsScreen from "./GameDetailsScreen";
-import { StyleSheet, View, Pressable, Image, Modal, Text } from "react-native";
+import LoadingModal from "./LoadingModal";
+import { StyleSheet, View, Pressable, Image, Modal } from "react-native";
 
 const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,8 +20,9 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
       .then((response) => response.json())
       .then((data) => {
         setSelectedGame(data);
-      })
-      .then(() => setModalVisible(true));
+      });
+    setModalVisible(true);
+    setSelectedGame(null);
   };
 
   return (
@@ -33,13 +35,17 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <GameDetailsScreen
-          game={selectedGame}
-          myGames={userGames}
-          addGame={addGame}
-          removeGame={removeGame}
-          setModalVisible={setModalVisible}
-        />
+        {selectedGame ? (
+          <GameDetailsScreen
+            game={selectedGame}
+            myGames={userGames}
+            addGame={addGame}
+            removeGame={removeGame}
+            setModalVisible={setModalVisible}
+          />
+        ) : (
+          <LoadingModal />
+        )}
       </Modal>
       <TextInput
         placeholder="Search by title..."
@@ -61,7 +67,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                 onPress={() => iconClickHandler(itemData.item)}
               >
                 <Image
-                  source={{ uri: `${itemData.item.image_url}` }}     
+                  source={{ uri: `${itemData.item.image_url}` }}
                   style={{
                     width: "100%",
                     height: "100%",
