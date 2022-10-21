@@ -24,9 +24,6 @@ const GameDetailsScreen = ({
           undefined
       );
     }
-    // if (myGames.find((element) => element.game_title === game.title) !== undefined) {
-    //   setHasGame(true);
-    // }
   }, []);
 
   return game ? (
