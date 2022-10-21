@@ -21,6 +21,7 @@ const assignColor = () => {
 
 const MySquads = ({ userID }) => {
   const [userSquads, setUserSquads] = useState([]);
+  const [members, setSquadMembers] = useState([]);
 
   // React Native components don't unmount causing this component not to update then it's navigated to and from,
   // useFocusEffect tells the component to do stuff when the user navigates to of from the screen
@@ -38,8 +39,7 @@ const MySquads = ({ userID }) => {
               members: attribute.attributes.squad.members,
               numberPlayers: attribute.attributes.squad["number_players"],
             };
-          });
-
+          })
           setUserSquads(squads);
         })
         .catch((error) => console.log(error));
@@ -50,22 +50,23 @@ const MySquads = ({ userID }) => {
     <View style={styles.container}>
       <FlatList
         data={userSquads}
+        keyExtractor={(squadData, index) => squadData.eventTime + index}
         renderItem={(squadData) => {
           counter = 0;
           return (
-            <View
-              key={new Date() + squadData.item.eventTime}
-              style={styles.squadCard}
-            >
+            <View style={styles.squadCard}>
               <FlatList
                 data={squadData.item.members}
                 contentContainerStyle={styles.memberIcons}
                 horizontal={true}
+                keyExtractor={(memberData) =>
+                  (memberData.gamertag + Math.random() * 100)
+                }
                 renderItem={(memberData) => {
                   counter++;
                   assignColor();
                   return (
-                    <Pressable key={new Date() + counter}>
+                    <Pressable>
                       <Text style={[styles.icon, { borderColor: color }]}>
                         {memberData.item.gamertag[0]}
                       </Text>
@@ -91,7 +92,7 @@ const MySquads = ({ userID }) => {
             </View>
           );
         }}
-      ></FlatList>
+      />
     </View>
   );
 };
