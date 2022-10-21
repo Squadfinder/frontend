@@ -16,11 +16,12 @@ import {
 
 const SearchGames = ({ userGames, addGame, removeGame }) => {
   const [displayedGames, setDisplayedGames] = useState(null);
-  const [searchInput, setSearchInput] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
+  const [error, setError] = useState(false)
 
   const dropdownRef = useRef({});
 
@@ -33,10 +34,16 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
   };
 
   const searchHandler = () => {
+    if (searchInput !== "") {
     searchFetch(searchInput, selectedGenre).then((data) =>
-      setDisplayedGames(data)
-    );
-    setShowGames(true);
+          setDisplayedGames(data)
+        );
+        setShowGames(true);
+        setError(false)
+    } else {
+      setError(true)
+    }
+    
   };
 
   const clearResults = () => {
@@ -102,6 +109,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
         onChangeText={inputHandler}
         style={styles.textInput}
       />
+      {error && <Text style={{ margin: -5, color: 'red' }}>* You must type in a title</Text>}
       <SelectDropdown
         data={genres}
         search={true}
