@@ -22,7 +22,7 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={{ width: "100%", height: 320 }} />
+        <Image source={{ uri: image }} style={{ width: "100%", height: "100%", borderRadius: 20 }} />
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
@@ -70,13 +70,14 @@ const styles = StyleSheet.create({
   imageContainer: {
     backgroundColor: "#352540",
     width: "90%",
-    marginTop: 50,
-    paddingTop: 30,
-    paddingBottom: 30,
+    height: "35%",
+    marginTop: 70,
     borderRadius: 20,
+    borderWidth: 1,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
+    shadowColor: "#3AE456"
   },
   titleContainer: {
     backgroundColor: "#393051",
@@ -85,10 +86,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#3AE456",
+    // borderColor: "#3AE456",
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 40,
+    shadowColor: "#3AE456"
   },
   title: {
     color: "#fff",
@@ -131,9 +133,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     borderRadius: 30,
+    borderWidth: 1,
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 40,
+    shadowColor: "#3AE456"
   },
   consoleView: {
     backgroundColor: "#000",

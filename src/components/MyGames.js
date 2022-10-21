@@ -52,7 +52,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
         <FlatList
           data={userGames}
           numColumns={2}
-          contentContainerStyle={{ alignItems: "center" }}
+          contentContainerStyle={{ alignItems: "center", marginTop: 10 }}
           renderItem={(itemData) => {
             return (
               <Pressable
@@ -65,8 +65,8 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                   style={{
                     width: "100%",
                     height: "100%",
-                    borderWidth: 1,
                     borderRadius: 20,
+                    borderWidth: 2,
                     bottom: 0,
                   }}
                 ></Image>
@@ -84,33 +84,41 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#201626",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    // justifyContent: "space-evenly",
   },
   textInput: {
-    borderWidth: 2,
+    borderWidth: 1,
     width: 250,
-    height: 30,
+    height: 35,
     color: "white",
+    shadowRadius: 1,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderRadius: 5,
     borderColor: "#3AE456",
     padding: 5,
+    margin: 15,
   },
   gamesContainer: {
     borderColor: "#5462A4",
-    borderWidth: 1,
-    borderRadius: 20,
+    borderTopWidth: 1,
     width: "100%",
-    height: "80%",
+    height: "85%",
   },
   gameIcon: {
     height: 200,
     width: 170,
     justifyContent: "center",
     textAlign: "center",
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: "#3AE456",
-    borderRadius: 20,
-    margin: 5,
+    margin: 10,
   },
 });
 

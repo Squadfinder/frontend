@@ -179,7 +179,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#352540",
+    backgroundColor: "#201626",
     paddingTop: 50,
     minHeight: "100%",
     alignItems: "center",
