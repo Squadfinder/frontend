@@ -15,13 +15,13 @@ import {
 } from "react-native";
 
 const SearchGames = ({ userGames, addGame, removeGame }) => {
-  const [displayedGames, setDisplayedGames] = useState(null);
+  const [displayedGames, setDisplayedGames] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const dropdownRef = useRef({});
 
@@ -35,21 +35,27 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
 
   const searchHandler = () => {
     if (searchInput !== "") {
-    searchFetch(searchInput, selectedGenre).then((data) =>
-          setDisplayedGames(data)
-        );
-        setShowGames(true);
-        setError(false)
+      searchFetch(searchInput).then((data) => {
+        if (selectedGenre !== "") {
+          const filteredByGenre = data.filter((game) =>
+            game.genres.includes(selectedGenre)
+          );
+          setDisplayedGames(filteredByGenre);
+        } else {
+          setDisplayedGames(data);
+        }
+      });
+      setShowGames(true);
+      setError(false);
     } else {
-      setError(true)
+      setError(true);
     }
-    
   };
 
   const clearResults = () => {
     setShowGames(false);
-    setSearchInput(null);
-    setSelectedGenre(null);
+    setSearchInput("");
+    setSelectedGenre("");
     dropdownRef.current.reset();
   };
 
@@ -65,19 +71,25 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
     setSelectedGame(null);
   };
 
-  let genres = [
-    "All genres",
-    "Action-adventure",
+  const genres = [
+    "Action",
+    "Adventure",
     "Fantasy",
-    "First-Person Shooter",
-    "Second-Person Shooter",
-    "Third-Person Shooter",
-    "Fourth-Person Shooter",
-    "Fifth-Person Shooter",
-    "Infinity-Person Shooter",
+    "Shooter",
     "RPG",
-    "Person-Shooter",
-    "Piloting",
+    "Strategy",
+    "Board Games",
+    "Card",
+    "Indie",
+    "Arcade",
+    "Casual",
+    "Platformer",
+    "Sports",
+    "Racing",
+    "Simulation",
+    "Massively Multiplayer",
+    "Puzzle",
+    "Racing"
   ];
 
   return (
@@ -109,9 +121,13 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
         onChangeText={inputHandler}
         style={styles.textInput}
       />
-      {error && <Text style={{ margin: -5, color: 'red' }}>* You must type in a title</Text>}
+      {error && (
+        <Text style={{ margin: -5, color: "red" }}>
+          * You must enter a title
+        </Text>
+      )}
       <SelectDropdown
-        data={genres}
+        data={genres.sort()}
         search={true}
         searchPlaceHolder="Search..."
         buttonStyle={styles.selectListBox}
