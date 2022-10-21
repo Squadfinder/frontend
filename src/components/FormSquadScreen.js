@@ -4,15 +4,17 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import SelectDropdown from "react-native-select-dropdown";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
+import { postSquad } from "../apiCalls";
+
 const FormSquadScreen = ({ allUsers, userGames }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [showing, setShowing] = useState(false);
-  const [selected, setSelected] = useState('');
-  const [currentUserGames, setCurrentUserGames] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [selected, setSelected] = useState("");
+  const [users, setUsers] = useState(allUsers);
   const [filterByNameValue, setFilterByNameValue] = useState("");
   const [squadMembers, setSquadMembers] = useState([]);
+  const [competitive, setCompetitive] = useState(false);
   const [squadFull, setSquadFull] = useState(false);
 
   const onChange = (event, selectedDate) => {
@@ -25,14 +27,9 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
     }
   };
 
-  useEffect(() => {
-    setCurrentUserGames(userGames)
-    setUsers(allUsers)
-  }, [])
-
   const showMode = (currentMode) => {
     setMode(currentMode);
-    setShowing(true);
+    setShowing(!showing);
   };
 
   const showDatePicker = () => {
@@ -65,7 +62,9 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
     if (input) {
       setFilterByNameValue(input);
       const filteredUsers = users.filter((user) =>
-        user.attributes.gamertag.toLocaleLowerCase().includes(input.toLocaleLowerCase())
+        user.attributes.gamertag
+          .toLocaleLowerCase()
+          .includes(input.toLocaleLowerCase())
       );
       setUsers(filteredUsers);
     } else {
@@ -86,7 +85,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
   return (
     <View style={styles.container}>
       <SelectDropdown
-        data={currentUserGames.map((game) => game.game_title)}
+        data={userGames.map((game) => game.game_title)}
         defaultButtonText={"Select Game"}
         onSelect={(selectedGame) => handleSelectGame(selectedGame)}
         searchInputTxtColor={{}}
@@ -95,6 +94,21 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
         dropdownStyle={styles.selectGameDropdownStyle}
         rowTextStyle={styles.selectGameRowTextStyle}
       />
+      <Pressable
+        onPress={() => setCompetitive(!competitive)}
+        style={styles.competitiveBtn}
+      >
+        <Text style={styles.competitiveTxt}>
+          {competitive ? "Competitive" : "Casual"}
+        </Text>
+        <View
+          style={
+            competitive
+              ? styles.competitiveBoxCompetitive
+              : styles.competitiveBoxCasual
+          }
+        ></View>
+      </Pressable>
       <Pressable onPress={showDatePicker} style={styles.chooseDateBtn}>
         <Text style={styles.chooseDateTimeTxt}>Choose Date</Text>
       </Pressable>
@@ -139,7 +153,9 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
             renderItem={({ item }) => {
               return (
                 <View style={styles.userContainer}>
-                  <Text style={styles.userGamerTag}>{item.attributes.gamertag}</Text>
+                  <Text style={styles.userGamerTag}>
+                    {item.attributes.gamertag}
+                  </Text>
                   <Pressable
                     style={
                       squadMembers.includes(item.id)
@@ -186,6 +202,7 @@ const styles = StyleSheet.create({
   },
   selectGameBtnStyle: {
     width: "90%",
+    marginBottom: 20,
     backgroundColor: "#393051",
     borderWidth: 1,
     borderColor: "#3AE456",
@@ -202,6 +219,40 @@ const styles = StyleSheet.create({
   },
   selectGameRowTextStyle: {
     color: "#201626",
+  },
+  competitiveBtn: {
+    flexDirection: "row",
+  },
+  competitiveBoxCasual: {
+    backgroundColor: "#fff",
+    width: 30,
+    height: 30,
+    borderWidth: 2,
+    borderColor: "#000",
+    borderRadius: 5,
+    shadowColor: "black",
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+  },
+  competitiveBoxCompetitive: {
+    backgroundColor: "#3AE456",
+    width: 30,
+    height: 30,
+    borderWidth: 2,
+    borderColor: "#000",
+    borderRadius: 5,
+    shadowColor: "black",
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+  },
+  competitiveTxt: {
+    marginRight: 10,
+    fontSize: 21,
+    color: "#fff",
+    minWidth: 120,
+    textAlign: "center",
   },
   chooseDateBtn: {
     backgroundColor: "#5462A4",
