@@ -89,7 +89,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
     "Simulation",
     "Massively Multiplayer",
     "Puzzle",
-    "Racing"
+    "Racing",
   ];
 
   return (

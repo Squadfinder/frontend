@@ -8,9 +8,15 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
+  const [displayedGames, setDisplayedGames] = useState(userGames);
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
+    setDisplayedGames(
+      userGames.filter((game) =>
+        game.game_title.toLowerCase().includes(enteredText.toLowerCase())
+      )
+    );
   };
 
   const iconClickHandler = (game) => {
@@ -56,7 +62,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
       />
       <View style={styles.gamesContainer}>
         <FlatList
-          data={userGames}
+          data={displayedGames}
           numColumns={2}
           contentContainerStyle={{ alignItems: "center" }}
           renderItem={(itemData) => {
