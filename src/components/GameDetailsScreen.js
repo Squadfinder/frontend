@@ -8,41 +8,53 @@ import {
   Pressable,
 } from "react-native";
 
-const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible }) => {
+const GameDetailsScreen = ({
+  game,
+  myGames,
+  addGame,
+  removeGame,
+  setModalVisible,
+}) => {
   const [hasGame, setHasGame] = useState(false);
-  const { title, image, genres, consoles } = game;
-  
+
   useEffect(() => {
-    if (myGames.find((element) => element.game_title === game.title) !== undefined) {
-      setHasGame(true);
+    if (game) {
+      setHasGame(
+        myGames.find((element) => element.game_title === game.title) !==
+          undefined
+      );
     }
   }, []);
 
-
-  return (
+  return game ? (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={{ uri: image }} style={{ width: "100%", height: "100%", borderRadius: 20 }} />
       </View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{game.title}</Text>
       </View>
       <View style={styles.genreContainer}>
-        {genres.map((genre) => (
+        {game.genres.map((genre) => (
           <View style={styles.genreView} key={genre}>
             <Text style={styles.genre}>{genre}</Text>
           </View>
         ))}
       </View>
       <View style={styles.consoleContainer}>
-        {consoles.map((console) => (
+        {game.consoles.map((console) => (
           <View style={styles.consoleView} key={console}>
             <Text style={styles.console}>{console}</Text>
           </View>
         ))}
       </View>
       <Pressable style={styles.closeModalBtn}>
-        <Text style={styles.closeModalTxt} onPress={() => setModalVisible(false)}>Close</Text>
+        <Text
+          style={styles.closeModalTxt}
+          onPress={() => setModalVisible(false)}
+        >
+          Close
+        </Text>
       </Pressable>
       {!hasGame ? (
         <View style={styles.favoriteBtnContainer}>
@@ -52,13 +64,18 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
         </View>
       ) : (
         <View style={styles.favoriteBtnContainer}>
-          <Pressable style={styles.favoriteBtn} onPress={() => removeGame(game)}>
+          <Pressable
+            style={styles.favoriteBtn}
+            onPress={() => removeGame(game)}
+          >
             <Text style={styles.favoriteBtnText}>Remove Game</Text>
           </Pressable>
         </View>
       )}
       <Text style={styles.rawg}>Powered by RAWG</Text>
     </ScrollView>
+  ) : (
+    <Text>Loading...</Text>
   );
 };
 
@@ -184,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   closeModalTxt: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   favoriteBtnText: {
     color: "#3AE456",

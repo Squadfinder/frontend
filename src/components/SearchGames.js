@@ -1,8 +1,8 @@
-
-import { searchFetch } from "../apiCalls"
-import React, { useState, useRef, useEffect } from "react";
+import { searchFetch } from "../apiCalls";
+import React, { useState, useRef } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
+import LoadingModal from "./LoadingModal";
 import GameDetailsScreen from "./GameDetailsScreen";
 import {
   StyleSheet,
@@ -16,15 +16,15 @@ import {
 
 const SearchGames = ({ userGames, addGame, removeGame }) => {
   const [displayedGames, setDisplayedGames] = useState(null);
-  const [myGames, setMyGames] = useState(userGames)
-  const [searchInput, setSearchInput] = useState(null);
-  const [selectedGenre, setSelectedGenre] = useState('');
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
-  
+  const [error, setError] = useState(false)
+
   const dropdownRef = useRef({});
-  
+
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
   };
@@ -34,9 +34,16 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
   };
 
   const searchHandler = () => {
-    searchFetch(searchInput, selectedGenre)
-    .then(data => setDisplayedGames(data))
-    setShowGames(true);
+    if (searchInput !== "") {
+    searchFetch(searchInput, selectedGenre).then((data) =>
+          setDisplayedGames(data)
+        );
+        setShowGames(true);
+        setError(false)
+    } else {
+      setError(true)
+    }
+    
   };
 
   const clearResults = () => {
@@ -53,8 +60,9 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
       .then((response) => response.json())
       .then((data) => {
         setSelectedGame(data);
-      })
-      .then(() => setModalVisible(true));
+      });
+    setModalVisible(true);
+    setSelectedGame(null);
   };
 
   let genres = [
@@ -82,13 +90,17 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <GameDetailsScreen
-          game={selectedGame}
-          myGames={myGames}
-          addGame={addGame}
-          removeGame={removeGame}
-          setModalVisible={setModalVisible}
-        />
+        {selectedGame ? (
+          <GameDetailsScreen
+            game={selectedGame}
+            myGames={userGames}
+            addGame={addGame}
+            removeGame={removeGame}
+            setModalVisible={setModalVisible}
+          />
+        ) : (
+          <LoadingModal />
+        )}
       </Modal>
       <TextInput
         placeholder="Search by title..."
@@ -97,12 +109,13 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
         onChangeText={inputHandler}
         style={styles.textInput}
       />
+      {error && <Text style={{ margin: -5, color: 'red' }}>* You must type in a title</Text>}
       <SelectDropdown
         data={genres}
         search={true}
         searchPlaceHolder="Search..."
         buttonStyle={styles.selectListBox}
-        buttonTextStyle={{ color: '#3AE456' }}
+        buttonTextStyle={{ color: "#3AE456" }}
         rowStyle={{ backgroundColor: "#352540" }}
         rowTextStyle={{ color: "#3AE456" }}
         searchInputStyle={styles.selectListBox}
@@ -113,7 +126,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
         onSelect={(genre) => genreHandler(genre)}
       />
       <Pressable style={styles.searchButton} onPress={() => searchHandler()}>
-        <Text style={{ fontSize: 20, color: '#3AE456' }}>Search</Text>
+        <Text style={{ fontSize: 20, color: "#3AE456" }}>Search</Text>
       </Pressable>
       {showGames ? (
         <View style={styles.gamesContainer}>
@@ -138,6 +151,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
                       bottom: 0,
                     }}
                   ></Image>
+                  <Text style={styles.gameTitle}>{itemData.item.name}</Text>
                 </Pressable>
               );
             }}
@@ -196,6 +210,18 @@ const styles = StyleSheet.create({
     borderColor: "#3AE456",
     borderRadius: 20,
     margin: 10,
+  },
+  gameTitle: {
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,.6)',
+    overflow: 'hidden'
   },
   selectListBox: {
     shadowRadius: 5,

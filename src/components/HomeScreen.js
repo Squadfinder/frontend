@@ -19,16 +19,11 @@ const HomeScreen = ({ user, myGames }) => {
         style={{ justifyContent: "center", alignItems: "center" }}
         key={game.id}
       >
-        <Pressable
-          style={styles.swiperSlide}
-          onPress={() => imageClickHandler(game)}
-        >
           <Image
             source={{ uri: game.image_url }}
-            style={{ height: "100%", width: "100%", borderRadius: 20 }}
+            style={styles.swiperSlide}
           ></Image>
           <Text style={styles.gameTitle}>{game.game_title}</Text>
-        </Pressable>
       </View>
     );
   });
@@ -100,8 +95,8 @@ const styles = StyleSheet.create({
     height: "55%",
   },
   swiperSlide: {
-    height: "90%",
-    width: "70%",
+    height: "95%",
+    width: "80%",
     marginBottom: 10,
     borderWidth: 1,
     borderColor: "#3AE456",
@@ -113,8 +108,8 @@ const styles = StyleSheet.create({
   },
   gameTitle: {
     position: 'absolute',
-    bottom: 10,
-    width: '100%',
+    bottom: 35,
+    width: '79%',
     textAlign: 'center',
     color: '#fff',
     fontSize: 20,

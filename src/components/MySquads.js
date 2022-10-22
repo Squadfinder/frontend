@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Pressable, Text, FlatList } from "react-native";
+import { StyleSheet, View, Pressable, Text, FlatList, Modal } from "react-native";
+import SquadMemberScreen from './SquadMemberScreen';
 
-import { getUserSquad } from "../apiCalls";
+import { getUserSquad, getSingleUser } from "../apiCalls";
 
 let counter = 0;
 let color;
@@ -20,9 +21,10 @@ const assignColor = () => {
 
 const MySquads = ({ userID }) => {
   const [userSquads, setUserSquads] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedUser, setSelectedUser] = useState({})
 
   useEffect(() => {
-    console.log(userID);
     getUserSquad(userID)
       .then(({ data }) => {
         const squads = data.map((attribute) => {
@@ -42,8 +44,30 @@ const MySquads = ({ userID }) => {
       .catch((error) => console.log(error));
   }, []);
 
+  const memberIconClickHandler = (id) => {
+    setSelectedUser({})
+    getSingleUser(id).then(data => {
+      setSelectedUser(data.data)
+      console.log(selectedUser)
+    })
+    .then(() => setModalVisible(true))
+  }
+
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible)
+        }}
+      >
+        <SquadMemberScreen
+          user={selectedUser}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
       <FlatList
         data={userSquads}
         renderItem={(squadData) => {
@@ -58,7 +82,7 @@ const MySquads = ({ userID }) => {
                   counter++;
                   assignColor();
                   return (
-                    <Pressable>
+                    <Pressable onPress={() => memberIconClickHandler(memberData.item.id)}>
                       <Text style={[styles.icon, { borderColor: color }]}>
                         {memberData.item.gamertag[0]}
                       </Text>
