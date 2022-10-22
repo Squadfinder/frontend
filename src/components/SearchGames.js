@@ -145,39 +145,47 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
         <Text style={{ fontSize: 20, color: "#3AE456" }}>Search</Text>
       </Pressable>
       {showGames ? (
-        <View style={styles.gamesContainer}>
-          <FlatList
-            data={displayedGames}
-            numColumns={2}
-            contentContainerStyle={{ alignItems: "center" }}
-            renderItem={(itemData) => {
-              return (
-                <Pressable
-                  title="User's Game"
-                  style={styles.gameIcon}
-                  onPress={() => iconClickHandler(itemData.item)}
-                >
-                  <Image
-                    source={{ uri: `${itemData.item.image}` }}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      borderWidth: 2,
-                      borderRadius: 20,
-                      bottom: 0,
-                    }}
-                  ></Image>
-                  <Text style={styles.gameTitle}>{itemData.item.name}</Text>
-                </Pressable>
-              );
-            }}
-          ></FlatList>
-        </View>
+        displayedGames.length ? (
+          <View style={styles.gamesContainer}>
+            <FlatList
+              data={displayedGames}
+              numColumns={2}
+              contentContainerStyle={{ alignItems: "center" }}
+              renderItem={(itemData) => {
+                return (
+                  <Pressable
+                    title="User's Game"
+                    style={styles.gameIcon}
+                    onPress={() => iconClickHandler(itemData.item)}
+                  >
+                    <Image
+                      source={{ uri: `${itemData.item.image}` }}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderWidth: 2,
+                        borderRadius: 20,
+                        bottom: 0,
+                      }}
+                    ></Image>
+                    <Text style={styles.gameTitle}>{itemData.item.name}</Text>
+                  </Pressable>
+                );
+              }}
+            ></FlatList>
+          </View>
+        ) : (
+          <View style={{ flex: 5 / 6 }}>
+            <Text style={styles.noResults}>
+              Sorry, we couldn't find a result.
+            </Text>
+          </View>
+        )
       ) : (
         <View style={{ flex: 5 / 6 }}></View>
       )}
       <Pressable style={styles.clearButton} onPress={() => clearResults()}>
-        <Text style={{color: "#fff"}}>Clear Results</Text>
+        <Text style={{ color: "#fff" }}>Clear Results</Text>
       </Pressable>
       <Text style={styles.rawg}>Powered by RAWG</Text>
     </View>
@@ -228,16 +236,16 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   gameTitle: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 10,
-    width: '100%',
-    textAlign: 'center',
-    color: '#fff',
+    width: "100%",
+    textAlign: "center",
+    color: "#fff",
     fontSize: 15,
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: 'rgba(0,0,0,.6)',
-    overflow: 'hidden'
+    backgroundColor: "rgba(0,0,0,.6)",
+    overflow: "hidden",
   },
   selectListBox: {
     shadowRadius: 5,
@@ -293,6 +301,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
     shadowColor: "#3AE456",
+  },
+  noResults: {
+    marginTop: 150,
+    fontSize: 20,
+    color: "#3AE456",
   },
 });
 
