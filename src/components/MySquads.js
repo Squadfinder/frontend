@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { StyleSheet, View, Pressable, Text, FlatList, Modal } from "react-native";
 import SquadMemberScreen from './SquadMemberScreen';
 
@@ -21,28 +22,32 @@ const assignColor = () => {
 
 const MySquads = ({ userID }) => {
   const [userSquads, setUserSquads] = useState([]);
+  const [members, setSquadMembers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedUser, setSelectedUser] = useState({})
 
-  useEffect(() => {
-    getUserSquad(userID)
-      .then(({ data }) => {
-        const squads = data.map((attribute) => {
-          return {
-            competitive: attribute.attributes.squad.competitive
-              ? "Competitive"
-              : "Casual",
-            eventTime: attribute.attributes.squad["event_time"],
-            game: attribute.attributes.squad.game,
-            members: attribute.attributes.squad.members,
-            numberPlayers: attribute.attributes.squad["number_players"],
-          };
-        });
-
-        setUserSquads(squads);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  // React Native components don't unmount causing this component not to update then it's navigated to and from,
+  // useFocusEffect tells the component to do stuff when the user navigates to of from the screen
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserSquad(userID)
+        .then(({ data }) => {
+          const squads = data.map((attribute) => {
+            return {
+              competitive: attribute.attributes.squad.competitive
+                ? "Competitive"
+                : "Casual",
+              eventTime: attribute.attributes.squad["event_time"],
+              game: attribute.attributes.squad.game,
+              members: attribute.attributes.squad.members,
+              numberPlayers: attribute.attributes.squad["number_players"],
+            };
+          })
+          setUserSquads(squads);
+        })
+        .catch((error) => console.log(error));
+    }, [])
+  );
 
   const memberIconClickHandler = (id) => {
     setSelectedUser({})
@@ -70,6 +75,7 @@ const MySquads = ({ userID }) => {
       </Modal>
       <FlatList
         data={userSquads}
+        keyExtractor={(squadData, index) => squadData.eventTime + index}
         renderItem={(squadData) => {
           counter = 0;
           return (
@@ -78,6 +84,9 @@ const MySquads = ({ userID }) => {
                 data={squadData.item.members}
                 contentContainerStyle={styles.memberIcons}
                 horizontal={true}
+                keyExtractor={(memberData) =>
+                  (memberData.gamertag + Math.random() * 100)
+                }
                 renderItem={(memberData) => {
                   counter++;
                   assignColor();
@@ -89,7 +98,7 @@ const MySquads = ({ userID }) => {
                     </Pressable>
                   );
                 }}
-              ></FlatList>
+              />
               <View style={styles.lowerContainer}>
                 <View style={styles.detailsContainer}>
                   <Text style={styles.squadDetails}>{squadData.item.game}</Text>
@@ -108,7 +117,7 @@ const MySquads = ({ userID }) => {
             </View>
           );
         }}
-      ></FlatList>
+      />
     </View>
   );
 };
