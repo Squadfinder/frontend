@@ -1,7 +1,8 @@
 const searchFetch = (input) => {
-  return fetch(`https://squadfinder2205be.herokuapp.com/api/v1/search?search=${input}`)
-    .then(response => response.json())
-}
+  return fetch(
+    `https://squadfinder2205be.herokuapp.com/api/v1/search?search=${input}`
+  ).then((response) => response.json());
+};
 
 const getSingleUser = (userID) => {
   return fetch(
@@ -45,4 +46,23 @@ const postSquad = ({
   }).then((response) => response.json());
 };
 
-export { searchFetch, getUserSquad, getSingleUser, getAllUsers, postSquad };
+const deleteSquad = (userID, squadID) => {
+  return fetch(
+    `https://squadfinder2205be.herokuapp.com/api/v1/users/${userID}/squads/${squadID}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+};
+
+export {
+  searchFetch,
+  getUserSquad,
+  getSingleUser,
+  getAllUsers,
+  postSquad,
+  deleteSquad,
+};
