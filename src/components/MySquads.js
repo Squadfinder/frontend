@@ -102,6 +102,7 @@ const MySquads = ({ userID }) => {
       </Modal>
       <FlatList
         data={userSquads}
+        contentContainerStyle={{ paddingBottom: 200 }}
         keyExtractor={(squadData) => squadData.id}
         renderItem={(squadData) => {
           counter = 0;
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     padding: 3,
-    aspectRatio: "1/1",
+    aspectRatio: 1,
     textAlign: "center",
     color: "#fff",
     fontSize: 30,

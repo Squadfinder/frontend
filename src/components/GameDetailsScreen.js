@@ -29,7 +29,7 @@ const GameDetailsScreen = ({
   return game ? (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={{ width: "100%", height: "100%", borderRadius: 20 }} />
+        <Image source={{ uri: game.image }} style={{ width: "100%", height: "100%", borderRadius: 20 }} />
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{game.title}</Text>
