@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Pressable, Text, FlatList } from "react-native";
+import { StyleSheet, View, Pressable, Text, FlatList, Modal } from "react-native";
+import SquadMemberScreen from './SquadMemberScreen';
 
-import { getUserSquad } from "../apiCalls";
+import { getUserSquad, getSingleUser } from "../apiCalls";
 
 let counter = 0;
 let color;
 
 const assignColor = () => {
   if (counter === 1) {
-    color = "#0000FF";
+    color = "#054890";
   } else if (counter === 2) {
-    color = "#FF0000";
+    color = "#8F0000";
   } else if (counter === 3) {
-    color = "#00FF00";
+    color = "#068246";
   } else if (counter === 4) {
-    color = "#FFFF00";
+    color = "#A5AB00";
   }
 };
 
 const MySquads = ({ userID }) => {
   const [userSquads, setUserSquads] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedUser, setSelectedUser] = useState({})
 
   useEffect(() => {
-    console.log(userID);
     getUserSquad(userID)
       .then(({ data }) => {
         const squads = data.map((attribute) => {
@@ -42,8 +44,30 @@ const MySquads = ({ userID }) => {
       .catch((error) => console.log(error));
   }, []);
 
+  const memberIconClickHandler = (id) => {
+    setSelectedUser({})
+    getSingleUser(id).then(data => {
+      setSelectedUser(data.data)
+      console.log(selectedUser)
+    })
+    .then(() => setModalVisible(true))
+  }
+
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible)
+        }}
+      >
+        <SquadMemberScreen
+          user={selectedUser}
+          setModalVisible={setModalVisible}
+        />
+      </Modal>
       <FlatList
         data={userSquads}
         renderItem={(squadData) => {
@@ -58,7 +82,7 @@ const MySquads = ({ userID }) => {
                   counter++;
                   assignColor();
                   return (
-                    <Pressable>
+                    <Pressable onPress={() => memberIconClickHandler(memberData.item.id)}>
                       <Text style={[styles.icon, { borderColor: color }]}>
                         {memberData.item.gamertag[0]}
                       </Text>
@@ -70,7 +94,7 @@ const MySquads = ({ userID }) => {
                 <View style={styles.detailsContainer}>
                   <Text style={styles.squadDetails}>{squadData.item.game}</Text>
                   <Text style={styles.squadDetails}>
-                    {new Date(squadData.item.eventTime).toLocaleTimeString()} -{" "}
+                    {new Date(squadData.item.eventTime).toLocaleTimeString([], {timeStyle: 'short'})} -{" "}
                     {new Date(squadData.item.eventTime).toLocaleDateString()}
                   </Text>
                   <Text style={styles.squadDetails}>
@@ -98,8 +122,13 @@ const styles = StyleSheet.create({
   squadCard: {
     width: "95%",
     alignItems: "center",
+    marginLeft: 7,
     marginTop: 30,
     backgroundColor: "#352540",
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
@@ -131,6 +160,10 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: "#393051",
     borderRadius: 30,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#000",
   },
   squadDetails: {
     padding: 5,
@@ -142,6 +175,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#393051",
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,

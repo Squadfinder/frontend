@@ -19,16 +19,11 @@ const HomeScreen = ({ user, myGames }) => {
         style={{ justifyContent: "center", alignItems: "center" }}
         key={game.id}
       >
-        <Pressable
-          style={styles.swiperSlide}
-          onPress={() => imageClickHandler(game)}
-        >
           <Image
             source={{ uri: game.image_url }}
-            style={{ height: "100%", width: "100%", borderRadius: 20 }}
+            style={styles.swiperSlide}
           ></Image>
           <Text style={styles.gameTitle}>{game.game_title}</Text>
-        </Pressable>
       </View>
     );
   });
@@ -63,7 +58,7 @@ const HomeScreen = ({ user, myGames }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#352540",
+    backgroundColor: "#201626",
     alignItems: "center",
   },
   header: {
@@ -73,8 +68,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#483F6D",
     color: "#3AE456",
     textAlign: "center",
-    marginBottom: 10,
-    padding: 5,
+    marginBottom: 20,
+    padding: 10,
   },
   info: {
     height: "12%",
@@ -82,8 +77,12 @@ const styles = StyleSheet.create({
     width: "90%",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "#3AE456",
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderWidth: 1,
+    borderColor: "#3AE456",
     borderRadius: 50,
     marginBottom: 10,
   },
@@ -96,17 +95,21 @@ const styles = StyleSheet.create({
     height: "55%",
   },
   swiperSlide: {
-    height: "90%",
-    width: "70%",
+    height: "95%",
+    width: "80%",
     marginBottom: 10,
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
   },
   gameTitle: {
     position: 'absolute',
-    bottom: 10,
-    width: '100%',
+    bottom: 35,
+    width: '79%',
     textAlign: 'center',
     color: '#fff',
     fontSize: 20,
@@ -115,30 +118,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,.6)',
     overflow: 'hidden'
   },
-  formSquadButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: "7%",
-    width: "32%",
-    borderWidth: 1,
-    borderColor: "#3AE456",
-    backgroundColor: "#483F6D",
-    borderRadius: 20,
-  },
   editButton: {
     justifyContent: "center",
     alignItems: "center",
     height: "6%",
     width: "40%",
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderWidth: 1,
     borderColor: "#3AE456",
-    backgroundColor: "#483F6D",
     borderRadius: 20,
-    marginTop: 20,
+    backgroundColor: "#483F6D",
+    marginTop: 10,
   },
   rawg: {
     height: "5%",
     marginTop: 20,
+    shadowRadius: 7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
   },
 });
 
