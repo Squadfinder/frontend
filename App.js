@@ -20,7 +20,7 @@ const App = () => {
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
-    getSingleUser(6).then(data => {
+    getSingleUser(1).then(data => {
       setCurrentUser(data.data)
       setUserGames(data.data.attributes.user_games)
     })
