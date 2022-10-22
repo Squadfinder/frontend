@@ -14,8 +14,8 @@ import {
   Text,
 } from "react-native";
 
-const SearchGames = ({ userGames, addGame, removeGame }) => {
-  const [displayedGames, setDisplayedGames] = useState(null);
+const SearchGames = ({ userGames, addGame, removeGame, userID }) => {
+  const [displayedGames, setDisplayedGames] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
@@ -113,10 +113,11 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
         {selectedGame ? (
           <GameDetailsScreen
             game={selectedGame}
-            myGames={userGames}
+            userGames={userGames}
             addGame={addGame}
             removeGame={removeGame}
             setModalVisible={setModalVisible}
+            userID={userID}
           />
         ) : (
           <LoadingModal />

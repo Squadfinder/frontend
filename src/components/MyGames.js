@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import GameDetailsScreen from "./GameDetailsScreen";
 import { StyleSheet, View, Pressable, Image, Modal, Text } from "react-native";
 import LoadingModal from "./LoadingModal";
 
-const MyGames = ({ userGames, addGame, removeGame }) => {
+const MyGames = ({ userGames, addGame, removeGame, userID }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchInput, setSearchInput] = useState("");
@@ -18,6 +18,10 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
       )
     );
   };
+
+  useEffect(() => {
+    setDisplayedGames(userGames);
+  }, [userGames])
 
   const iconClickHandler = (game) => {
     fetch(
@@ -44,10 +48,11 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
         {selectedGame ? (
           <GameDetailsScreen
             game={selectedGame}
-            myGames={userGames}
+            userGames={userGames}
             addGame={addGame}
             removeGame={removeGame}
             setModalVisible={setModalVisible}
+            userID={userID}
           />
         ) : (
           <LoadingModal />

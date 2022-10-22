@@ -24,21 +24,18 @@ const App = () => {
       setCurrentUser(data.data)
       setUserGames(data.data.attributes.user_games)
     })
-    .then(getAllUsers().then(data => {
-      setAllUsers(data.data)
-    }))
-  }, [])
+    getAllUsers().then(data => setAllUsers(data.data))
+  }, []);
 
   const addGame = (game) => {
-    setUserGames(() => [...userGames, game]);
+    setUserGames((currentUserGames) => [...currentUserGames, game]);
   };
 
-  const removeGame = (game) => {
-    setUserGames(() =>
-      userGames.filter((element) => element.title !== game.title)
-    );
+  const removeGame = (gameID) => {
+    const updatedUserGames = userGames.filter(userGame => userGame.game_id !== gameID);
+    setUserGames(updatedUserGames);
   };
-
+  
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -64,6 +61,7 @@ const App = () => {
               userGames={userGames}
               addGame={addGame}
               removeGame={removeGame}
+              userID={currentUser.id}
             />
           )}
         </Drawer.Screen>
@@ -73,6 +71,7 @@ const App = () => {
               userGames={userGames}
               addGame={addGame}
               removeGame={removeGame}
+              userID={currentUser.id}
             />
           )}
         </Drawer.Screen>

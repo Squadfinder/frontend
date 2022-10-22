@@ -8,28 +8,63 @@ import {
   Pressable,
 } from "react-native";
 
+import { postGame, deleteGame } from "../apiCalls";
+
 const GameDetailsScreen = ({
   game,
-  myGames,
+  userGames,
   addGame,
   removeGame,
   setModalVisible,
+  userID,
 }) => {
   const [hasGame, setHasGame] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (game) {
-      setHasGame(
-        myGames.find((element) => element.game_title === game.title) !==
-          undefined
-      );
+      const foundGame = userGames.find((collectionGame) => {
+        return collectionGame.game_id === game.id;
+      });
+      setHasGame(foundGame);
     }
   }, []);
+
+  const addRemoveGameHandler = () => {
+    if (hasGame) {
+      const foundGame = userGames.find((collectionGame) => {
+        return collectionGame.game_id === game.id;
+      });
+
+      deleteGame(userID, foundGame.id)
+        .then((response) => {
+          console.log(response);
+          removeGame(game.id);
+          setHasGame(false);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      postGame({
+        userID: userID,
+        gameID: game.id,
+        imageURL: game.image,
+        gameTitle: game.title,
+      })
+        .then((data) => {
+          addGame(data.data.attributes);
+          setHasGame(true);
+        })
+        .catch((error) => console.log(error));
+    }
+  };
 
   return game ? (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: game.image }} style={{ width: "100%", height: "100%", borderRadius: 20 }} />
+        <Image
+          source={{ uri: game.image }}
+          style={{ width: "100%", height: "100%", borderRadius: 20 }}
+        />
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{game.title}</Text>
@@ -58,7 +93,7 @@ const GameDetailsScreen = ({
       </Pressable>
       {!hasGame ? (
         <View style={styles.favoriteBtnContainer}>
-          <Pressable style={styles.favoriteBtn} onPress={() => addGame(game)}>
+          <Pressable style={styles.favoriteBtn} onPress={addRemoveGameHandler}>
             <Text style={styles.favoriteBtnText}>Favorite Game</Text>
           </Pressable>
         </View>
@@ -66,7 +101,7 @@ const GameDetailsScreen = ({
         <View style={styles.favoriteBtnContainer}>
           <Pressable
             style={styles.favoriteBtn}
-            onPress={() => removeGame(game)}
+            onPress={() => addRemoveGameHandler()}
           >
             <Text style={styles.favoriteBtnText}>Remove Game</Text>
           </Pressable>
@@ -96,7 +131,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
-    shadowColor: "#3AE456"
+    shadowColor: "#3AE456",
   },
   titleContainer: {
     backgroundColor: "#393051",
@@ -109,7 +144,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 40,
-    shadowColor: "#3AE456"
+    shadowColor: "#3AE456",
   },
   title: {
     color: "#fff",
@@ -157,7 +192,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 40,
-    shadowColor: "#3AE456"
+    shadowColor: "#3AE456",
   },
   consoleView: {
     backgroundColor: "#000",
@@ -175,8 +210,8 @@ const styles = StyleSheet.create({
   },
   favoriteBtnContainer: {
     marginTop: 30,
-    height: '10%',
-    justifyContent: 'center',
+    height: "10%",
+    justifyContent: "center",
     backgroundColor: "#201626",
     width: "100%",
   },
@@ -189,7 +224,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 60,
     shadowColor: "#3AE456",
     borderWidth: 1,
-    borderColor: "#3AE456"
+    borderColor: "#3AE456",
   },
   closeModalBtn: {
     backgroundColor: "#3AE456",
