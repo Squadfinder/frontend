@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import GameDetailsScreen from "./GameDetailsScreen";
-import { StyleSheet, View, Pressable, Image, Modal } from "react-native";
+import { StyleSheet, View, Pressable, Image, Modal, Text } from "react-native";
+import LoadingModal from "./LoadingModal";
 
 const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,8 +20,9 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
       .then((response) => response.json())
       .then((data) => {
         setSelectedGame(data);
-      })
-      .then(() => setModalVisible(true));
+      });
+    setModalVisible(true);
+    setSelectedGame(null);
   };
 
   return (
@@ -33,13 +35,17 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <GameDetailsScreen
-          game={selectedGame}
-          myGames={userGames}
-          addGame={addGame}
-          removeGame={removeGame}
-          setModalVisible={setModalVisible}
-        />
+        {selectedGame ? (
+          <GameDetailsScreen
+            game={selectedGame}
+            myGames={userGames}
+            addGame={addGame}
+            removeGame={removeGame}
+            setModalVisible={setModalVisible}
+          />
+        ) : (
+          <LoadingModal />
+        )}
       </Modal>
       <TextInput
         placeholder="Search by title..."
@@ -52,7 +58,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
         <FlatList
           data={userGames}
           numColumns={2}
-          contentContainerStyle={{ alignItems: "center" }}
+          contentContainerStyle={{ alignItems: "center", marginTop: 10 }}
           renderItem={(itemData) => {
             return (
               <Pressable
@@ -61,20 +67,22 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
                 onPress={() => iconClickHandler(itemData.item)}
               >
                 <Image
-                  source={{ uri: `${itemData.item.image_url}` }}     
+                  source={{ uri: `${itemData.item.image_url}` }}
                   style={{
                     width: "100%",
                     height: "100%",
-                    borderWidth: 1,
                     borderRadius: 20,
+                    borderWidth: 2,
                     bottom: 0,
                   }}
                 ></Image>
+                <Text style={styles.gameTitle}>{itemData.item.game_title}</Text>
               </Pressable>
             );
           }}
         ></FlatList>
       </View>
+      <Text style={styles.rawg}>Powered by RAWG</Text>
     </View>
   );
 };
@@ -84,33 +92,61 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#201626",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    // justifyContent: "space-evenly",
   },
   textInput: {
-    borderWidth: 2,
+    borderWidth: 1,
     width: 250,
-    height: 30,
+    height: 35,
     color: "white",
+    shadowRadius: 1,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderRadius: 5,
     borderColor: "#3AE456",
     padding: 5,
+    margin: 15,
   },
   gamesContainer: {
     borderColor: "#5462A4",
-    borderWidth: 1,
-    borderRadius: 20,
+    borderTopWidth: 1,
     width: "100%",
-    height: "80%",
+    height: "85%",
   },
   gameIcon: {
     height: 200,
     width: 170,
     justifyContent: "center",
     textAlign: "center",
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: "#3AE456",
-    borderRadius: 20,
-    margin: 5,
+    margin: 10,
+  },
+  rawg: {
+    height: "5%",
+    margin: 10,
+    shadowRadius: 7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+  },
+  gameTitle: {
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,.6)',
+    overflow: 'hidden'
   },
 });
 

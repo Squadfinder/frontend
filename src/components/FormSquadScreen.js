@@ -127,6 +127,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
         buttonStyle={styles.selectGameBtnStyle}
         buttonTextStyle={styles.selectGameBtnTextStyle}
         dropdownStyle={styles.selectGameDropdownStyle}
+        rowStyle={{ backgroundColor: "#352540"}}
         rowTextStyle={styles.selectGameRowTextStyle}
       />
       <Pressable
@@ -160,7 +161,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
           " AT " +
           date.getHours() +
           ":" +
-          date.getMinutes()}
+          (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}
       </Text>
       <View>
         {showing && (
@@ -231,7 +232,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#352540",
+    backgroundColor: "#201626",
     paddingTop: 50,
     minHeight: "100%",
     alignItems: "center",
@@ -248,13 +249,16 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   selectGameDropdownStyle: {
-    backgroundColor: "#5462A4",
-    borderWidth: 1,
-    borderColor: "#3AE456",
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderWidth: 2,
+    backgroundColor: "#393051",
     borderRadius: 5,
   },
   selectGameRowTextStyle: {
-    color: "#201626",
+    color: "#3AE456",
   },
   competitiveBtn: {
     flexDirection: "row",
@@ -291,12 +295,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   chooseDateBtn: {
-    backgroundColor: "#5462A4",
+    backgroundColor: "#393051",
     marginTop: 20,
     width: "90%",
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#3AE456",
     borderRadius: 20,
-    shadowColor: "black",
+    shadowColor: "#3AE345",
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
@@ -307,12 +313,14 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   chooseTimeBtn: {
-    backgroundColor: "#483F6D",
+    backgroundColor: "#393051",
     marginTop: 20,
     width: "90%",
     alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#3AE456",
     borderRadius: 20,
-    shadowColor: "black",
+    shadowColor: "#3AE345",
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
@@ -331,6 +339,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderWidth: 1,
     borderColor: "#3AE456",
+    shadowColor: "#3AE345",
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
     borderRadius: 5,
     width: "90%",
     padding: 10,
@@ -346,10 +358,14 @@ const styles = StyleSheet.create({
   },
   formSquadBtn: {
     marginTop: 30,
-    backgroundColor: "#483F6D",
-    borderRadius: 20,
+    backgroundColor: "#393051",
     borderWidth: 1,
     borderColor: "#3AE456",
+    borderRadius: 20,
+    shadowColor: "#3AE345",
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
     width: "90%",
     alignItems: "center",
   },

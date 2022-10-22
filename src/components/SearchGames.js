@@ -1,8 +1,8 @@
-
-import { searchFetch } from "../apiCalls"
-import React, { useState, useRef, useEffect } from "react";
+import { searchFetch } from "../apiCalls";
+import React, { useState, useRef } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
+import LoadingModal from "./LoadingModal";
 import GameDetailsScreen from "./GameDetailsScreen";
 import {
   StyleSheet,
@@ -16,15 +16,15 @@ import {
 
 const SearchGames = ({ userGames, addGame, removeGame }) => {
   const [displayedGames, setDisplayedGames] = useState(null);
-  const [myGames, setMyGames] = useState(userGames)
-  const [searchInput, setSearchInput] = useState(null);
-  const [selectedGenre, setSelectedGenre] = useState('');
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
-  
+  const [error, setError] = useState(false)
+
   const dropdownRef = useRef({});
-  
+
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
   };
@@ -34,9 +34,16 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
   };
 
   const searchHandler = () => {
-    searchFetch(searchInput, selectedGenre)
-    .then(data => setDisplayedGames(data))
-    setShowGames(true);
+    if (searchInput !== "") {
+    searchFetch(searchInput, selectedGenre).then((data) =>
+          setDisplayedGames(data)
+        );
+        setShowGames(true);
+        setError(false)
+    } else {
+      setError(true)
+    }
+    
   };
 
   const clearResults = () => {
@@ -53,8 +60,9 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
       .then((response) => response.json())
       .then((data) => {
         setSelectedGame(data);
-      })
-      .then(() => setModalVisible(true));
+      });
+    setModalVisible(true);
+    setSelectedGame(null);
   };
 
   let genres = [
@@ -82,13 +90,17 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <GameDetailsScreen
-          game={selectedGame}
-          myGames={myGames}
-          addGame={addGame}
-          removeGame={removeGame}
-          setModalVisible={setModalVisible}
-        />
+        {selectedGame ? (
+          <GameDetailsScreen
+            game={selectedGame}
+            myGames={userGames}
+            addGame={addGame}
+            removeGame={removeGame}
+            setModalVisible={setModalVisible}
+          />
+        ) : (
+          <LoadingModal />
+        )}
       </Modal>
       <TextInput
         placeholder="Search by title..."
@@ -97,23 +109,24 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
         onChangeText={inputHandler}
         style={styles.textInput}
       />
+      {error && <Text style={{ margin: -5, color: 'red' }}>* You must type in a title</Text>}
       <SelectDropdown
         data={genres}
         search={true}
         searchPlaceHolder="Search..."
         buttonStyle={styles.selectListBox}
-        buttonTextStyle={{ color: '#3AE456' }}
+        buttonTextStyle={{ color: "#3AE456" }}
         rowStyle={{ backgroundColor: "#352540" }}
         rowTextStyle={{ color: "#3AE456" }}
-        searchInputStyle={{ backgroundColor: "#393051" }}
+        searchInputStyle={styles.selectListBox}
         searchInputTxtColor="#3AE456"
-        dropdownStyle={{ backgroundColor: "#393051" }}
+        dropdownStyle={styles.selectListDropdown}
         defaultButtonText="Select a genre..."
         ref={dropdownRef}
         onSelect={(genre) => genreHandler(genre)}
       />
       <Pressable style={styles.searchButton} onPress={() => searchHandler()}>
-        <Text style={{ fontSize: 20, color: '#3AE456' }}>Search</Text>
+        <Text style={{ fontSize: 20, color: "#3AE456" }}>Search</Text>
       </Pressable>
       {showGames ? (
         <View style={styles.gamesContainer}>
@@ -133,11 +146,12 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
                     style={{
                       width: "100%",
                       height: "100%",
-                      borderWidth: 1,
+                      borderWidth: 2,
                       borderRadius: 20,
                       bottom: 0,
                     }}
                   ></Image>
+                  <Text style={styles.gameTitle}>{itemData.item.name}</Text>
                 </Pressable>
               );
             }}
@@ -146,7 +160,10 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
       ) : (
         <View style={{ flex: 5 / 6 }}></View>
       )}
-      <Button title="Clear Results" onPress={() => clearResults()} />
+      <Pressable style={styles.clearButton} onPress={() => clearResults()}>
+        <Text style={{color: "#fff"}}>Clear Results</Text>
+      </Pressable>
+      <Text style={styles.rawg}>Powered by RAWG</Text>
     </View>
   );
 };
@@ -160,10 +177,14 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1 / 24,
-    borderWidth: 2,
+    borderWidth: 1,
     width: 250,
     height: 30,
     color: "white",
+    shadowRadius: 1,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderRadius: 5,
     borderColor: "#3AE456",
     padding: 5,
@@ -172,35 +193,90 @@ const styles = StyleSheet.create({
   },
   gamesContainer: {
     flex: 20 / 24,
+    borderTopWidth: 1,
+    width: "100%",
+    borderColor: "#5462A4",
   },
   gameIcon: {
     height: 200,
     width: 170,
     justifyContent: "center",
     textAlign: "center",
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
-    margin: 12,
+    margin: 10,
+  },
+  gameTitle: {
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,.6)',
+    overflow: 'hidden'
   },
   selectListBox: {
-    borderWidth: 2,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
     backgroundColor: "#393051",
     height: 35,
     marginTop: 5,
   },
+  selectListDropdown: {
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderWidth: 2,
+    backgroundColor: "#393051",
+  },
   searchButton: {
     width: 100,
     height: 30,
-    borderWidth: 2,
-    borderRadius: 20,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderWidth: 1,
     borderColor: "#3AE456",
+    borderRadius: 20,
     backgroundColor: "#393051",
     justifyContent: "center",
     alignItems: "center",
-    height: 35,
+  },
+  clearButton: {
+    width: 100,
+    height: 30,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderWidth: 1,
+    borderColor: "#3AE456",
+    borderRadius: 20,
+    backgroundColor: "#393051",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  rawg: {
+    margin: 10,
+    shadowRadius: 7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
   },
 });
 

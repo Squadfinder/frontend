@@ -8,41 +8,53 @@ import {
   Pressable,
 } from "react-native";
 
-const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible }) => {
+const GameDetailsScreen = ({
+  game,
+  myGames,
+  addGame,
+  removeGame,
+  setModalVisible,
+}) => {
   const [hasGame, setHasGame] = useState(false);
-  const { title, image, genres, consoles } = game;
-  
+
   useEffect(() => {
-    if (myGames.find((element) => element.game_title === game.title) !== undefined) {
-      setHasGame(true);
+    if (game) {
+      setHasGame(
+        myGames.find((element) => element.game_title === game.title) !==
+          undefined
+      );
     }
   }, []);
 
-
-  return (
+  return game ? (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: image }} style={{ width: "100%", height: 320 }} />
+        <Image source={{ uri: image }} style={{ width: "100%", height: "100%", borderRadius: 20 }} />
       </View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{game.title}</Text>
       </View>
       <View style={styles.genreContainer}>
-        {genres.map((genre) => (
+        {game.genres.map((genre) => (
           <View style={styles.genreView} key={genre}>
             <Text style={styles.genre}>{genre}</Text>
           </View>
         ))}
       </View>
       <View style={styles.consoleContainer}>
-        {consoles.map((console) => (
+        {game.consoles.map((console) => (
           <View style={styles.consoleView} key={console}>
             <Text style={styles.console}>{console}</Text>
           </View>
         ))}
       </View>
       <Pressable style={styles.closeModalBtn}>
-        <Text style={styles.closeModalTxt} onPress={() => setModalVisible(false)}>Close</Text>
+        <Text
+          style={styles.closeModalTxt}
+          onPress={() => setModalVisible(false)}
+        >
+          Close
+        </Text>
       </Pressable>
       {!hasGame ? (
         <View style={styles.favoriteBtnContainer}>
@@ -52,12 +64,18 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
         </View>
       ) : (
         <View style={styles.favoriteBtnContainer}>
-          <Pressable style={styles.favoriteBtn} onPress={() => removeGame(game)}>
+          <Pressable
+            style={styles.favoriteBtn}
+            onPress={() => removeGame(game)}
+          >
             <Text style={styles.favoriteBtnText}>Remove Game</Text>
           </Pressable>
         </View>
       )}
+      <Text style={styles.rawg}>Powered by RAWG</Text>
     </ScrollView>
+  ) : (
+    <Text>Loading...</Text>
   );
 };
 
@@ -70,13 +88,15 @@ const styles = StyleSheet.create({
   imageContainer: {
     backgroundColor: "#352540",
     width: "90%",
-    marginTop: 50,
-    paddingTop: 30,
-    paddingBottom: 30,
+    height: "35%",
+    marginTop: 70,
     borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#3AE456",
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
+    shadowColor: "#3AE456"
   },
   titleContainer: {
     backgroundColor: "#393051",
@@ -89,6 +109,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 40,
+    shadowColor: "#3AE456"
   },
   title: {
     color: "#fff",
@@ -131,9 +152,12 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "#3AE456",
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 40,
+    shadowColor: "#3AE456"
   },
   consoleView: {
     backgroundColor: "#000",
@@ -150,19 +174,22 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   favoriteBtnContainer: {
-    marginTop: "auto",
-    paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor: "#000",
+    marginTop: 30,
+    height: '10%',
+    justifyContent: 'center',
+    backgroundColor: "#201626",
     width: "100%",
-    justifyContent: "space-between",
   },
   favoriteBtn: {
     backgroundColor: "#393051",
     alignSelf: "center",
-    marginTop: "auto",
-    marginBottom: "auto",
     borderRadius: 30,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderWidth: 1,
+    borderColor: "#3AE456"
   },
   closeModalBtn: {
     backgroundColor: "#3AE456",
@@ -174,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   closeModalTxt: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   favoriteBtnText: {
     color: "#3AE456",
@@ -183,6 +210,14 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  rawg: {
+    height: "5%",
+    marginTop: 10,
+    shadowRadius: 7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
   },
 });
 
