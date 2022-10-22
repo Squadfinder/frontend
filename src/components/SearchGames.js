@@ -7,7 +7,7 @@ import GameDetailsScreen from "./GameDetailsScreen";
 import {
   StyleSheet,
   View,
-  Button,
+  ActivityIndicator,
   Pressable,
   Image,
   Modal,
@@ -28,7 +28,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
-    setError(false)
+    setError(false);
   };
 
   const genreHandler = (genre) => {
@@ -152,9 +152,11 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
         <Text style={{ fontSize: 20, color: "#3AE456" }}>Search</Text>
       </Pressable>
       {searching && (
-        <View>
-          <Text style={styles.searchingMessage}>Searching...</Text>
-        </View>
+          <ActivityIndicator
+            style={{ marginTop: 150 }}
+            size="large"
+            color="#3AE456"
+          />
       )}
       {showGames && displayedGames ? (
         displayedGames.length ? (
