@@ -7,7 +7,7 @@ import GameDetailsScreen from "./GameDetailsScreen";
 import {
   StyleSheet,
   View,
-  Button,
+  ActivityIndicator,
   Pressable,
   Image,
   Modal,
@@ -15,18 +15,20 @@ import {
 } from "react-native";
 
 const SearchGames = ({ userGames, addGame, removeGame }) => {
-  const [displayedGames, setDisplayedGames] = useState([]);
+  const [displayedGames, setDisplayedGames] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
   const [error, setError] = useState(false);
+  const [searching, setSearching] = useState(false);
 
   const dropdownRef = useRef({});
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
+    setError(false);
   };
 
   const genreHandler = (genre) => {
@@ -34,18 +36,24 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
   };
 
   const searchHandler = () => {
+    setShowGames(false);
     if (searchInput !== "") {
+      setSearching(true);
       searchFetch(searchInput).then((data) => {
+        let filteredData = data.filter(game => game.image !== null)
         if (selectedGenre !== "") {
-          const filteredByGenre = data.filter((game) =>
+          const filteredByGenre = filteredData.filter((game) =>
             game.genres.includes(selectedGenre)
           );
+          setSearching(false);
           setDisplayedGames(filteredByGenre);
+          setShowGames(true);
         } else {
-          setDisplayedGames(data);
+          setSearching(false);
+          setDisplayedGames(filteredData);
+          setShowGames(true);
         }
       });
-      setShowGames(true);
       setError(false);
     } else {
       setError(true);
@@ -144,40 +152,55 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
       <Pressable style={styles.searchButton} onPress={() => searchHandler()}>
         <Text style={{ fontSize: 20, color: "#3AE456" }}>Search</Text>
       </Pressable>
-      {showGames ? (
-        <View style={styles.gamesContainer}>
-          <FlatList
-            data={displayedGames}
-            numColumns={2}
-            contentContainerStyle={{ alignItems: "center" }}
-            renderItem={(itemData) => {
-              return (
-                <Pressable
-                  title="User's Game"
-                  style={styles.gameIcon}
-                  onPress={() => iconClickHandler(itemData.item)}
-                >
-                  <Image
-                    source={{ uri: `${itemData.item.image}` }}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      borderWidth: 2,
-                      borderRadius: 20,
-                      bottom: 0,
-                    }}
-                  ></Image>
-                  <Text style={styles.gameTitle}>{itemData.item.name}</Text>
-                </Pressable>
-              );
-            }}
-          ></FlatList>
-        </View>
+      {searching && (
+          <ActivityIndicator
+            style={{ position: "absolute", top: 300 }}
+            size="large"
+            color="#3AE456"
+          />
+      )}
+      {showGames && displayedGames ? (
+        displayedGames.length ? (
+          <View style={styles.gamesContainer}>
+            <FlatList
+              data={displayedGames}
+              numColumns={2}
+              contentContainerStyle={{ alignItems: "center" }}
+              renderItem={(itemData) => {
+                return (
+                  <Pressable
+                    title="User's Game"
+                    style={styles.gameIcon}
+                    onPress={() => iconClickHandler(itemData.item)}
+                  >
+                    <Image
+                      source={{ uri: `${itemData.item.image}` }}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderWidth: 2,
+                        borderRadius: 20,
+                        bottom: 0,
+                      }}
+                    ></Image>
+                    <Text style={styles.gameTitle}>{itemData.item.name}</Text>
+                  </Pressable>
+                );
+              }}
+            ></FlatList>
+          </View>
+        ) : (
+          <View style={{ flex: 5 / 6 }}>
+            <Text style={styles.noResults}>
+              Sorry, we couldn't find a result.
+            </Text>
+          </View>
+        )
       ) : (
         <View style={{ flex: 5 / 6 }}></View>
       )}
       <Pressable style={styles.clearButton} onPress={() => clearResults()}>
-        <Text style={{color: "#fff"}}>Clear Results</Text>
+        <Text style={{ color: "#fff" }}>Clear Results</Text>
       </Pressable>
       <Text style={styles.rawg}>Powered by RAWG</Text>
     </View>
@@ -208,7 +231,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   gamesContainer: {
-    flex: 20 / 24,
+    flex: 5 / 6,
     borderTopWidth: 1,
     width: "100%",
     borderColor: "#5462A4",
@@ -228,16 +251,16 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   gameTitle: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 10,
-    width: '100%',
-    textAlign: 'center',
-    color: '#fff',
+    width: "100%",
+    textAlign: "center",
+    color: "#fff",
     fontSize: 15,
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: 'rgba(0,0,0,.6)',
-    overflow: 'hidden'
+    backgroundColor: "rgba(0,0,0,.6)",
+    overflow: "hidden",
   },
   selectListBox: {
     shadowRadius: 5,
@@ -293,6 +316,16 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
     shadowColor: "#3AE456",
+  },
+  noResults: {
+    marginTop: 150,
+    fontSize: 20,
+    color: "#3AE456",
+  },
+  searchingMessage: {
+    marginTop: 150,
+    color: "#3AE456",
+    fontSize: 20,
   },
 });
 
