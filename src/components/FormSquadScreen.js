@@ -42,7 +42,6 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
   // useFocusEffect tells the component to do stuff when the user navigates to of from the screen
   useFocusEffect(
     React.useCallback(() => {
-      // This is a cleanup function that resets the state when the user navigates to a new screen
       return () => {
         setDate(new Date());
         setFilterByNameValue("");
@@ -387,7 +386,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    borderRadius: 30,
+    borderRadius: 10,
   },
   userGamerTag: {
     paddingTop: 10,

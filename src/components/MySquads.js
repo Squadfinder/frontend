@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 30,
     borderWidth: 2,
-    borderRadius: 25,
+    borderRadius: 23,
   },
   lowerContainer: {
     flexDirection: "row",
