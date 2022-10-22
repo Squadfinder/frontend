@@ -25,18 +25,17 @@ const App = () => {
       setUserGames(data.data.attributes.user_games)
     })
     getAllUsers().then(data => setAllUsers(data.data))
-  }, [])
+  }, []);
 
   const addGame = (game) => {
-    setUserGames(() => [...userGames, game]);
+    setUserGames((currentUserGames) => [...currentUserGames, game]);
   };
 
-  const removeGame = (game) => {
-    setUserGames(() =>
-      userGames.filter((element) => element.title !== game.title)
-    );
+  const removeGame = (gameID) => {
+    const updatedUserGames = userGames.filter(userGame => userGame.game_id !== gameID);
+    setUserGames(updatedUserGames);
   };
-
+  
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -49,12 +48,7 @@ const App = () => {
         }}
       >
         <Drawer.Screen name="Home">
-          {() => (
-            <HomeScreen
-              user={user}
-              myGames={userGames}
-            />
-          )}
+          {() => <HomeScreen user={user} myGames={userGames} />}
         </Drawer.Screen>
         <Drawer.Screen name="My Games">
           {() => (
@@ -62,6 +56,7 @@ const App = () => {
               userGames={userGames}
               addGame={addGame}
               removeGame={removeGame}
+              userID={user.id}
             />
           )}
         </Drawer.Screen>
@@ -71,16 +66,12 @@ const App = () => {
               userGames={userGames}
               addGame={addGame}
               removeGame={removeGame}
+              userID={user.id}
             />
           )}
         </Drawer.Screen>
         <Drawer.Screen name="Form Squad">
-          {() => (
-            <FormSquadScreen
-              userGames={userGames}
-              allUsers={allUsers}
-            />
-          )}
+          {() => <FormSquadScreen userGames={userGames} allUsers={allUsers} />}
         </Drawer.Screen>
         <Drawer.Screen name="My Squads">
           {() => (
