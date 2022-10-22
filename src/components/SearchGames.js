@@ -149,6 +149,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
       <Pressable style={styles.clearButton} onPress={() => clearResults()}>
         <Text style={{color: "#fff"}}>Clear Results</Text>
       </Pressable>
+      <Text style={styles.rawg}>Powered by RAWG</Text>
     </View>
   );
 };
@@ -233,7 +234,6 @@ const styles = StyleSheet.create({
   clearButton: {
     width: 100,
     height: 30,
-    marginBottom: 20,
     shadowRadius: 3,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
@@ -244,7 +244,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#393051",
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
+  rawg: {
+    margin: 10,
+    shadowRadius: 7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+  },
 });
 
 export default SearchGames;

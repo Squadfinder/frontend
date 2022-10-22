@@ -57,6 +57,7 @@ const GameDetailsScreen = ({ game, myGames, addGame, removeGame, setModalVisible
           </Pressable>
         </View>
       )}
+      <Text style={styles.rawg}>Powered by RAWG</Text>
     </ScrollView>
   );
 };
@@ -74,6 +75,7 @@ const styles = StyleSheet.create({
     marginTop: 70,
     borderRadius: 20,
     borderWidth: 1,
+    borderColor: "#3AE456",
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 20,
     borderWidth: 1,
-    // borderColor: "#3AE456",
+    borderColor: "#3AE456",
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 40,
@@ -134,6 +136,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 30,
     borderWidth: 1,
+    borderColor: "#3AE456",
     shadowRadius: 2,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 40,
@@ -154,19 +157,22 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   favoriteBtnContainer: {
-    marginTop: "auto",
-    paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor: "#000",
+    marginTop: 30,
+    height: '10%',
+    justifyContent: 'center',
+    backgroundColor: "#201626",
     width: "100%",
-    justifyContent: "space-between",
   },
   favoriteBtn: {
     backgroundColor: "#393051",
     alignSelf: "center",
-    marginTop: "auto",
-    marginBottom: 40,
     borderRadius: 30,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
+    borderWidth: 1,
+    borderColor: "#3AE456"
   },
   closeModalBtn: {
     backgroundColor: "#3AE456",
@@ -187,6 +193,14 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  rawg: {
+    height: "5%",
+    marginTop: 10,
+    shadowRadius: 7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
   },
 });
 

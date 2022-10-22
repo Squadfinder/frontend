@@ -8,13 +8,13 @@ let color;
 
 const assignColor = () => {
   if (counter === 1) {
-    color = "#0000FF";
+    color = "#054890";
   } else if (counter === 2) {
-    color = "#FF0000";
+    color = "#8F0000";
   } else if (counter === 3) {
-    color = "#00FF00";
+    color = "#068246";
   } else if (counter === 4) {
-    color = "#FFFF00";
+    color = "#A5AB00";
   }
 };
 
@@ -70,7 +70,7 @@ const MySquads = ({ userID }) => {
                 <View style={styles.detailsContainer}>
                   <Text style={styles.squadDetails}>{squadData.item.game}</Text>
                   <Text style={styles.squadDetails}>
-                    {new Date(squadData.item.eventTime).toLocaleTimeString()} -{" "}
+                    {new Date(squadData.item.eventTime).toLocaleTimeString([], {timeStyle: 'short'})} -{" "}
                     {new Date(squadData.item.eventTime).toLocaleDateString()}
                   </Text>
                   <Text style={styles.squadDetails}>
@@ -98,8 +98,13 @@ const styles = StyleSheet.create({
   squadCard: {
     width: "95%",
     alignItems: "center",
+    marginLeft: 7,
     marginTop: 30,
     backgroundColor: "#352540",
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
@@ -131,6 +136,10 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: "#393051",
     borderRadius: 30,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#000",
   },
   squadDetails: {
     padding: 5,
@@ -142,6 +151,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#393051",
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,

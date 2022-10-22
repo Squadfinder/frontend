@@ -141,6 +141,10 @@ const styles = StyleSheet.create({
   rawg: {
     height: "5%",
     marginTop: 20,
+    shadowRadius: 7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
   },
 });
 

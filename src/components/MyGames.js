@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 import GameDetailsScreen from "./GameDetailsScreen";
-import { StyleSheet, View, Pressable, Image, Modal } from "react-native";
+import { StyleSheet, View, Pressable, Image, Modal, Text } from "react-native";
 
 const MyGames = ({ userGames, addGame, removeGame }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -75,6 +75,7 @@ const MyGames = ({ userGames, addGame, removeGame }) => {
           }}
         ></FlatList>
       </View>
+      <Text style={styles.rawg}>Powered by RAWG</Text>
     </View>
   );
 };
@@ -119,6 +120,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3AE456",
     margin: 10,
+  },
+  rawg: {
+    height: "5%",
+    margin: 10,
+    shadowRadius: 7,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
   },
 });
 
