@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { StyleSheet, View, Pressable, Text, FlatList, Modal } from "react-native";
-import SquadMemberScreen from './SquadMemberScreen';
+import {
+  StyleSheet,
+  View,
+  Pressable,
+  Text,
+  FlatList,
+  Modal,
+} from "react-native";
+import SquadMemberScreen from "./SquadMemberScreen";
 
-import { getUserSquad, getSingleUser } from "../apiCalls";
+import { getUserSquad, getSingleUser, deleteSquad } from "../apiCalls";
 
 let counter = 0;
 let color;
@@ -22,18 +29,17 @@ const assignColor = () => {
 
 const MySquads = ({ userID }) => {
   const [userSquads, setUserSquads] = useState([]);
-  const [members, setSquadMembers] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false)
-  const [selectedUser, setSelectedUser] = useState({})
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({});
+  const [error, setError] = useState("");
 
-  // React Native components don't unmount causing this component not to update then it's navigated to and from,
-  // useFocusEffect tells the component to do stuff when the user navigates to of from the screen
   useFocusEffect(
     React.useCallback(() => {
       getUserSquad(userID)
         .then(({ data }) => {
           const squads = data.map((attribute) => {
             return {
+              id: attribute.id,
               competitive: attribute.attributes.squad.competitive
                 ? "Competitive"
                 : "Casual",
@@ -42,21 +48,42 @@ const MySquads = ({ userID }) => {
               members: attribute.attributes.squad.members,
               numberPlayers: attribute.attributes.squad["number_players"],
             };
-          })
+          });
           setUserSquads(squads);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          // leaving in these logs since there isn't built in error handling yet
+          console.log(error);
+          setError(error);
+        });
     }, [])
   );
 
   const memberIconClickHandler = (id) => {
-    setSelectedUser({})
-    getSingleUser(id).then(data => {
-      setSelectedUser(data.data)
-      console.log(selectedUser)
-    })
-    .then(() => setModalVisible(true))
-  }
+    setSelectedUser({});
+    getSingleUser(id)
+      .then((data) => {
+        setSelectedUser(data.data);
+      })
+      .then(() => setModalVisible(true));
+  };
+
+  const deleteSquadHandler = (userID, squadID) => {
+    deleteSquad(userID, squadID)
+      .then((response) => {
+        // leaving in these logs since there isn't built in error handling yet
+        console.log(response.ok);
+        const updateUserSquads = userSquads.filter(
+          (squad) => squad.id !== squadID
+        );
+        setUserSquads(updateUserSquads);
+      })
+      .catch((error) => {
+        // leaving in these logs since there isn't built in error handling yet
+        console.log(error);
+        setError(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -65,7 +92,7 @@ const MySquads = ({ userID }) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible)
+          setModalVisible(!modalVisible);
         }}
       >
         <SquadMemberScreen
@@ -75,7 +102,7 @@ const MySquads = ({ userID }) => {
       </Modal>
       <FlatList
         data={userSquads}
-        keyExtractor={(squadData, index) => squadData.eventTime + index}
+        keyExtractor={(squadData) => squadData.id}
         renderItem={(squadData) => {
           counter = 0;
           return (
@@ -85,13 +112,15 @@ const MySquads = ({ userID }) => {
                 contentContainerStyle={styles.memberIcons}
                 horizontal={true}
                 keyExtractor={(memberData) =>
-                  (memberData.gamertag + Math.random() * 100)
+                  memberData.gamertag + Math.random() * 100
                 }
                 renderItem={(memberData) => {
                   counter++;
                   assignColor();
                   return (
-                    <Pressable onPress={() => memberIconClickHandler(memberData.item.id)}>
+                    <Pressable
+                      onPress={() => memberIconClickHandler(memberData.item.id)}
+                    >
                       <Text style={[styles.icon, { borderColor: color }]}>
                         {memberData.item.gamertag[0]}
                       </Text>
@@ -103,14 +132,19 @@ const MySquads = ({ userID }) => {
                 <View style={styles.detailsContainer}>
                   <Text style={styles.squadDetails}>{squadData.item.game}</Text>
                   <Text style={styles.squadDetails}>
-                    {new Date(squadData.item.eventTime).toLocaleTimeString([], {timeStyle: 'short'})} -{" "}
-                    {new Date(squadData.item.eventTime).toLocaleDateString()}
+                    {new Date(squadData.item.eventTime).toLocaleTimeString([], {
+                      timeStyle: "short",
+                    })}{" "}
+                    - {new Date(squadData.item.eventTime).toLocaleDateString()}
                   </Text>
                   <Text style={styles.squadDetails}>
                     {squadData.item.competitive}
                   </Text>
                 </View>
-                <Pressable style={styles.notGoing}>
+                <Pressable
+                  onPress={() => deleteSquadHandler(userID, squadData.item.id)}
+                  style={styles.notGoing}
+                >
                   <Text style={styles.notGoingText}>Not Going</Text>
                 </Pressable>
               </View>
