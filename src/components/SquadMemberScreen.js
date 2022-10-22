@@ -14,12 +14,12 @@ const SquadMemberScreen = ({ user, setModalVisible }) => {
   let games = user.attributes.user_games.map((game) => {
     return (
       <View
-        style={{ justifyContent: "center", alignItems: "center" }}
+        style={styles.swiperSlide}
         key={game.id}
       >
         <Image
           source={{ uri: game.image_url }}
-          style={styles.swiperSlide}
+          style={{height: "100%", width: "100%", borderRadius: 20}}
         ></Image>
         <Text style={styles.gameTitle}>{game.game_title}</Text>
       </View>
@@ -73,16 +73,22 @@ const styles = StyleSheet.create({
   },
   swiperSlide: {
     height: "95%",
-    width: "70%",
-    marginBottom: 10,
+    width: "80%",
+    margin: 10,
+    marginLeft: "auto",
+    marginRight: "auto",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 60,
+    shadowColor: "#3AE456",
   },
   gameTitle: {
     position: 'absolute',
-    bottom: 30,
-    width: '69%',
+    bottom: 20,
+    width: '100%',
     textAlign: 'center',
     color: '#fff',
     fontSize: 20,

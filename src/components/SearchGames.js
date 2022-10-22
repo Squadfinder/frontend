@@ -40,8 +40,9 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
     if (searchInput !== "") {
       setSearching(true);
       searchFetch(searchInput).then((data) => {
+        let filteredData = data.filter(game => game.image !== null)
         if (selectedGenre !== "") {
-          const filteredByGenre = data.filter((game) =>
+          const filteredByGenre = filteredData.filter((game) =>
             game.genres.includes(selectedGenre)
           );
           setSearching(false);
@@ -49,7 +50,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
           setShowGames(true);
         } else {
           setSearching(false);
-          setDisplayedGames(data);
+          setDisplayedGames(filteredData);
           setShowGames(true);
         }
       });
