@@ -16,12 +16,12 @@ const HomeScreen = ({ user, myGames }) => {
   let games = myGames.map((game) => {
     return (
       <View
-        style={{ justifyContent: "center", alignItems: "center" }}
+        style={styles.swiperSlide}
         key={game.id + new Date()}
       >
           <Image
             source={{ uri: game.image_url }}
-            style={styles.swiperSlide}
+            style={{ height: "100%", width: "100%", borderRadius: 20 }}
           ></Image>
           <Text style={styles.gameTitle}>{game.game_title}</Text>
       </View>
@@ -38,7 +38,7 @@ const HomeScreen = ({ user, myGames }) => {
         </View>
         <Text style={styles.userInfo}>My Games:</Text>
         <View style={styles.swiper}>
-          <Swiper showsButtons={true} showsPagination={false}>
+          <Swiper showsButtons={true} showsPagination={false} contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}>
             {games}
           </Swiper>
         </View>
@@ -97,7 +97,9 @@ const styles = StyleSheet.create({
   swiperSlide: {
     height: "95%",
     width: "80%",
-    marginBottom: 10,
+    margin: 10,
+    marginLeft: "auto",
+    marginRight: "auto",
     borderWidth: 1,
     borderColor: "#3AE456",
     borderRadius: 20,
@@ -108,8 +110,8 @@ const styles = StyleSheet.create({
   },
   gameTitle: {
     position: 'absolute',
-    bottom: 35,
-    width: '79%',
+    bottom: 20,
+    width: '100%',
     textAlign: 'center',
     color: '#fff',
     fontSize: 20,

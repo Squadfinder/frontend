@@ -1,10 +1,14 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 
 const LoadingModal = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.loadingText}>Loading...</Text>
+      <ActivityIndicator
+        style={{ marginTop: 150 }}
+        size="large"
+        color="#3AE456"
+      />
     </View>
   );
 };

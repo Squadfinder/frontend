@@ -16,12 +16,12 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   const [userGames, setUserGames] = useState([]);
-  const [user, setUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
   const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
     getSingleUser(1).then(data => {
-      setUser(data.data)
+      setCurrentUser(data.data)
       setUserGames(data.data.attributes.user_games)
     })
     getAllUsers().then(data => setAllUsers(data.data))
@@ -48,7 +48,12 @@ const App = () => {
         }}
       >
         <Drawer.Screen name="Home">
-          {() => <HomeScreen user={user} myGames={userGames} />}
+          {() => (
+            <HomeScreen
+              user={currentUser}
+              myGames={userGames}
+            />
+          )}
         </Drawer.Screen>
         <Drawer.Screen name="My Games">
           {() => (
@@ -71,12 +76,17 @@ const App = () => {
           )}
         </Drawer.Screen>
         <Drawer.Screen name="Form Squad">
-          {() => <FormSquadScreen userGames={userGames} allUsers={allUsers} />}
+          {() => (
+            <FormSquadScreen
+              userGames={userGames}
+              allUsers={allUsers.filter(user => user.id !== currentUser.id)}
+            />
+          )}
         </Drawer.Screen>
         <Drawer.Screen name="My Squads">
           {() => (
             <MySquads
-              userID="1" // hardcoding "1" for now, could be dynamic later
+              userID={currentUser.id}
             />
           )}
         </Drawer.Screen>

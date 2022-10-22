@@ -67,13 +67,25 @@ const postGame = ({ userID, gameID, imageURL, gameTitle }) => {
 const deleteGame = (userID, gameID) => {
   return fetch(
     `https://squadfinder2205be.herokuapp.com/api/v1/users/${userID}/games/${gameID}`,
+        {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+};
+
+const deleteSquad = (userID, squadID) => {
+  return fetch(
+    `https://squadfinder2205be.herokuapp.com/api/v1/users/${userID}/squads/${squadID}`,
     {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     }
-  );
+  )
 };
 
 export {
@@ -84,4 +96,5 @@ export {
   postSquad,
   postGame,
   deleteGame,
+  deleteSquad,
 };
