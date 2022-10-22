@@ -154,7 +154,7 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
       </Pressable>
       {searching && (
           <ActivityIndicator
-            style={{ marginTop: 150 }}
+            style={{ position: "absolute", top: 300 }}
             size="large"
             color="#3AE456"
           />
