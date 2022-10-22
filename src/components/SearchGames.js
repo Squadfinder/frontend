@@ -15,18 +15,20 @@ import {
 } from "react-native";
 
 const SearchGames = ({ userGames, addGame, removeGame }) => {
-  const [displayedGames, setDisplayedGames] = useState([]);
+  const [displayedGames, setDisplayedGames] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedGame, setSelectedGame] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [showGames, setShowGames] = useState(false);
   const [error, setError] = useState(false);
+  const [searching, setSearching] = useState(false);
 
   const dropdownRef = useRef({});
 
   const inputHandler = (enteredText) => {
     setSearchInput(enteredText);
+    setError(false)
   };
 
   const genreHandler = (genre) => {
@@ -34,18 +36,23 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
   };
 
   const searchHandler = () => {
+    setShowGames(false);
     if (searchInput !== "") {
+      setSearching(true);
       searchFetch(searchInput).then((data) => {
         if (selectedGenre !== "") {
           const filteredByGenre = data.filter((game) =>
             game.genres.includes(selectedGenre)
           );
+          setSearching(false);
           setDisplayedGames(filteredByGenre);
+          setShowGames(true);
         } else {
+          setSearching(false);
           setDisplayedGames(data);
+          setShowGames(true);
         }
       });
-      setShowGames(true);
       setError(false);
     } else {
       setError(true);
@@ -144,7 +151,12 @@ const SearchGames = ({ userGames, addGame, removeGame }) => {
       <Pressable style={styles.searchButton} onPress={() => searchHandler()}>
         <Text style={{ fontSize: 20, color: "#3AE456" }}>Search</Text>
       </Pressable>
-      {showGames ? (
+      {searching && (
+        <View>
+          <Text style={styles.searchingMessage}>Searching...</Text>
+        </View>
+      )}
+      {showGames && displayedGames ? (
         displayedGames.length ? (
           <View style={styles.gamesContainer}>
             <FlatList
@@ -216,7 +228,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   gamesContainer: {
-    flex: 20 / 24,
+    flex: 5 / 6,
     borderTopWidth: 1,
     width: "100%",
     borderColor: "#5462A4",
@@ -306,6 +318,11 @@ const styles = StyleSheet.create({
     marginTop: 150,
     fontSize: 20,
     color: "#3AE456",
+  },
+  searchingMessage: {
+    marginTop: 150,
+    color: "#3AE456",
+    fontSize: 20,
   },
 });
 
