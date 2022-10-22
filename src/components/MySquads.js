@@ -37,7 +37,10 @@ const MySquads = ({ userID }) => {
     React.useCallback(() => {
       getUserSquad(userID)
         .then(({ data }) => {
-          const squads = data.map((attribute) => {
+          const filteredSquads = data.filter(squad => {
+            return squad.attributes.squad.members.some(member => member.id.toString() === userID.toString())
+          })
+          const squads = filteredSquads.map((attribute) => {
             return {
               id: attribute.id,
               competitive: attribute.attributes.squad.competitive
