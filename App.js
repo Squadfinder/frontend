@@ -61,7 +61,7 @@ const App = () => {
               userGames={userGames}
               addGame={addGame}
               removeGame={removeGame}
-              userID={user.id}
+              userID={currentUser.id}
             />
           )}
         </Drawer.Screen>
@@ -71,7 +71,7 @@ const App = () => {
               userGames={userGames}
               addGame={addGame}
               removeGame={removeGame}
-              userID={user.id}
+              userID={currentUser.id}
             />
           )}
         </Drawer.Screen>

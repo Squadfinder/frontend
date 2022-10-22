@@ -18,7 +18,7 @@
     "cypress": "^10.10.0",
     "expo": "~46.0.13",
     "expo-status-bar": "~1.4.0",
-    "react": "18.0.0",
+    "react": "^18.2.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.6",
     "react-native-dropdown-select-list": "^1.0.23",
@@ -31,7 +31,8 @@
     "react-native-screens": "~3.15.0",
     "react-native-select-dropdown": "^2.0.4",
     "react-native-swiper": "^1.6.0",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "react-test-renderer": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
