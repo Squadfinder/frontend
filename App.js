@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
+import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
@@ -18,13 +19,20 @@ const App = () => {
   const [userGames, setUserGames] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [allUsers, setAllUsers] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getSingleUser(1).then(data => {
-      setCurrentUser(data.data)
-      setUserGames(data.data.attributes.user_games)
-    })
-    getAllUsers().then(data => setAllUsers(data.data))
+    getSingleUser(1)
+      .then((data) => {
+        setError("");
+        setCurrentUser(data.data);
+        setUserGames(data.data.attributes.user_games);
+      })
+      .catch(() => setError("Looks like something went wrong."));
+
+    getAllUsers()
+      .then((data) => setAllUsers(data.data))
+      .catch(() => setError("Looks like something went wrong."));
   }, []);
 
   const addGame = (game) => {
@@ -32,10 +40,12 @@ const App = () => {
   };
 
   const removeGame = (gameID) => {
-    const updatedUserGames = userGames.filter(userGame => userGame.game_id !== gameID);
+    const updatedUserGames = userGames.filter(
+      (userGame) => userGame.game_id !== gameID
+    );
     setUserGames(updatedUserGames);
   };
-  
+
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -50,6 +60,8 @@ const App = () => {
         <Drawer.Screen name="Home">
           {() => (
             <HomeScreen
+              error={error}
+              setError={setError}
               user={currentUser}
               myGames={userGames}
             />
@@ -79,16 +91,12 @@ const App = () => {
           {() => (
             <FormSquadScreen
               userGames={userGames}
-              allUsers={allUsers.filter(user => user.id !== currentUser.id)}
+              allUsers={allUsers.filter((user) => user.id !== currentUser.id)}
             />
           )}
         </Drawer.Screen>
         <Drawer.Screen name="My Squads">
-          {() => (
-            <MySquads
-              userID={currentUser.id}
-            />
-          )}
+          {() => <MySquads userID={currentUser.id} />}
         </Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
