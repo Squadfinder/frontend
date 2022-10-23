@@ -28,11 +28,11 @@ const App = () => {
         setCurrentUser(data.data);
         setUserGames(data.data.attributes.user_games);
       })
-      .catch(() => setError("Looks like something went wrong."));
+      .catch(() => setError("Looks like something went wrong retrieving the user data."));
 
     getAllUsers()
       .then((data) => setAllUsers(data.data))
-      .catch(() => setError("Looks like something went wrong."));
+      .catch(() => setError("Looks like something went wrong retrieving the user data."));
   }, []);
 
   const addGame = (game) => {

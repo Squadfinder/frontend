@@ -6,7 +6,7 @@ const searchFetch = (input) => {
 
 const getSingleUser = (userID) => {
   return fetch(
-    `https://squadfinder2205be.herokuapp.com/api/v1/users/${userID}`
+    `https://quadfinder2205be.herokuapp.com/api/v1/users/${userID}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error("Looks like something went wrong.");

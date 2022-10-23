@@ -25,41 +25,45 @@ const HomeScreen = ({ user, myGames, error }) => {
     );
   });
 
-  return error ? (
-    <View style={styles.errorContainer}>
-      <Text style={styles.error}>{error}</Text>
-    </View>
-  ) : (
-    <ScrollView contentContainerStyle={styles.container}>
-      {error && <Text>{error}</Text>}
-      <Text style={styles.header}>SquadFinder</Text>
-      <View style={styles.info}>
-        <Text style={styles.userInfo}>{user.attributes.gamertag}</Text>
-        <Text style={styles.userInfo}>{user.attributes.platform}</Text>
-      </View>
-      <Text style={styles.userInfo}>My Games:</Text>
-      <View style={styles.swiper}>
-        <Swiper
-          showsButtons={true}
-          showsPagination={false}
-          contentContainerStyle={{
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+  if (user.attributes && !error) {
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        {error && <Text>{error}</Text>}
+        <Text style={styles.header}>SquadFinder</Text>
+        <View style={styles.info}>
+          <Text style={styles.userInfo}>{user.attributes.gamertag}</Text>
+          <Text style={styles.userInfo}>{user.attributes.platform}</Text>
+        </View>
+        <Text style={styles.userInfo}>My Games:</Text>
+        <View style={styles.swiper}>
+          <Swiper
+            showsButtons={true}
+            showsPagination={false}
+            contentContainerStyle={{
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {games}
+          </Swiper>
+        </View>
+        <Pressable
+          style={styles.editButton}
+          title="Edit My Games"
+          onPress={() => navigation.navigate("My Games")}
         >
-          {games}
-        </Swiper>
+          <Text style={{ color: "#fff" }}>Edit My Games List</Text>
+        </Pressable>
+        <Text style={styles.rawg}>Powered by RAWG</Text>
+      </ScrollView>
+    );
+  } else {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.error}>{error}</Text>
       </View>
-      <Pressable
-        style={styles.editButton}
-        title="Edit My Games"
-        onPress={() => navigation.navigate("My Games")}
-      >
-        <Text style={{ color: "#fff" }}>Edit My Games List</Text>
-      </Pressable>
-      <Text style={styles.rawg}>Powered by RAWG</Text>
-    </ScrollView>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -67,12 +71,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#201626",
     textAlign: "center",
     minHeight: "100%",
+    alignItems: "center",
   },
   error: {
     marginTop: 100,
     color: "red",
     textAlign: "center",
     fontSize: 20,
+    width: "80%",
   },
   container: {
     flex: 1,
