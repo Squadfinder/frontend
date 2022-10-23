@@ -15,57 +15,52 @@ const HomeScreen = ({ user, myGames, error }) => {
 
   let games = myGames.map((game) => {
     return (
-      <View
-        style={styles.swiperSlide}
-        key={game.id + new Date()}
-      >
-          <Image
-            source={{ uri: game.image_url }}
-            style={{ height: "100%", width: "100%", borderRadius: 20 }}
-          ></Image>
-          <Text style={styles.gameTitle}>{game.game_title}</Text>
+      <View style={styles.swiperSlide} key={game.id + new Date()}>
+        <Image
+          source={{ uri: game.image_url }}
+          style={{ height: "100%", width: "100%", borderRadius: 20 }}
+        ></Image>
+        <Text style={styles.gameTitle}>{game.game_title}</Text>
       </View>
     );
   });
 
-    return ( error ?
-      (
-        <View style={styles.errorContainer}>
-          <Text style={styles.error}>{error}</Text>
-        </View>
-      ) : (
-        <ScrollView contentContainerStyle={styles.container}>
-          {error && <Text>{error}</Text>}
-          <Text style={styles.header}>SquadFinder</Text>
-          <View style={styles.info}>
-            <Text style={styles.userInfo}>{user.attributes.gamertag}</Text>
-            <Text style={styles.userInfo}>{user.attributes.platform}</Text>
-          </View>
-          <Text style={styles.userInfo}>My Games:</Text>
-          <View style={styles.swiper}>
-            <Swiper
-              showsButtons={true}
-              showsPagination={false}
-              contentContainerStyle={{
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {games}
-            </Swiper>
-          </View>
-          <Pressable
-            style={styles.editButton}
-            title="Edit My Games"
-            onPress={() => navigation.navigate("My Games")}
-          >
-            <Text style={{ color: "#fff" }}>Edit My Games List</Text>
-          </Pressable>
-          <Text style={styles.rawg}>Powered by RAWG</Text>
-        </ScrollView>
-      )
-    );
-}
+  return error ? (
+    <View style={styles.errorContainer}>
+      <Text style={styles.error}>{error}</Text>
+    </View>
+  ) : (
+    <ScrollView contentContainerStyle={styles.container}>
+      {error && <Text>{error}</Text>}
+      <Text style={styles.header}>SquadFinder</Text>
+      <View style={styles.info}>
+        <Text style={styles.userInfo}>{user.attributes.gamertag}</Text>
+        <Text style={styles.userInfo}>{user.attributes.platform}</Text>
+      </View>
+      <Text style={styles.userInfo}>My Games:</Text>
+      <View style={styles.swiper}>
+        <Swiper
+          showsButtons={true}
+          showsPagination={false}
+          contentContainerStyle={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {games}
+        </Swiper>
+      </View>
+      <Pressable
+        style={styles.editButton}
+        title="Edit My Games"
+        onPress={() => navigation.navigate("My Games")}
+      >
+        <Text style={{ color: "#fff" }}>Edit My Games List</Text>
+      </Pressable>
+      <Text style={styles.rawg}>Powered by RAWG</Text>
+    </ScrollView>
+  );
+};
 
 const styles = StyleSheet.create({
   errorContainer: {
@@ -77,7 +72,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     color: "red",
     textAlign: "center",
-    fontSize: 20
+    fontSize: 20,
   },
   container: {
     flex: 1,
