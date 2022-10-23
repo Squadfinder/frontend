@@ -28,34 +28,43 @@ const GameDetailsScreen = ({
       });
       setHasGame(foundGame);
     }
+
+    return setError("");
   }, []);
 
-  const addRemoveGameHandler = () => {
-    if (hasGame) {
-      const foundGame = userGames.find((collectionGame) => {
-        return collectionGame.game_id === game.id;
-      });
+  const removeGameHandler = () => {
+    const foundGame = userGames.find((collectionGame) => {
+      return collectionGame.game_id === game.id;
+    });
 
-      deleteGame(userID, foundGame.id)
-        .then((response) => {
-          console.log(response);
-          removeGame(game.id);
-          setHasGame(false);
-        })
-        .catch((error) => console.log(error));
-    } else {
-      postGame({
-        userID: userID,
-        gameID: game.id,
-        imageURL: game.image,
-        gameTitle: game.title,
+    deleteGame(userID, foundGame.id)
+      .then(() => {
+        removeGame(game.id);
+        setHasGame(false);
+        setError("");
       })
-        .then((data) => {
-          addGame(data.data.attributes);
-          setHasGame(true);
-        })
-        .catch((error) => console.log(error));
-    }
+      .catch((error) => {
+        console.log(error);
+        setError("Looks like something went wrong.");
+      });
+  };
+
+  const addGameHandler = () => {
+    postGame({
+      userID: userID,
+      gameID: game.id,
+      imageURL: game.image,
+      gameTitle: game.title,
+    })
+      .then((data) => {
+        addGame(data.data.attributes);
+        setHasGame(true);
+        setError("");
+      })
+      .catch((error) => {
+        console.log(error);
+        setError("Looks like something went wrong.");
+      });
   };
 
   return game ? (
@@ -91,18 +100,16 @@ const GameDetailsScreen = ({
           Close
         </Text>
       </Pressable>
+      <View style={styles.errorContainer}>{error && <Text style={styles.error}>{error}</Text>}</View>
       {!hasGame ? (
         <View style={styles.favoriteBtnContainer}>
-          <Pressable style={styles.favoriteBtn} onPress={addRemoveGameHandler}>
+          <Pressable style={styles.favoriteBtn} onPress={addGameHandler}>
             <Text style={styles.favoriteBtnText}>Favorite Game</Text>
           </Pressable>
         </View>
       ) : (
         <View style={styles.favoriteBtnContainer}>
-          <Pressable
-            style={styles.favoriteBtn}
-            onPress={() => addRemoveGameHandler()}
-          >
+          <Pressable style={styles.favoriteBtn} onPress={removeGameHandler}>
             <Text style={styles.favoriteBtnText}>Remove Game</Text>
           </Pressable>
         </View>
@@ -208,8 +215,16 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     paddingLeft: 8,
   },
+  errorContainer:  {
+    height: 35
+  },
+  error: {
+    fontSize: 20,
+    paddingTop: 10,
+    color: "red"
+  },
   favoriteBtnContainer: {
-    marginTop: 30,
+    marginTop: 5,
     height: "10%",
     justifyContent: "center",
     backgroundColor: "#201626",
