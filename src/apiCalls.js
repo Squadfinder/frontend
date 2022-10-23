@@ -17,9 +17,13 @@ const getSingleUser = (userID) => {
 };
 
 const getAllUsers = () => {
-  return fetch(`https://squadfinder2205be.herokuapp.com/api/v1/users`).then(
-    (response) => response.json()
-  );
+  return fetch(`https://squadfinder2205be.herokuapp.com/api/v1/users`).then((response) => {
+    if (!response.ok) {
+      throw new Error("Looks like something went wrong.");
+    } else {
+      return response.json();
+    }
+  });
 };
 
 const getUserSquad = (userId) => {
