@@ -18,6 +18,7 @@ const GameDetailsScreen = ({
   setModalVisible,
   userID,
 }) => {
+
   const [hasGame, setHasGame] = useState(false);
   const [error, setError] = useState("");
 
