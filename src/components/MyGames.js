@@ -59,6 +59,7 @@ const MyGames = ({ userGames, addGame, removeGame, userID }) => {
         )}
       </Modal>
       <TextInput
+        testID="search-bar"
         placeholder="Search by title..."
         placeholderTextColor="grey"
         value={searchInput}
@@ -76,8 +77,9 @@ const MyGames = ({ userGames, addGame, removeGame, userID }) => {
                 title="User's Game"
                 style={styles.gameIcon}
                 onPress={() => iconClickHandler(itemData.item)}
-              >
+                >
                 <Image
+                  testID={`users-game-icon-${itemData.item.id}`}
                   source={{ uri: `${itemData.item.image_url}` }}
                   style={{
                     width: "100%",
