@@ -53,7 +53,13 @@ const postSquad = ({
       competitive: competitive,
       squadMembers: squadMembers,
     }),
-  }).then((response) => response.json());
+  }).then((response) => {
+    if(!response.ok) {
+      throw new Error("Something went wrong.");
+    } else {
+      return response.json();
+    }
+  });
 };
 
 const postGame = ({ userID, gameID, imageURL, gameTitle }) => {

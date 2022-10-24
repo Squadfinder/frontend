@@ -17,7 +17,8 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
   const [filterByNameValue, setFilterByNameValue] = useState("");
   const [squadMembers, setSquadMembers] = useState([]);
   const [competitive, setCompetitive] = useState(false);
-  const [squadFull, setSquadFull] = useState(false); // needs full squad error handling
+  const [squadFull, setSquadFull] = useState(false);
+  const [error, setError] = useState("");
 
   const navigation = useNavigation();
 
@@ -35,11 +36,14 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
         console.log(response);
         navigation.navigate("My Squads");
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        setError("Something went wrong. Your squad has not been made.");
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+      });
   };
 
-  // React Native components don't unmount causing this component not to update when it's navigated to and from,
-  // useFocusEffect tells the component to do stuff when the user navigates to of from the screen
   useFocusEffect(
     React.useCallback(() => {
       return () => {
@@ -48,6 +52,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
         setSquadMembers([]);
         setCompetitive(false);
         setSquadFull(false);
+        setError("");
       };
     }, [])
   );
@@ -109,10 +114,16 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
   };
 
   const inviteSquadMemberHandler = (id) => {
-    if (squadMembers.length < 3) {
-      setSquadMembers([...squadMembers, id]);
-    } else {
-      console.log("Squad is full");
+    // console.log(squadMembers.length);
+    if (squadMembers.includes(id)) {
+      setSquadFull(false);
+      const updatedSquadMember = squadMembers.filter((member) => member !== id);
+      setSquadMembers(updatedSquadMember);
+    } else if (squadMembers.length < 3) {
+      setSquadMembers((currentSquadMembers) => [...currentSquadMembers, id]);
+    }
+
+    if (squadMembers.length === 2) {
       setSquadFull(true);
     }
   };
@@ -126,7 +137,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
         buttonStyle={styles.selectGameBtnStyle}
         buttonTextStyle={styles.selectGameBtnTextStyle}
         dropdownStyle={styles.selectGameDropdownStyle}
-        rowStyle={{ backgroundColor: "#352540"}}
+        rowStyle={{ backgroundColor: "#352540" }}
         rowTextStyle={styles.selectGameRowTextStyle}
       />
       <Pressable
@@ -160,7 +171,8 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
           " AT " +
           date.getHours() +
           ":" +
-          (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}
+          (date.getMinutes() < 10 ? "0" : "") +
+          date.getMinutes()}
       </Text>
       <View>
         {showing && (
@@ -200,7 +212,6 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
                   >
                     <Text
                       onPress={() => inviteSquadMemberHandler(item.id)}
-                      disabled={squadMembers.includes(item.id)}
                       style={
                         squadMembers.includes(item.id)
                           ? styles.invited
@@ -217,13 +228,19 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
         ) : (
           <Text>Sorry, there are no users with this Gamer Tag.</Text>
         )}
+        {squadFull && (
+          <View style={styles.squadsFullContainer}>
+            <Text style={styles.squadsFullTxt}>Squads Full</Text>
+          </View>
+        )}
       </View>
+      {error && <View style={styles.errorContainer}><Text style={styles.error}>{error}</Text></View>}
       <Pressable
         style={styles.formSquadBtn}
         disabled={!selected && !squadMembers.length}
         onPress={formSquadHandler}
       >
-        <Text style={styles.formSquadText}>FORM SQUAD!</Text>
+        <Text style={styles.formSquadText}>"FORM SQUAD!"</Text>
       </Pressable>
     </View>
   );
@@ -232,7 +249,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#201626",
-    paddingTop: 50,
+    paddingTop: 20,
     minHeight: "100%",
     alignItems: "center",
   },
@@ -427,6 +444,34 @@ const styles = StyleSheet.create({
   inviteText: {
     color: "#fff",
   },
+  squadsFullContainer: {
+    backgroundColor: "#3AE456",
+    width: "100%",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  squadsFullTxt: {
+    fontWeight: "bold",
+    paddingTop: 2,
+    paddingBottom: 2,
+    textAlign: "center",
+  },
+  errorContainer: {
+    position: "absolute",
+    marginTop: 510,
+    width: "60%",
+    backgroundColor: "red",
+    borderRadius: 5,
+    zIndex: 1
+  },
+  error: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 5,
+    paddingLeft: 5,
+    fontWeight: "bold",
+    color: "#fff"
+  }
 });
 
 export default FormSquadScreen;
