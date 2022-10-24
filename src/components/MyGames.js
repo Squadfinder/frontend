@@ -21,7 +21,7 @@ const MyGames = ({ userGames, addGame, removeGame, userID }) => {
 
   useEffect(() => {
     setDisplayedGames(userGames);
-  }, [userGames])
+  }, [userGames]);
 
   const iconClickHandler = (game) => {
     fetch(
@@ -59,6 +59,7 @@ const MyGames = ({ userGames, addGame, removeGame, userID }) => {
         )}
       </Modal>
       <TextInput
+        testID="search-bar"
         placeholder="Search by title..."
         placeholderTextColor="grey"
         value={searchInput}
@@ -78,6 +79,7 @@ const MyGames = ({ userGames, addGame, removeGame, userID }) => {
                 onPress={() => iconClickHandler(itemData.item)}
               >
                 <Image
+                  testID={`users-game-icon-${itemData.item.id}`}
                   source={{ uri: `${itemData.item.image_url}` }}
                   style={{
                     width: "100%",
@@ -148,16 +150,16 @@ const styles = StyleSheet.create({
     shadowColor: "#3AE456",
   },
   gameTitle: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 10,
-    width: '100%',
-    textAlign: 'center',
-    color: '#fff',
+    width: "100%",
+    textAlign: "center",
+    color: "#fff",
     fontSize: 15,
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: 'rgba(0,0,0,.6)',
-    overflow: 'hidden'
+    backgroundColor: "rgba(0,0,0,.6)",
+    overflow: "hidden",
   },
 });
 
