@@ -18,6 +18,7 @@ const GameDetailsScreen = ({
   setModalVisible,
   userID,
 }) => {
+
   const [hasGame, setHasGame] = useState(false);
   const [error, setError] = useState("");
 
@@ -62,7 +63,6 @@ const GameDetailsScreen = ({
         setError("");
       })
       .catch((error) => {
-        console.log(error);
         setError("Looks like something went wrong.");
       });
   };
@@ -71,6 +71,7 @@ const GameDetailsScreen = ({
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <Image
+          testID="gameDetailsScreenImg"
           source={{ uri: game.image }}
           style={{ width: "100%", height: "100%", borderRadius: 20 }}
         />
