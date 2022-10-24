@@ -10,27 +10,25 @@ import {
 } from "react-native";
 import Swiper from "react-native-swiper";
 
-const HomeScreen = ({ user, myGames }) => {
+const HomeScreen = ({ user, myGames, error }) => {
   const navigation = useNavigation();
 
   let games = myGames.map((game) => {
     return (
-      <View
-        style={styles.swiperSlide}
-        key={game.id + new Date()}
-      >
-          <Image
-            source={{ uri: game.image_url }}
-            style={{ height: "100%", width: "100%", borderRadius: 20 }}
-          ></Image>
-          <Text style={styles.gameTitle}>{game.game_title}</Text>
+      <View style={styles.swiperSlide} key={game.id + new Date()}>
+        <Image
+          source={{ uri: game.image_url }}
+          style={{ height: "100%", width: "100%", borderRadius: 20 }}
+        ></Image>
+        <Text style={styles.gameTitle}>{game.game_title}</Text>
       </View>
     );
   });
 
-  if (user.attributes) {
+  if (user.attributes && !error) {
     return (
       <ScrollView contentContainerStyle={styles.container}>
+        {error && <Text>{error}</Text>}
         <Text style={styles.header}>SquadFinder</Text>
         <View style={styles.info}>
           <Text style={styles.userInfo}>{user.attributes.gamertag}</Text>
@@ -38,7 +36,14 @@ const HomeScreen = ({ user, myGames }) => {
         </View>
         <Text style={styles.userInfo}>My Games:</Text>
         <View style={styles.swiper}>
-          <Swiper showsButtons={true} showsPagination={false} contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}>
+          <Swiper
+            showsButtons={true}
+            showsPagination={false}
+            contentContainerStyle={{
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             {games}
           </Swiper>
         </View>
@@ -52,10 +57,29 @@ const HomeScreen = ({ user, myGames }) => {
         <Text style={styles.rawg}>Powered by RAWG</Text>
       </ScrollView>
     );
+  } else {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.error}>{error}</Text>
+      </View>
+    );
   }
-}
+};
 
 const styles = StyleSheet.create({
+  errorContainer: {
+    backgroundColor: "#201626",
+    textAlign: "center",
+    minHeight: "100%",
+    alignItems: "center",
+  },
+  error: {
+    marginTop: 100,
+    color: "red",
+    textAlign: "center",
+    fontSize: 20,
+    width: "80%",
+  },
   container: {
     flex: 1,
     backgroundColor: "#201626",
@@ -109,16 +133,16 @@ const styles = StyleSheet.create({
     shadowColor: "#3AE456",
   },
   gameTitle: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
-    width: '100%',
-    textAlign: 'center',
-    color: '#fff',
+    width: "100%",
+    textAlign: "center",
+    color: "#fff",
     fontSize: 20,
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: 'rgba(0,0,0,.6)',
-    overflow: 'hidden'
+    backgroundColor: "rgba(0,0,0,.6)",
+    overflow: "hidden",
   },
   editButton: {
     justifyContent: "center",
