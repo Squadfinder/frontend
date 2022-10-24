@@ -38,9 +38,9 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
       })
       .catch(() => {
         setError("Something went wrong. Your squad has not been made.");
-        // setTimeout(() => {
-        //   setError("");
-        // }, 2000);
+        setTimeout(() => {
+          setError("");
+        }, 3000);
       });
   };
 
@@ -234,7 +234,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
           </View>
         )}
       </View>
-      {error && <View style={styles.errorContainer}><Text style={styles.error}>Error</Text></View>}
+      {error && <View style={styles.errorContainer}><Text style={styles.error}>{error}</Text></View>}
       <Pressable
         style={styles.formSquadBtn}
         disabled={!selected && !squadMembers.length}
@@ -458,9 +458,20 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     position: "absolute",
-    marginTop: 510
+    marginTop: 510,
+    width: "60%",
+    backgroundColor: "red",
+    borderRadius: 5,
+    zIndex: 1
   },
-  error: {}
+  error: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 5,
+    paddingLeft: 5,
+    fontWeight: "bold",
+    color: "#fff"
+  }
 });
 
 export default FormSquadScreen;

@@ -40,7 +40,7 @@ const postSquad = ({
   competitive,
   squadMembers,
 }) => {
-  return fetch(`https://quadfinder2205be.herokuapp.com/api/v1/squads`, {
+  return fetch(`https://squadfinder2205be.herokuapp.com/api/v1/squads`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
