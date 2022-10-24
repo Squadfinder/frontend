@@ -124,6 +124,7 @@ const SearchGames = ({ userGames, addGame, removeGame, userID }) => {
         )}
       </Modal>
       <TextInput
+        testID="searchInput"
         placeholder="Search by title..."
         placeholderTextColor="grey"
         value={searchInput}
@@ -150,7 +151,7 @@ const SearchGames = ({ userGames, addGame, removeGame, userID }) => {
         ref={dropdownRef}
         onSelect={(genre) => genreHandler(genre)}
       />
-      <Pressable style={styles.searchButton} onPress={() => searchHandler()}>
+      <Pressable testID="searchBtn" style={styles.searchButton} onPress={() => searchHandler()}>
         <Text style={{ fontSize: 20, color: "#3AE456" }}>Search</Text>
       </Pressable>
       {searching && (
@@ -200,7 +201,7 @@ const SearchGames = ({ userGames, addGame, removeGame, userID }) => {
       ) : (
         <View style={{ flex: 5 / 6 }}></View>
       )}
-      <Pressable style={styles.clearButton} onPress={() => clearResults()}>
+      <Pressable testID="clearResultsBtn" style={styles.clearButton} onPress={() => clearResults()}>
         <Text style={{ color: "#fff" }}>Clear Results</Text>
       </Pressable>
       <Text style={styles.rawg}>Powered by RAWG</Text>
