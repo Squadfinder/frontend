@@ -17,6 +17,7 @@ const HomeScreen = ({ user, myGames, error }) => {
     return (
       <View style={styles.swiperSlide} key={game.id + new Date()}>
         <Image
+          testID="homeScreenImg"
           source={{ uri: game.image_url }}
           style={{ height: "100%", width: "100%", borderRadius: 20 }}
         ></Image>
@@ -37,6 +38,7 @@ const HomeScreen = ({ user, myGames, error }) => {
         <Text style={styles.userInfo}>My Games:</Text>
         <View style={styles.swiper}>
           <Swiper
+            testID="gameSwiper"
             showsButtons={true}
             showsPagination={false}
             contentContainerStyle={{
@@ -48,6 +50,7 @@ const HomeScreen = ({ user, myGames, error }) => {
           </Swiper>
         </View>
         <Pressable
+          testID="editGamesBtn"
           style={styles.editButton}
           title="Edit My Games"
           onPress={() => navigation.navigate("My Games")}
