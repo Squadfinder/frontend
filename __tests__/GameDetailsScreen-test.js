@@ -1,16 +1,7 @@
-import * as React from "react";
 import { render, screen } from "@testing-library/react-native";
 
 import GameDetailsScreen from "../src/components/GameDetailsScreen";
 import data from "./mock-props-data/GameDetailsScreen-mock-data.json";
-
-const onPressMock = jest.fn();
-const eventData = {
-  userID: data.userID,
-  gameID: data.game.id,
-  imageURL: data.image,
-  gameTitle: data.game.title,
-};
 
 describe("<GameDetailsScreen />", () => {
   it("renders a game's title", () => {
