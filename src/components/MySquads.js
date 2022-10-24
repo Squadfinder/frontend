@@ -11,6 +11,7 @@ import {
 import SquadMemberScreen from "./SquadMemberScreen";
 
 import { getUserSquad, getSingleUser, deleteSquad } from "../apiCalls";
+import style from "react-native-modal-picker/style";
 
 let counter = 0;
 let color;
@@ -54,10 +55,8 @@ const MySquads = ({ userID }) => {
           });
           setUserSquads(squads);
         })
-        .catch((error) => {
-          // leaving in these logs since there isn't built in error handling yet
-          console.log(error);
-          setError(error);
+        .catch(() => {
+          setError("Something went wrong, please try again.");
         });
     }, [])
   );
@@ -81,14 +80,16 @@ const MySquads = ({ userID }) => {
         );
         setUserSquads(updateUserSquads);
       })
-      .catch((error) => {
-        // leaving in these logs since there isn't built in error handling yet
-        console.log(error);
-        setError(error);
+      .catch(() => {
+        setError("Something went wrong. You did not leave this squad.");
       });
   };
 
-  return (
+  return error ? (
+    <View style={styles.container}>
+      <Text style={styles.error}>{error}</Text>
+    </View>
+  ) : (
     <View style={styles.container}>
       <Modal
         animationType="slide"
@@ -165,6 +166,15 @@ const styles = StyleSheet.create({
     minHeight: "100%",
     backgroundColor: "#201626",
     alignItems: "center",
+  },
+  error: {
+    marginTop: 50,
+    marginRight: 20,
+    marginLeft: 20,
+    textAlign: "center",
+    color: "red",
+    fontWeight: "bold",
+    fontSize: 20
   },
   squadCard: {
     width: "95%",

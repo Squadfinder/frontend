@@ -28,8 +28,14 @@ const getAllUsers = () => {
 
 const getUserSquad = (userId) => {
   return fetch(
-    `https://squadfinder2205be.herokuapp.com/api/v1/users/${userId}/squads`
-  ).then((response) => response.json());
+    `https://quadfinder2205be.herokuapp.com/api/v1/users/${userId}/squads`
+  ).then((response) => {
+    if(!response.ok) {
+      throw new Error("Error");
+    } else {
+      return response.json();
+    }
+  });
 };
 
 const postSquad = ({
