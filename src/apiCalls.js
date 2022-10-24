@@ -40,7 +40,7 @@ const postSquad = ({
   competitive,
   squadMembers,
 }) => {
-  return fetch(`https://squadfinder2205be.herokuapp.com/api/v1/squads`, {
+  return fetch(`https://quadfinder2205be.herokuapp.com/api/v1/squads`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,13 @@ const postSquad = ({
       competitive: competitive,
       squadMembers: squadMembers,
     }),
-  }).then((response) => response.json());
+  }).then((response) => {
+    if(!response.ok) {
+      throw new Error("Something went wrong.");
+    } else {
+      return response.json();
+    }
+  });
 };
 
 const postGame = ({ userID, gameID, imageURL, gameTitle }) => {
