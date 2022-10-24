@@ -83,7 +83,11 @@ const deleteGame = (userID, gameID) => {
         "Content-Type": "application/json",
       },
     }
-  );
+  ).then(response => {
+    if(!response.ok) {
+      throw new Error("Looks like something looked wrong.")
+    }
+  })
 };
 
 const deleteSquad = (userID, squadID) => {
