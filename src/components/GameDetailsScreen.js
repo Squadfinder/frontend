@@ -52,6 +52,7 @@ const GameDetailsScreen = ({
         gameTitle: game.title,
       })
         .then((data) => {
+          console.log(data)
           addGame(data.data.attributes);
           setHasGame(true);
         })
@@ -63,6 +64,7 @@ const GameDetailsScreen = ({
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <Image
+          testID="gameDetailsScreenImg"
           source={{ uri: game.image }}
           style={{ width: "100%", height: "100%", borderRadius: 20 }}
         />
