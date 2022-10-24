@@ -28,7 +28,7 @@ const getAllUsers = () => {
 
 const getUserSquad = (userId) => {
   return fetch(
-    `https://quadfinder2205be.herokuapp.com/api/v1/users/${userId}/squads`
+    `https://squadfinder2205be.herokuapp.com/api/v1/users/${userId}/squads`
   ).then((response) => {
     if(!response.ok) {
       throw new Error("Error");
