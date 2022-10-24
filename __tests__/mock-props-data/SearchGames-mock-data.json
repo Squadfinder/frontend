@@ -1,0 +1,40 @@
+{
+  "userGames": [
+    {
+      "created_at": "2022-10-19T23:51:11.588Z",
+      "game_id": 58751,
+      "game_title": "Halo Infinite",
+      "id": 1,
+      "image_url": "https://media.rawg.io/media/games/e1f/e1ffbeb1bac25b19749ad285ca29e158.jpg",
+      "updated_at": "2022-10-19T23:51:11.588Z",
+      "user_id": 1
+    },
+    {
+      "created_at": "2022-10-22T19:24:48.710Z",
+      "game_id": 3498,
+      "game_title": "Grand Theft Auto V",
+      "id": 33,
+      "image_url": "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+      "updated_at": "2022-10-22T19:24:48.710Z",
+      "user_id": 1
+    },
+    {
+      "created_at": "2022-10-23T01:15:09.626Z",
+      "game_id": 326243,
+      "game_title": "Elden Ring",
+      "id": 38,
+      "image_url": "https://media.rawg.io/media/games/5ec/5ecac5cb026ec26a56efcc546364e348.jpg",
+      "updated_at": "2022-10-23T01:15:09.626Z",
+      "user_id": 1
+    },
+    {
+      "created_at": "2022-10-23T01:33:04.112Z",
+      "game_id": 699000,
+      "game_title": ".dog",
+      "id": 42,
+      "image_url": "https://media.rawg.io/media/screenshots/39d/39daf0eae99c1bb2ac0b011ccc039da4.jpg",
+      "updated_at": "2022-10-23T01:33:04.112Z",
+      "user_id": 1
+    }
+  ],
+}
