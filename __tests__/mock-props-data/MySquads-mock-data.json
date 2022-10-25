@@ -1,0 +1,154 @@
+{
+  "userSquads":[
+  {
+    "competitive": "Casual",
+    "eventTime": "2022-10-31T06:30:00.000Z",
+    "game": "Fall Guys: Ultimate Knockout",
+    "id": "13",
+    "members": [
+      {
+        "created_at": "2022-10-19T23:51:11.526Z",
+        "gamertag": "blake",
+        "id": 1,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.526Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.538Z",
+        "gamertag": "wes",
+        "id": 4,
+        "platform": "XBox",
+        "updated_at": "2022-10-19T23:51:11.538Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.541Z",
+        "gamertag": "anna",
+        "id": 5,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.541Z"
+      }
+    ],
+    "numberPlayers": 2
+  },
+  {
+    "competitive": "competitive",
+    "eventTime": "2022-12-17T21:00:00.000Z",
+    "game": "League of Legends",
+    "id": "18",
+    "members": [
+      {
+        "created_at": "2022-10-19T23:51:11.526Z",
+        "gamertag": "blake",
+        "id": 1,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.526Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.541Z",
+        "gamertag": "anna",
+        "id": 5,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.541Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.546Z",
+        "gamertag": "tom",
+        "id": 6,
+        "platform": "PS5",
+        "updated_at": "2022-10-19T23:51:11.546Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.534Z",
+        "gamertag": "thomas",
+        "id": 3,
+        "platform": "XBox",
+        "updated_at": "2022-10-19T23:51:11.534Z"
+      }
+    ],
+    "numberPlayers": 3
+  },
+  {
+    "competitive": "Casual",
+    "eventTime": "2022-10-22T04:13:00.000Z",
+    "game": "Fall Guys: Ultimate Knockout",
+    "id": "28",
+    "members": [
+      {
+        "created_at": "2022-10-19T23:51:11.526Z",
+        "gamertag": "blake",
+        "id": 1,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.526Z",
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.538Z",
+        "gamertag": "wes",
+        "id": 4,
+        "platform": "XBox",
+        "updated_at": "2022-10-19T23:51:11.538Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.541Z",
+        "gamertag": "anna",
+        "id": 5,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.541Z"
+      }
+    ],
+    "numberPlayers": 3
+  },
+  {
+    "competitive": "Casual",
+    "eventTime": "2022-10-22T22:00:00.000Z",
+    "game": "Fall Guys: Ultimate Knockout",
+    "id": "44",
+    "members": [
+      {
+        "created_at": "2022-10-19T23:51:11.526Z",
+        "gamertag": "blake",
+        "id": 1,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.526Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.531Z",
+        "gamertag": "mike",
+        "id": 2,
+        "platform": "PS5",
+        "updated_at": "2022-10-19T23:51:11.531Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.541Z",
+        "gamertag": "anna",
+        "id": 5,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.541Z"
+      }
+    ],
+    "numberPlayers": 2
+  },
+  {
+    "competitive": "competitive",
+    "eventTime": "2022-10-27T17:08:00.000Z",
+    "game": "PlayerUnknown’s Battlegrounds",
+    "id": "56",
+    "members": [
+      {
+        "created_at": "2022-10-19T23:51:11.526Z",
+        "gamertag": "blake",
+        "id": 1,
+        "platform": "PC",
+        "updated_at": "2022-10-19T23:51:11.526Z"
+      },
+      {
+        "created_at": "2022-10-19T23:51:11.546Z",
+        "gamertag": "tom",
+        "id": 6,
+        "platform": "PS5",
+        "updated_at": "2022-10-19T23:51:11.546Z"
+      }
+    ],
+    "numberPlayers": 1
+  }
+]
+}

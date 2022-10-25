@@ -115,13 +115,14 @@ const MySquads = ({ userID }) => {
       </Modal>
       {error && <Text style={styles.errorNotGoing}>{error}</Text>}
       <FlatList
+        testID="squad-list"
         data={userSquads}
         contentContainerStyle={{ paddingBottom: 200 }}
         keyExtractor={(squadData) => squadData.id}
         renderItem={(squadData) => {
           counter = 0;
           return (
-            <View style={styles.squadCard}>
+            <View style={styles.squadCard} testID={`squad-card-${squadData.item.id}`}>
               <FlatList
                 data={squadData.item.members}
                 contentContainerStyle={styles.memberIcons}
