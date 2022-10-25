@@ -40,7 +40,7 @@ const SearchGames = ({ userGames, addGame, removeGame, userID }) => {
     if (searchInput !== "") {
       setSearching(true);
       searchFetch(searchInput).then((data) => {
-        let filteredData = data.filter(game => game.image !== null)
+        let filteredData = data.filter((game) => game.image !== null);
         if (selectedGenre !== "") {
           const filteredByGenre = filteredData.filter((game) =>
             game.genres.includes(selectedGenre)
@@ -151,15 +151,19 @@ const SearchGames = ({ userGames, addGame, removeGame, userID }) => {
         ref={dropdownRef}
         onSelect={(genre) => genreHandler(genre)}
       />
-      <Pressable testID="searchBtn" style={styles.searchButton} onPress={() => searchHandler()}>
+      <Pressable
+        testID="searchBtn"
+        style={styles.searchButton}
+        onPress={() => searchHandler()}
+      >
         <Text style={{ fontSize: 20, color: "#3AE456" }}>Search</Text>
       </Pressable>
       {searching && (
-          <ActivityIndicator
-            style={{ position: "absolute", top: 300 }}
-            size="large"
-            color="#3AE456"
-          />
+        <ActivityIndicator
+          style={{ position: "absolute", top: 300 }}
+          size="large"
+          color="#3AE456"
+        />
       )}
       {showGames && displayedGames ? (
         displayedGames.length ? (
@@ -201,7 +205,11 @@ const SearchGames = ({ userGames, addGame, removeGame, userID }) => {
       ) : (
         <View style={{ flex: 5 / 6 }}></View>
       )}
-      <Pressable testID="clearResultsBtn" style={styles.clearButton} onPress={() => clearResults()}>
+      <Pressable
+        testID="clearResultsBtn"
+        style={styles.clearButton}
+        onPress={() => clearResults()}
+      >
         <Text style={{ color: "#fff" }}>Clear Results</Text>
       </Pressable>
       <Text style={styles.rawg}>Powered by RAWG</Text>

@@ -1,6 +1,5 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
-import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
@@ -13,6 +12,7 @@ import MySquads from "./src/components/MySquads";
 import CustomDrawer from "./src/components/CustomDrawer";
 
 import { getAllUsers, getSingleUser } from "./src/apiCalls";
+import { sortGames } from "./src/utility-functions";
 
 const Drawer = createDrawerNavigator();
 
@@ -27,17 +27,21 @@ const App = () => {
       .then((data) => {
         setError("");
         setCurrentUser(data.data);
-        setUserGames(data.data.attributes.user_games);
+        setUserGames(sortGames(data.data.attributes.user_games));
       })
-      .catch(() => setError("Looks like something went wrong retrieving the user data."));
+      .catch(() =>
+        setError("Looks like something went wrong retrieving the user data.")
+      );
 
     getAllUsers()
       .then((data) => setAllUsers(data.data))
-      .catch(() => setError("Looks like something went wrong retrieving the user data."));
+      .catch(() =>
+        setError("Looks like something went wrong retrieving the user data.")
+      );
   }, []);
 
   const addGame = (game) => {
-    setUserGames((currentUserGames) => [...currentUserGames, game]);
+    setUserGames((currentUserGames) => sortGames([...currentUserGames, game]));
   };
 
   const removeGame = (gameID) => {
@@ -104,6 +108,7 @@ const App = () => {
             <FormSquadScreen
               userGames={userGames}
               allUsers={allUsers.filter((user) => user.id !== currentUser.id)}
+              userID={currentUser.id}
             />
           )}
         </Drawer.Screen>

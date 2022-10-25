@@ -3,6 +3,7 @@ import { FlatList, TextInput } from "react-native-gesture-handler";
 import GameDetailsScreen from "./GameDetailsScreen";
 import { StyleSheet, View, Pressable, Image, Modal, Text } from "react-native";
 import LoadingModal from "./LoadingModal";
+import { sortGames } from "../utility-functions";
 
 const MyGames = ({ userGames, addGame, removeGame, userID }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -20,7 +21,7 @@ const MyGames = ({ userGames, addGame, removeGame, userID }) => {
   };
 
   useEffect(() => {
-    setDisplayedGames(userGames);
+    setDisplayedGames(sortGames(userGames));
   }, [userGames]);
 
   const iconClickHandler = (game) => {
