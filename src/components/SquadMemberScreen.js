@@ -10,16 +10,12 @@ import {
 import Swiper from "react-native-swiper";
 
 const SquadMemberScreen = ({ user, setModalVisible }) => {
-
   let games = user.attributes.user_games.map((game) => {
     return (
-      <View
-        style={styles.swiperSlide}
-        key={game.id}
-      >
+      <View style={styles.swiperSlide} key={game.id}>
         <Image
           source={{ uri: game.image_url }}
-          style={{height: "100%", width: "100%", borderRadius: 20}}
+          style={{ height: "100%", width: "100%", borderRadius: 20 }}
         ></Image>
         <Text style={styles.gameTitle}>{game.game_title}</Text>
       </View>
@@ -32,9 +28,15 @@ const SquadMemberScreen = ({ user, setModalVisible }) => {
         <Text style={styles.userInfo}>{user.attributes.gamertag}</Text>
         <Text style={styles.userInfo}>{user.attributes.platform}</Text>
       </View>
-      <Text style={[styles.userInfo, { marginTop: 25 }]}>{user.attributes.gamertag}'s Games:</Text>
+      <Text style={[styles.userInfo, { marginTop: 25 }]}>
+        {user.attributes.gamertag}'s Games:
+      </Text>
       <View style={styles.swiper}>
-        <Swiper showsButtons={true} showsPagination={false} containerStyle={{ height: 60 }}>
+        <Swiper
+          showsButtons={true}
+          showsPagination={false}
+          containerStyle={{ height: 60 }}
+        >
           {games}
         </Swiper>
       </View>
@@ -44,7 +46,7 @@ const SquadMemberScreen = ({ user, setModalVisible }) => {
       <Text style={styles.rawg}>Powered by RAWG</Text>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -86,16 +88,16 @@ const styles = StyleSheet.create({
     shadowColor: "#3AE456",
   },
   gameTitle: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
-    width: '100%',
-    textAlign: 'center',
-    color: '#fff',
+    width: "100%",
+    textAlign: "center",
+    color: "#fff",
     fontSize: 20,
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: 'rgba(0,0,0,.6)',
-    overflow: 'hidden'
+    backgroundColor: "rgba(0,0,0,.6)",
+    overflow: "hidden",
   },
   close: {
     backgroundColor: "#3AE456",
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   closeText: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   rawg: {
     height: "5%",

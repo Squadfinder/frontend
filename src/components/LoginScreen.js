@@ -9,19 +9,22 @@ import {
   Image,
   Pressable,
 } from "react-native";
+import { sortGames } from "../utility-functions";
 
 const LoginScreen = ({ allUsers, setCurrentUser, setUserGames }) => {
   const dropdownRef = useRef({});
   const navigation = useNavigation();
 
-  const allUserNames = allUsers.map(user => user.attributes.gamertag)
+  const allUserNames = allUsers.map((user) => user.attributes.gamertag);
 
   const handleSelect = (profile) => {
-    const matchedUser = allUsers.find(user => user.attributes.gamertag === profile)
-    setCurrentUser(matchedUser)
-    setUserGames(matchedUser.attributes.user_games)
-    navigation.navigate("Home")
-  }
+    const matchedUser = allUsers.find(
+      (user) => user.attributes.gamertag === profile
+    );
+    setCurrentUser(matchedUser);
+    setUserGames(sortGames(matchedUser.attributes.user_games));
+    navigation.navigate("Home");
+  };
 
   return (
     <View style={styles.container}>
@@ -40,8 +43,8 @@ const LoginScreen = ({ allUsers, setCurrentUser, setUserGames }) => {
         onSelect={(profile) => handleSelect(profile)}
       />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -75,6 +78,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: "#393051",
   },
-})
+});
 
 export default LoginScreen;

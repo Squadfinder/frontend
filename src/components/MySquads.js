@@ -12,6 +12,7 @@ import SquadMemberScreen from "./SquadMemberScreen";
 
 import { getUserSquad, getSingleUser, deleteSquad } from "../apiCalls";
 import style from "react-native-modal-picker/style";
+import { sortSquads } from "../utility-functions";
 
 let counter = 0;
 let color;
@@ -55,8 +56,7 @@ const MySquads = ({ userID }) => {
               numberPlayers: attribute.attributes.squad["number_players"],
             };
           });
-          setUserSquads(squads);
-          console.log('test')
+          setUserSquads(sortSquads(squads));
         })
         .catch(() => {
           setError("Something went wrong, please try again.");

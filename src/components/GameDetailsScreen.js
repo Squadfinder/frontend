@@ -18,7 +18,6 @@ const GameDetailsScreen = ({
   setModalVisible,
   userID,
 }) => {
-
   const [hasGame, setHasGame] = useState(false);
   const [error, setError] = useState("");
 
@@ -38,7 +37,7 @@ const GameDetailsScreen = ({
       return collectionGame.game_id === game.id;
     });
 
-    console.log({forundGame: foundGame, id: foundGame.id});
+    console.log({ forundGame: foundGame, id: foundGame.id });
 
     deleteGame(userID, foundGame.id)
       .then(() => {
@@ -103,7 +102,9 @@ const GameDetailsScreen = ({
           Close
         </Text>
       </Pressable>
-      <View style={styles.errorContainer}>{error && <Text style={styles.error}>{error}</Text>}</View>
+      <View style={styles.errorContainer}>
+        {error && <Text style={styles.error}>{error}</Text>}
+      </View>
       {!hasGame ? (
         <View style={styles.favoriteBtnContainer}>
           <Pressable style={styles.favoriteBtn} onPress={addGameHandler}>
@@ -218,13 +219,13 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     paddingLeft: 8,
   },
-  errorContainer:  {
-    height: 35
+  errorContainer: {
+    height: 35,
   },
   error: {
     fontSize: 20,
     paddingTop: 10,
-    color: "red"
+    color: "red",
   },
   favoriteBtnContainer: {
     marginTop: 5,

@@ -8,7 +8,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import { postSquad } from "../apiCalls";
 
-const FormSquadScreen = ({ allUsers, userGames }) => {
+const FormSquadScreen = ({ allUsers, userGames, userID }) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [showing, setShowing] = useState(false);
@@ -24,7 +24,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
 
   const formSquadHandler = () => {
     const squad = {
-      id: 1,
+      id: userID,
       game: selected,
       eventTime: date.toISOString(),
       numberPlayers: squadMembers.length,
@@ -227,13 +227,17 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
         ) : (
           <Text>Sorry, there are no users with this Gamer Tag.</Text>
         )}
-        {(squadMembers.length === 3) && (
+        {squadMembers.length === 3 && (
           <View style={styles.squadsFullContainer}>
             <Text style={styles.squadsFullTxt}>Squads Full</Text>
           </View>
         )}
       </View>
-      {error && <View style={styles.errorContainer}><Text style={styles.error}>{error}</Text></View>}
+      {error && (
+        <View style={styles.errorContainer}>
+          <Text style={styles.error}>{error}</Text>
+        </View>
+      )}
       <Pressable
         style={styles.formSquadBtn}
         disabled={!selected && !squadMembers.length}
@@ -461,7 +465,7 @@ const styles = StyleSheet.create({
     width: "60%",
     backgroundColor: "red",
     borderRadius: 5,
-    zIndex: 1
+    zIndex: 1,
   },
   error: {
     paddingTop: 10,
@@ -469,8 +473,8 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     paddingLeft: 5,
     fontWeight: "bold",
-    color: "#fff"
-  }
+    color: "#fff",
+  },
 });
 
 export default FormSquadScreen;

@@ -17,20 +17,22 @@ const getSingleUser = (userID) => {
 };
 
 const getAllUsers = () => {
-  return fetch(`https://squadfinder2205be.herokuapp.com/api/v1/users`).then((response) => {
-    if (!response.ok) {
-      throw new Error("Looks like something went wrong.");
-    } else {
-      return response.json();
+  return fetch(`https://squadfinder2205be.herokuapp.com/api/v1/users`).then(
+    (response) => {
+      if (!response.ok) {
+        throw new Error("Looks like something went wrong.");
+      } else {
+        return response.json();
+      }
     }
-  });
+  );
 };
 
 const getUserSquad = (userId) => {
   return fetch(
     `https://squadfinder2205be.herokuapp.com/api/v1/users/${userId}/squads`
   ).then((response) => {
-    if(!response.ok) {
+    if (!response.ok) {
       throw new Error("Error");
     } else {
       return response.json();
@@ -60,7 +62,7 @@ const postSquad = ({
       squadMembers: squadMembers,
     }),
   }).then((response) => {
-    if(!response.ok) {
+    if (!response.ok) {
       throw new Error("Something went wrong.");
     } else {
       return response.json();
@@ -95,11 +97,11 @@ const deleteGame = (userID, gameID) => {
         "Content-Type": "application/json",
       },
     }
-  ).then(response => {
-    if(!response.ok) {
-      throw new Error("Looks like something looked wrong.")
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error("Looks like something looked wrong.");
     }
-  })
+  });
 };
 
 const deleteSquad = (userID, squadID) => {
