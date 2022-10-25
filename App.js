@@ -63,7 +63,7 @@ const App = () => {
           headerStyle: {
             backgroundColor: "#000",
           },
-          headerTintColor: "#3AE456"
+          headerTintColor: "#3AE456",
         }}
       >
         <Drawer.Screen name="Select a Profile">

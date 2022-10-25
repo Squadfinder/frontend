@@ -1,14 +1,7 @@
 import React, { useRef } from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import { useNavigation } from "@react-navigation/native";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  Pressable,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { sortGames } from "../utility-functions";
 
 const LoginScreen = ({ allUsers, setCurrentUser, setUserGames }) => {
@@ -42,6 +35,18 @@ const LoginScreen = ({ allUsers, setCurrentUser, setUserGames }) => {
         ref={dropdownRef}
         onSelect={(profile) => handleSelect(profile)}
       />
+      <Text style={styles.welcomePrompt}>
+        {" "}
+        Welcome to SquadFinder! Start by selecting a profile, look through the
+        games on your profile, and start a search for any new game that you want
+        to add.
+      </Text>
+      <Text style={styles.welcomePrompt}>
+        {" "}
+        Once you have found the game you want to play, invite some other gamers
+        to a squad, and view all of your past or upcoming squads!
+      </Text>
+      <Text style={styles.welcomePrompt}>Happy gaming!</Text>
     </View>
   );
 };
@@ -61,6 +66,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
     padding: 10,
+  },
+  welcomePrompt: {
+    width: "85%",
+    color: "#3AE456",
+    fontSize: 20,
+    textAlign: "center",
+    margin: 30,
   },
   selectListBox: {
     borderWidth: 1,

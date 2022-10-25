@@ -1,5 +1,4 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -18,12 +17,5 @@ const CustomDrawer = (props) => {
     </DrawerContentScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "purple",
-  },
-});
 
 export default CustomDrawer;
