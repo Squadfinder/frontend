@@ -11,6 +11,7 @@ import {
 import SquadMemberScreen from "./SquadMemberScreen";
 
 import { getUserSquad, getSingleUser, deleteSquad } from "../apiCalls";
+import style from "react-native-modal-picker/style";
 
 let counter = 0;
 let color;
@@ -37,9 +38,11 @@ const MySquads = ({ userID }) => {
     React.useCallback(() => {
       getUserSquad(userID)
         .then(({ data }) => {
-          const filteredSquads = data.filter(squad => {
-            return squad.attributes.squad.members.some(member => member.id.toString() === userID.toString())
-          })
+          const filteredSquads = data.filter((squad) => {
+            return squad.attributes.squad.members.some(
+              (member) => member.id.toString() === userID.toString()
+            );
+          });
           const squads = filteredSquads.map((attribute) => {
             return {
               id: attribute.id,
@@ -55,11 +58,10 @@ const MySquads = ({ userID }) => {
           setUserSquads(squads);
           console.log('test')
         })
-        .catch((error) => {
-          // leaving in these logs since there isn't built in error handling yet
-          console.log(error);
-          setError(error);
+        .catch(() => {
+          setError("Something went wrong, please try again.");
         });
+      return setError("");
     }, [userID])
   );
 
@@ -75,21 +77,28 @@ const MySquads = ({ userID }) => {
   const deleteSquadHandler = (userID, squadID) => {
     deleteSquad(userID, squadID)
       .then((response) => {
-        // leaving in these logs since there isn't built in error handling yet
-        console.log(response.ok);
-        const updateUserSquads = userSquads.filter(
-          (squad) => squad.id !== squadID
-        );
-        setUserSquads(updateUserSquads);
+        if (response.ok) {
+          const updateUserSquads = userSquads.filter(
+            (squad) => squad.id !== squadID
+          );
+          setUserSquads(updateUserSquads);
+        } else {
+          throw new Error();
+        }
       })
-      .catch((error) => {
-        // leaving in these logs since there isn't built in error handling yet
-        console.log(error);
-        setError(error);
+      .catch(() => {
+        setError("Something went wrong. You did not leave this squad.");
+        setTimeout(() => {
+          setError("");
+        }, 4000);
       });
   };
 
-  return (
+  return error && !userSquads.length ? (
+    <View style={styles.container}>
+      <Text style={styles.error}>{error}</Text>
+    </View>
+  ) : (
     <View style={styles.container}>
       <Modal
         animationType="slide"
@@ -104,6 +113,7 @@ const MySquads = ({ userID }) => {
           setModalVisible={setModalVisible}
         />
       </Modal>
+      {error && <Text style={styles.errorNotGoing}>{error}</Text>}
       <FlatList
         data={userSquads}
         contentContainerStyle={{ paddingBottom: 200 }}
@@ -166,6 +176,25 @@ const styles = StyleSheet.create({
     minHeight: "100%",
     backgroundColor: "#201626",
     alignItems: "center",
+  },
+  error: {
+    marginTop: 50,
+    marginRight: 20,
+    marginLeft: 20,
+    textAlign: "center",
+    color: "red",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  errorNotGoing: {
+    backgroundColor: "#000",
+    position: "absolute",
+    top: 0,
+    width: "100%",
+    color: "red",
+    zIndex: 1,
+    fontSize: 20,
+    textAlign: "center",
   },
   squadCard: {
     width: "95%",

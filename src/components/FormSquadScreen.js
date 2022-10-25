@@ -114,7 +114,6 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
   };
 
   const inviteSquadMemberHandler = (id) => {
-    // console.log(squadMembers.length);
     if (squadMembers.includes(id)) {
       setSquadFull(false);
       const updatedSquadMember = squadMembers.filter((member) => member !== id);
@@ -123,7 +122,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
       setSquadMembers((currentSquadMembers) => [...currentSquadMembers, id]);
     }
 
-    if (squadMembers.length === 2) {
+    if (squadMembers.length === 3) {
       setSquadFull(true);
     }
   };
@@ -228,7 +227,7 @@ const FormSquadScreen = ({ allUsers, userGames }) => {
         ) : (
           <Text>Sorry, there are no users with this Gamer Tag.</Text>
         )}
-        {squadFull && (
+        {(squadMembers.length === 3) && (
           <View style={styles.squadsFullContainer}>
             <Text style={styles.squadsFullTxt}>Squads Full</Text>
           </View>
