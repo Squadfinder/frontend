@@ -1,0 +1,116 @@
+{
+  "data": [
+    {
+      "id": "2",
+      "type": "user_squad",
+      "attributes": {
+        "squad": {
+          "game": "Halo: Infinite",
+          "event_time": "2022-10-25T15:26:50.369Z",
+          "number_players": 4,
+          "competitive": false,
+          "members": [
+            {
+              "id": 1,
+              "gamertag": "Blake",
+              "platform": "PC",
+              "created_at": "2022-10-25T15:26:50.196Z",
+              "updated_at": "2022-10-25T15:26:50.196Z"
+            },
+            {
+              "id": 2,
+              "gamertag": "Mike",
+              "platform": "PS5",
+              "created_at": "2022-10-25T15:26:50.201Z",
+              "updated_at": "2022-10-25T15:26:50.201Z"
+            },
+            {
+              "id": 3,
+              "gamertag": "Thomas",
+              "platform": "Xbox",
+              "created_at": "2022-10-25T15:26:50.205Z",
+              "updated_at": "2022-10-25T15:26:50.205Z"
+            },
+            {
+              "id": 4,
+              "gamertag": "Wes",
+              "platform": "Xbox",
+              "created_at": "2022-10-25T15:26:50.209Z",
+              "updated_at": "2022-10-25T15:26:50.209Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "10",
+      "type": "user_squad",
+      "attributes": {
+        "squad": {
+          "game": "Fall Guys: Ultimate Knockout",
+          "event_time": "2022-10-25T15:26:50.387Z",
+          "number_players": 2,
+          "competitive": false,
+          "members": [
+            {
+              "id": 5,
+              "gamertag": "Anna",
+              "platform": "PC",
+              "created_at": "2022-10-25T15:26:50.212Z",
+              "updated_at": "2022-10-25T15:26:50.212Z"
+            },
+            {
+              "id": 2,
+              "gamertag": "Mike",
+              "platform": "PS5",
+              "created_at": "2022-10-25T15:26:50.201Z",
+              "updated_at": "2022-10-25T15:26:50.201Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "22",
+      "type": "user_squad",
+      "attributes": {
+        "squad": {
+          "game": "Fall Guys: Ultimate Knockout",
+          "event_time": "2022-10-28T19:00:00.000Z",
+          "number_players": 3,
+          "competitive": false,
+          "members": [
+            {
+              "id": 6,
+              "gamertag": "Tom",
+              "platform": "PS5",
+              "created_at": "2022-10-25T15:26:50.231Z",
+              "updated_at": "2022-10-25T15:26:50.231Z"
+            },
+            {
+              "id": 5,
+              "gamertag": "Anna",
+              "platform": "PC",
+              "created_at": "2022-10-25T15:26:50.212Z",
+              "updated_at": "2022-10-25T15:26:50.212Z"
+            },
+            {
+              "id": 1,
+              "gamertag": "Blake",
+              "platform": "PC",
+              "created_at": "2022-10-25T15:26:50.196Z",
+              "updated_at": "2022-10-25T15:26:50.196Z"
+            },
+            {
+              "id": 2,
+              "gamertag": "Mike",
+              "platform": "PS5",
+              "created_at": "2022-10-25T15:26:50.201Z",
+              "updated_at": "2022-10-25T15:26:50.201Z"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
