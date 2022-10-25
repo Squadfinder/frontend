@@ -38,6 +38,8 @@ const GameDetailsScreen = ({
       return collectionGame.game_id === game.id;
     });
 
+    console.log({forundGame: foundGame, id: foundGame.id});
+
     deleteGame(userID, foundGame.id)
       .then(() => {
         removeGame(game.id);
@@ -58,11 +60,11 @@ const GameDetailsScreen = ({
       gameTitle: game.title,
     })
       .then((data) => {
-        addGame(data.data.attributes);
+        addGame({ ...data.data.attributes, id: data.data.id });
         setHasGame(true);
         setError("");
       })
-      .catch((error) => {
+      .catch(() => {
         setError("Looks like something went wrong.");
       });
   };
