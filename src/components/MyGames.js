@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#201626",
     alignItems: "center",
-    // justifyContent: "space-evenly",
   },
   textInput: {
     borderWidth: 1,

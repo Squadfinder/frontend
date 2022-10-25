@@ -33,7 +33,6 @@ const FormSquadScreen = ({ allUsers, userGames, userID }) => {
     };
     postSquad(squad)
       .then((response) => {
-        console.log(response);
         navigation.navigate("My Squads");
       })
       .catch(() => {

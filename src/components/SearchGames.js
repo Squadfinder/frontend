@@ -23,7 +23,6 @@ const SearchGames = ({ userGames, addGame, removeGame, userID }) => {
   const [showGames, setShowGames] = useState(false);
   const [error, setError] = useState(false);
   const [searching, setSearching] = useState(false);
-
   const dropdownRef = useRef({});
 
   const inputHandler = (enteredText) => {

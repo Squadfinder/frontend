@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.72% </span>
+                <span class="strong">53.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/29</span>
+                <span class='fraction'>15/28</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.72% </span>
+                <span class="strong">53.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/29</span>
+                <span class='fraction'>15/28</span>
             </div>
         
             
@@ -336,9 +336,7 @@
 <a name='L271'></a><a href='#L271'>271</a>
 <a name='L272'></a><a href='#L272'>272</a>
 <a name='L273'></a><a href='#L273'>273</a>
-<a name='L274'></a><a href='#L274'>274</a>
-<a name='L275'></a><a href='#L275'>275</a>
-<a name='L276'></a><a href='#L276'>276</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L274'></a><a href='#L274'>274</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -358,7 +356,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -369,7 +366,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -377,7 +373,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -385,7 +380,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -437,6 +431,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -633,7 +629,6 @@ const GameDetailsScreen = ({
   setModalVisible,
   userID,
 }) =&gt; {
-&nbsp;
   const [hasGame, setHasGame] = useState(false);
   const [error, setError] = useState("");
 &nbsp;
@@ -644,7 +639,6 @@ const GameDetailsScreen = ({
       });
       setHasGame(foundGame);
     }
-&nbsp;
     return setError("");
   }, []);
 &nbsp;
@@ -652,15 +646,13 @@ const GameDetailsScreen = ({
     const foundGame = <span class="cstat-no" title="statement not covered" >userGames.find(<span class="fstat-no" title="function not covered" >(c</span>ollectionGame) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      return collectionGame.game_id === game.id;</span>
     });
-&nbsp;
 <span class="cstat-no" title="statement not covered" >    deleteGame(userID, foundGame.id)</span>
       .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >        removeGame(game.id);</span>
 <span class="cstat-no" title="statement not covered" >        setHasGame(false);</span>
 <span class="cstat-no" title="statement not covered" >        setError("");</span>
       })
-      .catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
-<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+      .catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >        setError("Looks like something went wrong.");</span>
       });
   };
@@ -673,11 +665,11 @@ const GameDetailsScreen = ({
       gameTitle: game.title,
     })
       .then(<span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {
-<span class="cstat-no" title="statement not covered" >        addGame(data.data.attributes);</span>
+<span class="cstat-no" title="statement not covered" >        addGame({ ...data.data.attributes, id: data.data.id });</span>
 <span class="cstat-no" title="statement not covered" >        setHasGame(true);</span>
 <span class="cstat-no" title="statement not covered" >        setError("");</span>
       })
-      .catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+      .catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >        setError("Looks like something went wrong.");</span>
       });
   };
@@ -716,7 +708,9 @@ const GameDetailsScreen = ({
           Close
         &lt;/Text&gt;
       &lt;/Pressable&gt;
-      &lt;View style={styles.errorContainer}&gt;{error &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Text style={styles.error}&gt;{error}&lt;/Text&gt;}</span>&lt;/View&gt;
+      &lt;View style={styles.errorContainer}&gt;
+        {error &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Text style={styles.error}&gt;{error}&lt;/Text&gt;}</span>
+      &lt;/View&gt;
       {!hasGame ? (
         &lt;View style={styles.favoriteBtnContainer}&gt;
           &lt;Pressable style={styles.favoriteBtn} onPress={addGameHandler}&gt;
@@ -831,13 +825,13 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     paddingLeft: 8,
   },
-  errorContainer:  {
-    height: 35
+  errorContainer: {
+    height: 35,
   },
   error: {
     fontSize: 20,
     paddingTop: 10,
-    color: "red"
+    color: "red",
   },
   favoriteBtnContainer: {
     marginTop: 5,
@@ -895,7 +889,7 @@ export default GameDetailsScreen;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-10-24T22:43:13.156Z
+                at 2022-10-25T19:46:37.094Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

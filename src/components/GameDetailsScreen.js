@@ -28,7 +28,6 @@ const GameDetailsScreen = ({
       });
       setHasGame(foundGame);
     }
-
     return setError("");
   }, []);
 
@@ -36,17 +35,13 @@ const GameDetailsScreen = ({
     const foundGame = userGames.find((collectionGame) => {
       return collectionGame.game_id === game.id;
     });
-
-    console.log({ forundGame: foundGame, id: foundGame.id });
-
     deleteGame(userID, foundGame.id)
       .then(() => {
         removeGame(game.id);
         setHasGame(false);
         setError("");
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         setError("Looks like something went wrong.");
       });
   };

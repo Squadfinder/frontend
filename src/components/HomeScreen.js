@@ -60,13 +60,6 @@ const HomeScreen = ({ user, myGames, error }) => {
         <Text style={styles.rawg}>Powered by RAWG</Text>
       </ScrollView>
     );
-  }
-  if (!user.attributes && !error) {
-    return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.error}>Please select a profile to continue</Text>
-      </View>
-    );
   } else {
     return (
       <View style={styles.errorContainer}>
