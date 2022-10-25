@@ -53,13 +53,14 @@ const MySquads = ({ userID }) => {
             };
           });
           setUserSquads(squads);
+          console.log('test')
         })
         .catch((error) => {
           // leaving in these logs since there isn't built in error handling yet
           console.log(error);
           setError(error);
         });
-    }, [])
+    }, [userID])
   );
 
   const memberIconClickHandler = (id) => {
