@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1666648536588" clover="3.2.0">
-  <project timestamp="1666648536588" name="All files">
-    <metrics statements="91" coveredstatements="45" conditionals="22" coveredconditionals="10" methods="42" coveredmethods="10" elements="155" coveredelements="65" complexity="0" loc="91" ncloc="91" packages="2" files="5" classes="5"/>
+<coverage generated="1666651393183" clover="3.2.0">
+  <project timestamp="1666651393183" name="All files">
+    <metrics statements="145" coveredstatements="63" conditionals="40" coveredconditionals="15" methods="59" coveredmethods="11" elements="244" coveredelements="89" complexity="0" loc="145" ncloc="145" packages="2" files="6" classes="6"/>
     <package name="src">
-      <metrics statements="28" coveredstatements="8" conditionals="6" coveredconditionals="0" methods="15" coveredmethods="0"/>
-      <file name="apiCalls.js" path="/Users/nick/SquadFinder-FE/src/apiCalls.js">
-        <metrics statements="28" coveredstatements="8" conditionals="6" coveredconditionals="0" methods="15" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
+      <metrics statements="30" coveredstatements="8" conditionals="8" coveredconditionals="0" methods="15" coveredmethods="0"/>
+      <file name="apiCalls.js" path="/Users/thomasfettig/turing/mod4/capstone/squad-finder/src/apiCalls.js">
+        <metrics statements="30" coveredstatements="8" conditionals="8" coveredconditionals="0" methods="15" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="12" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="22" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
-        <line num="29" count="2" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
         <line num="32" count="0" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="59" count="2" type="stmt"/>
+        <line num="57" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="58" count="0" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="77" count="2" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="87" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="93" count="2" type="stmt"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="83" count="3" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="93" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="94" count="0" type="stmt"/>
+        <line num="99" count="3" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.components">
-      <metrics statements="63" coveredstatements="37" conditionals="16" coveredconditionals="10" methods="27" coveredmethods="10"/>
-      <file name="GameDetailsScreen.js" path="/Users/nick/SquadFinder-FE/src/components/GameDetailsScreen.js">
+      <metrics statements="115" coveredstatements="55" conditionals="32" coveredconditionals="15" methods="44" coveredmethods="11"/>
+      <file name="GameDetailsScreen.js" path="/Users/thomasfettig/turing/mod4/capstone/squad-finder/src/components/GameDetailsScreen.js">
         <metrics statements="29" coveredstatements="15" conditionals="8" coveredconditionals="4" methods="13" coveredmethods="5"/>
-        <line num="13" count="2" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
         <line num="22" count="10" type="stmt"/>
         <line num="23" count="10" type="stmt"/>
         <line num="25" count="10" type="stmt"/>
@@ -68,9 +70,9 @@
         <line num="84" count="10" type="stmt"/>
         <line num="91" count="10" type="stmt"/>
         <line num="99" count="0" type="stmt"/>
-        <line num="125" count="2" type="stmt"/>
+        <line num="125" count="3" type="stmt"/>
       </file>
-      <file name="HomeScreen.js" path="/Users/nick/SquadFinder-FE/src/components/HomeScreen.js">
+      <file name="HomeScreen.js" path="/Users/thomasfettig/turing/mod4/capstone/squad-finder/src/components/HomeScreen.js">
         <metrics statements="9" coveredstatements="8" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="2"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="8" type="stmt"/>
@@ -82,13 +84,13 @@
         <line num="64" count="1" type="stmt"/>
         <line num="72" count="1" type="stmt"/>
       </file>
-      <file name="LoadingModal.js" path="/Users/nick/SquadFinder-FE/src/components/LoadingModal.js">
+      <file name="LoadingModal.js" path="/Users/thomasfettig/turing/mod4/capstone/squad-finder/src/components/LoadingModal.js">
         <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="4" count="1" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
       </file>
-      <file name="MyGames.js" path="/Users/nick/SquadFinder-FE/src/components/MyGames.js">
+      <file name="MyGames.js" path="/Users/thomasfettig/turing/mod4/capstone/squad-finder/src/components/MyGames.js">
         <metrics statements="22" coveredstatements="12" conditionals="2" coveredconditionals="1" methods="10" coveredmethods="3"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
@@ -112,6 +114,61 @@
         <line num="75" count="16" type="stmt"/>
         <line num="79" count="0" type="stmt"/>
         <line num="103" count="1" type="stmt"/>
+      </file>
+      <file name="SearchGames.js" path="/Users/thomasfettig/turing/mod4/capstone/squad-finder/src/components/SearchGames.js">
+        <metrics statements="52" coveredstatements="18" conditionals="16" coveredconditionals="5" methods="17" coveredmethods="1"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="23" count="5" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
+        <line num="27" count="5" type="stmt"/>
+        <line num="29" count="5" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="34" count="5" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="63" count="5" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="70" count="5" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="82" count="5" type="stmt"/>
+        <line num="103" count="5" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="152" count="0" type="stmt"/>
+        <line num="154" count="0" type="stmt"/>
+        <line num="172" count="0" type="stmt"/>
+        <line num="176" count="0" type="stmt"/>
+        <line num="204" count="0" type="stmt"/>
+        <line num="212" count="1" type="stmt"/>
       </file>
     </package>
   </project>

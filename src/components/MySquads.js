@@ -56,12 +56,13 @@ const MySquads = ({ userID }) => {
             };
           });
           setUserSquads(squads);
+          console.log('test')
         })
         .catch(() => {
           setError("Something went wrong, please try again.");
         });
       return setError("");
-    }, [])
+    }, [userID])
   );
 
   const memberIconClickHandler = (id) => {

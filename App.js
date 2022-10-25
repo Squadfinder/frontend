@@ -4,6 +4,7 @@ import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
+import LoginScreen from "./src/components/LoginScreen";
 import HomeScreen from "./src/components/HomeScreen";
 import MyGames from "./src/components/MyGames";
 import SearchGames from "./src/components/SearchGames";
@@ -57,6 +58,17 @@ const App = () => {
           },
         }}
       >
+        <Drawer.Screen name="Select a Profile">
+          {() => (
+            <LoginScreen
+              allUsers={allUsers}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              userGames={userGames}
+              setUserGames={setUserGames}
+            />
+          )}
+        </Drawer.Screen>
         <Drawer.Screen name="Home">
           {() => (
             <HomeScreen
