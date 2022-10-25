@@ -49,7 +49,7 @@ const SquadMemberScreen = ({ user, setModalVisible }) => {
 const styles = StyleSheet.create({
   container: {
     minHeight: "100%",
-    backgroundColor: "#352540",
+    backgroundColor: "#201626",
     alignItems: "center",
   },
   info: {

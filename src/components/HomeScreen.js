@@ -60,6 +60,12 @@ const HomeScreen = ({ user, myGames, error }) => {
         <Text style={styles.rawg}>Powered by RAWG</Text>
       </ScrollView>
     );
+  } if (!user.attributes && !error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.error}>Please select a profile to continue</Text>
+      </View>
+    )
   } else {
     return (
       <View style={styles.errorContainer}>
@@ -70,19 +76,6 @@ const HomeScreen = ({ user, myGames, error }) => {
 };
 
 const styles = StyleSheet.create({
-  errorContainer: {
-    backgroundColor: "#201626",
-    textAlign: "center",
-    minHeight: "100%",
-    alignItems: "center",
-  },
-  error: {
-    marginTop: 100,
-    color: "red",
-    textAlign: "center",
-    fontSize: 20,
-    width: "80%",
-  },
   container: {
     flex: 1,
     backgroundColor: "#201626",
@@ -169,6 +162,19 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 60,
     shadowColor: "#3AE456",
+  },
+  errorContainer: {
+    backgroundColor: "#201626",
+    textAlign: "center",
+    minHeight: "100%",
+    alignItems: "center",
+  },
+  error: {
+    marginTop: 100,
+    color: "red",
+    textAlign: "center",
+    fontSize: 20,
+    width: "80%",
   },
 });
 
