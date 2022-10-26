@@ -24,7 +24,7 @@
  - Learn and implement the use of React Native.
 
 ### Challenges
- - Since React Native is not a true browser environment, we did not have access to the traditional Dev Tools as we knew it.
+ - Since React Native mainly targets mobile platforms like Android and iOS, we did not have access to the traditional Dev Tools we would use when developing a web-based application.
 
 ### Wins
 
