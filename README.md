@@ -6,7 +6,7 @@
   This application is our team's final Capstone Project for Turing School of Software and Design, and was built in 2 weeks by a 7 person team made up of 3 front-end students and 4 back end-students. This is the repo for the front-end team, and [this](https://github.com/Squadfinder/backend-ruby) is a link to the back-end repo.
   
 ## Setup
-**This application needs to ether be run on a iOS simulator, Android emulator, or Expo Go on your phone.**
+**This application needs to be run on an iOS simulator, Android emulator, or with Expo Go on your phone.**
 
 
 *The iOS simulator requires Xcode. Xcode can only be run on macOS.*
