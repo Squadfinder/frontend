@@ -24,7 +24,7 @@
  - Learn and implement the use of React Native.
 
 ### Challenges
- - Since React Native mainly targets mobile platforms like Android and iOS, we did not have access to the traditional Dev Tools we would use when developing a web-based application.
+ - Since React Native mainly targets mobile platforms like Android and iOS, we did not have access to the traditional Dev Tools we would have used when developing a web-based application.
 
 ### Wins
 
