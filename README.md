@@ -42,7 +42,7 @@
   * Once the phone has loaded, return to your terminal
   * Press `a` on the keyboard while in the terminal
 ### Running the Application with Expo Go:
-  * Using your phones camera, scan the QR code from the terminal 
+  * Using your phone's camera, scan the QR code from the terminal 
 
 ## Application in Action
 
