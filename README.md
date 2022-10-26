@@ -33,15 +33,15 @@
     * Run `cd frontend` in your terminal to navigate into the repository
     * Run `npm install` to install required npm packages
     * Run `npm start` to start your local server
-### Running the application on iOS:
+### Running the Application on iOS:
   * Press `i` on your keyboard while in the terminal
   * Xcode will launch a iOS simulator
-### Running the application on Android:
+### Running the Application on Android:
   * Go to the "Virtual Device Manager" in Android Studio
   * Press the play icon on your chosen phone
   * Once the phone has loaded, return to your terminal
   * Press `a` on the keyboard while in the terminal
-### Running the application on Expo Go:
+### Running the Application with Expo Go:
   * Using your phones camera, scan the QR code from the terminal 
 
 ## Application in Action
