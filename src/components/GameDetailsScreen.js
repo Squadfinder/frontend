@@ -37,8 +37,6 @@ const GameDetailsScreen = ({
       return collectionGame.game_id === game.id;
     });
 
-    console.log({ forundGame: foundGame, id: foundGame.id });
-
     deleteGame(userID, foundGame.id)
       .then(() => {
         removeGame(game.id);
@@ -46,7 +44,6 @@ const GameDetailsScreen = ({
         setError("");
       })
       .catch((error) => {
-        console.log(error);
         setError("Looks like something went wrong.");
       });
   };

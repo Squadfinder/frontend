@@ -20,10 +20,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#201626",
   },
-  loadingText: {
-    color: "#3AE456",
-    fontSize: 30,
-  },
 });
 
 export default LoadingModal;
