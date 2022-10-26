@@ -36,7 +36,8 @@
   
 ## Contributors
   - 
-  - [Nick Liggett](https://github.com/NickLiggett)
   -
+  - [Nick Liggett](https://github.com/NickLiggett)
+  
 ## Project Specs
  
