@@ -45,4 +45,4 @@
   - [Nick Liggett](https://github.com/NickLiggett)
   
 ## Project Specs
- 
+ - The project specifications and rubric can be found [here](https://mod4.turing.edu/projects/capstone/).
