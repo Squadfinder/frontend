@@ -21,10 +21,10 @@
 
 ## Goals, Challenges, and Wins
 ### Goals
- 
+ - Learn and implement the use of React Native.
 
 ### Challenges
-
+ - Since React Native is not a true browser environment, we did not have access to the traditional Dev Tools as we knew it.
 
 ### Wins
 
