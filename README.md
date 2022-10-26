@@ -58,11 +58,13 @@
 ## Goals, Challenges, and Wins
 ### Goals
  - Learn and implement the use of React Native.
+ - Collaberate with a Back-End team to create a full-stack application 
 
 ### Challenges
  - Since React Native mainly targets mobile platforms like Android and iOS, we did not have access to the traditional Dev Tools we would have used when developing a web-based application.
-
+ - E2E testing was not achievable due to time constraints when learning how to set up the testing environment with a iOS simulator / Android emulator.
 ### Wins
+- Learning Jest / Jest Native / React Native Testing Library to preform component testing. Finding testing documentation that fit with our tech stack and time frame was a challenge. Overcoming that challenge was a highpoint.
 
 
 ## Possible Future Extensions
