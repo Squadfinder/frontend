@@ -70,13 +70,15 @@
   - In addition to the password protected profiles, we would add a profile creation form so that new users would be able to set up an account and a profile, and existing users could edit their information such as 'Gamertag'/name and their preferred gaming platform.
 
 ## Sources
+  - [React Native Docs](https://reactnative.dev/docs/getting-started)
+  - [Expo Docs](https://expo.dev/)
   - [MDN](http://developer.mozilla.org/en-US/)
   - [YouTube](https://www.youtube.com/)
   - [StackOverflow](https://www.stackoverflow.com/)
   - [W3Schools](https://www.w3schools.com/)
   
 ## Contributors
-  - 
+  - [Anna Spitz](https://github.com/aspitz1)
   - [Tom Fettig](https://github.com/tfettig22)
   - [Nick Liggett](https://github.com/NickLiggett)
   
