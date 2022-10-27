@@ -94,7 +94,7 @@
 
 
 ## Possible Future Extensions
-  - We would like to add in authenitcation to the login screen so that users can use a password to log in to their profile, and each user would have a truly unique and customizeable accout for the app.
+  - We would like to add in authentication to the login screen so that users can use a password to log in to their profile, and each user would have a truly unique and customizable accout for the app.
   - In addition to the password protected profiles, we would add a profile creation form so that new users would be able to set up an account and a profile, and existing users could edit their information such as 'Gamertag'/name and their preferred gaming platform.
 
 ## Sources
